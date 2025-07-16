@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="icon" type="image/x-icon" href="../resources/gdddlg.png">
+  <link rel="icon" type="image/x-icon" href="resources/convertx.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StadiaStudios | Gdrive Direct Download Link Generator</title>
+    <title>StadiaStudios | ConvertX</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body class="min-h-screen flex flex-col">
 
@@ -15,10 +15,10 @@
         <nav class="container mx-auto px-4 flex justify-between items-center">
             <a href="../index.html" class="text-2xl font-bold text-blue-500">StadiaStudios</a>
             <ul class="flex space-x-6 items-center">
-                <li><a href="../index.html" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">Browse</a></li>
-                <li><a href="../screenshots.html" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">Screenshots</a></li>
-                <li><a href="../pluginstore.html" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">Plugins</a></li>
-                <li><a href="../download.html" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">Download</a></li>
+                <li><a href="index.html" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">Browse</a></li>
+                <li><a href="screenshots.html" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">Screenshots</a></li>
+                <li><a href="pluginstore.html" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">Plugins</a></li>
+                <li><a href="download.html" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">Download</a></li>
                 <!-- Search Bar Added Here -->
                 <li class="relative">
                     <input type="text" id="search-input" placeholder="Search tools..." class="bg-gray-700 text-white rounded-full py-2 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 w-32 sm:w-48 md:w-64">
@@ -30,196 +30,41 @@
         </nav>
     </header>
 
-    <style>
-      body {
-            margin:0;
-  font-family: Arial, Helvetica, sans-serif;
-}
+    <section id="plugins-download" class="py-16 bg-gray-800 text-center">
+        <div class="container mx-auto px-4 max-w-3xl">
+            <h2 class="text-3xl md:text-5xl font-bold mb-8 text-white">ProjectStadia Plugins</h2>
+            <p class="text-lg md:text-xl text-gray-300 mb-10">
+                Enhance your ProjectStadia experience with powerful extensions and integrations.
+            </p>
 
-#navbar {
-  position: sticky;
-  top: 0;
-  overflow: hidden;
-  background-color: #000000;
-  transition-duration: 0.2s;
-}
-
-#navbar a {
-  float: left;
-  display: block;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-  transition-duration: 0.2s;
-}
-
-h1 {
-    color: white;
-    padding-left: 20px;
-}
-
-p {
-    color: white;
-    padding-left: 20px;
-}
-
-#navbar a:hover {
-  background-color: #b8b8b8;
-  color: black;
-  transition-duration: 0.2s;
-}
-
-#navbar a.active {
-  background-color: #b8b8b8;
-  color: black;
-  transition-duration: 0.2s;
-}
-
-.content {
-  padding: 16px;
-}
-
-.link-generate {
-    font-family: 'Roboto Condensed', sans-serif;
-}
-    
-.title {
-    font-size: 1.6em;
-    color: rgb(255, 255, 255);
-    margin: 15px 0 10px;
-    padding-left:20px;
-}
-        
-.sub {
-    font-size: 0.5em;
-    color: white;
-    vertical-align: middle;
-}
-        
-#button {
-    display: block;
-    font-family: arial;
-    font-size: 1.2em;
-    padding: 10px 18px;
-    margin: 15px auto;
-	border-style: none;
-    border-color: none;
-    border-radius: 100px;
-    background: linear-gradient(90deg, #ad5389,#3c1053);
-    color: white;
-    cursor: pointer;
-    box-shadow: 0 3px 5px 0px rgb(5, 114, 255);
-    transition-duration: 0.2s;
-}
-        
-#button:hover {
-    background: linear-gradient(90deg, #ad53893,#3c1053);
-    transition-duration: 0.2s;
-    color: white;
-	box-shadow: 0 1px 2px 0px black;
-	border-color:blue;
-}
-        
-#button:active {
-    background: #333;
-    box-shadow: 0 2px 3px -1px #b5b5b5;
-    transition-duration: 0.4s;
-}
-        
-#input, #output {
-    font-size: 1.1em;
-    display:block;
-    width:100%;
-    padding: 10px;
-    border: 1px solid #b5b5b5;
-    border-radius: 3px;
-}
-        
-#help-text {
-    font-weight: 600;
-    margin: 10px;
-    color:white;
-}
-</style>
-
-<title>Gdrive Direct Link Generator</title><body><div class="link-generate">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                <div class="bg-gray-700 p-6 rounded-lg shadow-md border border-gray-600">
+                    <h3 class="text-xl font-semibold mb-3 text-white">ConvertX Plugin</h3>
+                    <p class="text-gray-300 mb-4">
+                        Conver your files within seconds using Stadia ConvertX!
+                    </p>
+                    <a href="https://drive.google.com/uc?export=download&id=1JtJcX7ClQCsNE1rXvLdunB8Lwqkqccs2" class="btn-primary inline-block px-6 py-3 rounded-full text-lg font-bold uppercase shadow-md hover:shadow-lg">
+                        Download Plugin
+                    </a>
+                </div>
+            <div class="bg-gray-700 p-6 rounded-lg shadow-md border border-gray-600">
+                    <h3 class="text-xl font-semibold mb-3 text-white">Placeholder</h3>
+                    <p class="text-gray-300 mb-4">
+                        Is the sky blue or purple?
+                    </p>
+                    <a href="#" class="btn-primary inline-block px-6 py-3 rounded-full text-lg font-bold uppercase shadow-md hover:shadow-lg">
+                        Download Plugin
+                    </a>
+                </div>
+            </div>
+                
 
 
-<link href="https://fonts.googleapis.com/css2?family=Arial+Condensed&amp;display=swap" rel="stylesheet">
-<script language="javascript">
-        window.onload = setup;
-
-        function setup(){
-            document.getElementById("button").addEventListener("click", go);
-            document.getElementById("output").addEventListener("click", copy);
-        }
-        
-        function setStatus(status, error = false) {
-            var helpText = document.getElementById("help-text");
-            
-            helpText.innerText = status;
-            
-            if (error) {
-                helpText.style.color = "#c088ff";
-            } else {
-                helpText.style.color = "#c088ff";
-            }
-        }
-          
-        function go(){
-            var linkId = document.getElementById("input").value;
-            var idExtractor = /\/d\/(.+?)(?:\/|#|\?|$)/;
-            var result = idExtractor.exec(linkId);
-            
-            var outputBox = document.getElementById("output");
-            
-            
-            if (!result) {
-                outputBox.value = "";
-                setStatus("Error: Invalid URL", true);
-                outputBox.disabled = true;
-                return;
-            }
-            
-            var finalLink = "https://drive.google.com/uc?export=download&id=" + result[1];
-            outputBox.disabled = false;
-            outputBox.value = finalLink;
-            setStatus("Success! Click the output link to copy it to your clipboard");
-        }
-        
-        function copy() {
-            if (this.disabled) {
-                return;
-        }
-            
-         this.select();
-         var copied = document.execCommand("copy");
-            
-        if (copied) {
-            setStatus("Link copied to clipboard!");
-        } else {
-            setStatus("Couldn't copy link to clipboard. Please copy it manually.", true);
-        }
-    }
-</script>
-
-<div id="navbar">
-  <a class="active" href="run.html">Gdrive Download Links</a>
-  <a href="ytsg.html">Generate YT Sub Links</a>
-</div>
-
-    <div class="title">Enter URL:&nbsp;<span class="sub"></span></div>
-    <input style="background-color:#d1d1d1;color:blue;" id="input" type="text">
-	
-    <div class="title">Download link:</div>
-    <input style="background-color:#d1d1d1;color:blue;" id="output" type="text" readonly="" disabled="">
-    <div id="help-text"></div>
-    <p style="color:#9c9c9c;">To create a link firstly go to your google drive file &gt; Share &gt; Anyone with the link &gt; Copy Link &gt; Paste in sharing Url &gt; Create Link</p>
-    <button id="button">GENERATE LINK</button>
-    
-</div>
+            <p class="mt-6 text-gray-400 text-sm">
+                Want to upload your own? <a href="mailto:stadiastudios746@gmail.com" class="text-blue-400 hover:underline">Contact us</a> for development inquiries.
+            </p>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer class="bg-gray-950 text-gray-500 py-8 mt-auto">
