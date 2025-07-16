@@ -19,19 +19,16 @@
                 <li><a href="../screenshots.html" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">Screenshots</a></li>
                 <li><a href="../pluginstore.html" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">Plugins</a></li>
                 <li><a href="../download.html" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">Download</a></li>
-                <!-- Search Bar Added Here -->
-                <li class="relative">
-                    <input type="text" id="search-input" placeholder="Search tools..." class="bg-gray-700 text-white rounded-full py-2 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 w-32 sm:w-48 md:w-64">
-                    <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                    </svg>
-                </li>
             </ul>
         </nav>
     </header>
 
 <style>
 
+body {
+            margin:0;
+  font-family: Arial, Helvetica, sans-serif;
+}
 
 #navbar {
   position: sticky;
@@ -100,6 +97,7 @@ button:hover {
   font-size: 16px;
 }
 </style>
+<body>
 
 <div id="navbar">
     <a href="gdddlg.html">Gdrive Download Links</a>
@@ -129,7 +127,6 @@ button:hover {
 }
   </script>
 
-
 <div>
     <h1>How to Generate Links</h1>
     <p>Go to your YouTube Profile > Share/copylink from URL > Paste in "Link Text & Link URL". Then press generate link.<br>
@@ -149,22 +146,5 @@ button:hover {
         </div>
     </footer>
 
-    <script>
-        // Get the search input element
-        const searchInput = document.getElementById('search-input');
-
-        // Add an event listener for the 'keypress' event
-        searchInput.addEventListener('keypress', function(event) {
-            // Check if the pressed key is 'Enter' (key code 13)
-            if (event.key === 'Enter') {
-                const query = searchInput.value; // Get the value from the search input
-                if (query) {
-                    // Redirect to search.html with the query as a URL parameter
-                    // Adjust path for files in 'red/' subdirectory
-                    window.location.href = `../search.html?q=${encodeURIComponent(query)}`;
-                }
-            }
-        });
-    </script>
 </body>
 </html>
