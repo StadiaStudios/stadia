@@ -1,0 +1,57 @@
+    body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a202c; /* Dark background for a sleek feel */
+            color: #e2e8f0; /* Lighter text for contrast */
+            padding-top: 64px; /* Adjust based on header height (py-4 * 2 + default height) */
+    }
+    .hero-section {
+        background-color: #3182ce; /* Blue for Windows theme */
+        background-image: linear-gradient(to right, #3182ce, #4299e1); /* Blue gradient */
+        color: white;
+    }
+    .btn-primary {
+         background-color: #48bb78; /* Green for action buttons */
+        transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+    }
+    .btn-primary:hover {
+        background-color: #38a169; /* Darker green */
+        transform: translateY(-2px);
+    }
+
+    .feature-card {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+    .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.3); /* Darker shadow for dark background */
+    }
+
+    .screenshot-item {
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+    .screenshot-item:hover {
+        transform: scale(1.02);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+    }
+
+    .download-button-large {
+        padding: 1rem 2.5rem; /* Larger padding */
+        font-size: 1.5rem; /* Larger font size */
+        border-radius: 9999px; /* Fully rounded */
+        box-shadow: 0 10px 20px rgba(0, 255, 0, 0.2); /* Green glow effect */
+    }
+    .download-button-large:hover {
+        box-shadow: 0 15px 30px rgba(0, 255, 0, 0.4);
+    }
+
+    .tool-icon {
+            width: 48px; /* Equivalent to w-12 */
+            height: 48px; /* Equivalent to h-12 */
+            margin: 0 auto 1rem; /* Centers and adds mb-4 */
+    }
+
+    button {
+        background-color: black;
+    }

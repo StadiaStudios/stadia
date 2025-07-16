@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/x-icon" href="resources/favicon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StadiaStudios</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <header class="bg-gray-900 shadow-sm py-4 fixed top-0 left-0 w-full z-50">
+        <nav class="container mx-auto px-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-blue-500">StadiaStudios</a>
+            <ul class="flex space-x-6">
+                <li><a href="index.html" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">Browse</a></li>
+                <li><a href="screenshots.html" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">Screenshots</a></li>
+                <li><a href="pluginstore.html" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">Plugins</a></li>
+                <li><a href="download.html" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">Download</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section py-20 md:py-32 text-center flex items-center justify-center">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6">
+                Experience Free Gaming with <span class="text-blue-200">ProjectStadia</span>
+            </h1>
+            <p class="text-xl md:text-2xl opacity-90 mb-10">
+                Designed specifically for Windows, enhancing your gaming experience.
+            </p>
+            <a href="download.html" class="btn-primary inline-block px-8 py-4 rounded-full text-xl font-bold uppercase shadow-lg hover:shadow-xl">
+                Download for Windows
+            </a>
+            <p class="text-sm mt-4 opacity-80">Compatible with Windows 10 and 11, Or Chromebook</p>
+        </div>
+    </section>
+
+    <section id="tools" class="py-16 bg-gray-900">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-white">StadiaTools</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Tool Card 1 -->
+                <div class="feature-card bg-gray-700 rounded-xl p-8 shadow-md border border-gray-600 text-center">
+                    <img src="resources/ytlinkgenerator.png" alt="Advanced Editor Icon" class="tool-icon">
+                    <h3 class="text-xl font-semibold mb-3 text-white">YT Sub Link Generator</h3>
+                    <p class="text-gray-300">
+                        YouTube Subscribe Link Generator
+                    </p>
+                    <a href="red/ytsg.html"><button class="button">USE ONLINE</button></a>
+                </div>
+                <!-- Tool Card 2 -->
+                <div class="feature-card bg-gray-700 rounded-xl p-8 shadow-md border border-gray-600 text-center">
+                    <img src="resources/gdddlg.png" alt="Integrated Analytics Icon" class="tool-icon">
+                    <h3 class="text-xl font-semibold mb-3 text-white">Google Drive Direct Download Link Generator</h3>
+                    <p class="text-gray-300">
+                        Direct Download link generator for Google Drive files,
+                    </p>
+                    <a href="red/gdddlg.html"><button class="button">USE ONLINE</button></a>
+                </div>
+                <!-- Tool Card 3 -->
+                <div class="feature-card bg-gray-700 rounded-xl p-8 shadow-md border border-gray-600 text-center">
+                    <img src="resources/emulatorlounge.png" alt="Cloud Sync Icon" class="tool-icon">
+                    <h3 class="text-xl font-semibold mb-3 text-white">EmulatorLounge</h3>
+                    <p class="text-gray-300">
+                        EmulatorLounge! On this website you will be able to download a Emulator For your specified device, And Also get a tutorial on how to use it.
+                    </p>
+                    <a href="https://sites.google.com/view/emulatorlounge">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="bg-blue-900 text-white py-16 text-center">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Boost Your Windows Experience?</h2>
+            <p class="text-lg md:text-xl opacity-90 mb-8">
+                Download ProjectStadia today and transform your gaming!
+            </p>
+            <a href="download.html" class="btn-primary inline-block px-8 py-4 rounded-full text-xl font-bold uppercase shadow-lg hover:shadow-xl">
+                Download Stadia
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-950 text-gray-500 py-8 mt-auto">
+        <div class="container mx-auto px-4 text-center text-sm">
+            <p>&copy; 2025 StadiaStudios, All rights reserved.</p>
+            <div class="flex justify-center space-x-6 mt-4">
+                <a href="https://sites.google.com/view/emulatorlounge" class="hover:text-white transition-colors duration-200">EmulatorLounge</a>
+                <a href="red/gdddlg.html" class="hover:text-white transition-colors duration-200">Tools</a>
+
+                <a href="download.html" class="hover:text-white transition-colors duration-200">Download</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
