@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/x-icon" href="resources/favicon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results - StadiaStudios</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Add any specific styles for search results here if needed */
+        .search-result-card {
+            background-color: #2d3748; /* Darker background for results */
+            border: 1px solid #4a5568;
+            border-radius: 0.75rem; /* rounded-xl */
+            padding: 1.5rem; /* p-6 */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .search-result-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <header class="bg-gray-900 shadow-sm py-4 fixed top-0 left-0 w-full z-50">
+        <nav class="container mx-auto px-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-blue-500">StadiaStudios</a>
+            <ul class="flex space-x-6 items-center">
+                <li><a href="index.html" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">Browse</a></li>
+                <li><a href="screenshots.html" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">Screenshots</a></li>
+                <li><a href="pluginstore.html" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">Plugins</a></li>
+                <li><a href="download.html" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">Download</a></li>
+                <!-- Search Bar (replicated for consistency across pages) -->
+                <li class="relative">
+                    <input type="text" id="search-input" placeholder="Search tools..." class="bg-gray-700 text-white rounded-full py-2 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 w-32 sm:w-48 md:w-64">
+                    <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="flex-grow py-16 bg-gray-900">
+        <div class="container mx-auto px-4">
+            <h1 class="text-3xl md:text-4xl font-bold text-center mb-8 text-white">Search Results for "<span id="search-query-display"></span>"</h1>
+            <div id="search-results-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Search results will be dynamically inserted here -->
+            </div>
+            <p id="no-results-message" class="text-center text-gray-400 text-lg mt-8 hidden">No results found for your query.</p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-950 text-gray-500 py-8 mt-auto">
+        <div class="container mx-auto px-4 text-center text-sm">
+            <p>&copy; 2025 StadiaStudios, All rights reserved.</p>
+            <div class="flex justify-center space-x-6 mt-4">
+                <a href="https://sites.google.com/view/emulatorlounge" class="hover:text-white transition-colors duration-200">EmulatorLounge</a>
+                <a href="red/gdddlg.html" class="hover:text-white transition-colors duration-200">Tools</a>
+                <a href="download.html" class="hover:text-white transition-colors duration-200">Download</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Data representing your website's searchable content
+        // In a real application, this would come from a backend or a more robust index.
+        const searchableContent = [
+            {
+                title: "YT Sub Link Generator",
+                description: "YouTube Subscribe Link Generator",
+                url: "red/ytsg.html",
+                category: "tool"
+            },
+            {
+                title: "Google Drive Direct Download Link Generator",
+                description: "Direct Download link generator for Google Drive files",
+                url: "red/gdddlg.html",
+                category: "tool"
+            },
+            {
+                title: "EmulatorLounge",
+                description: "EmulatorLounge! On this website you will be able to download a Emulator For your specified device, And Also get a tutorial on how to use it.",
+                url: "https://sites.google.com/view/emulatorlounge",
+                category: "emulator"
+            },
+            {
+                title: "ProjectStadia Download",
+                description: "Download ProjectStadia for Windows 10 and 11, or Chromebook.",
+                url: "download.html",
+                category: "download"
+            },
+            {
+                title: "Browse StadiaStudios",
+                description: "Explore the main page of StadiaStudios.",
+                url: "index.html",
+                category: "navigation"
+            },
+            {
+                title: "StadiaStudios Screenshots",
+                description: "View screenshots of ProjectStadia in action.",
+                url: "screenshots.html",
+                category: "screenshots"
+            },
+            {
+                title: "StadiaStudios Plugins",
+                description: "Discover available plugins for ProjectStadia.",
+                url: "pluginstore.html",
+                category: "plugins"
+            }
+        ];
+
+        const searchInput = document.getElementById('search-input');
+        const searchResultsContainer = document.getElementById('search-results-container');
+        const searchQueryDisplay = document.getElementById('search-query-display');
+        const noResultsMessage = document.getElementById('no-results-message');
+
+        // Function to get URL parameters
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            const results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        }
+
+        // Function to display search results
+        function displaySearchResults() {
+            const query = getUrlParameter('q').toLowerCase();
+            searchQueryDisplay.textContent = query; // Display the search query
+
+            searchResultsContainer.innerHTML = ''; // Clear previous results
+            noResultsMessage.classList.add('hidden'); // Hide no results message initially
+
+            if (!query) {
+                searchResultsContainer.innerHTML = '<p class="text-center text-gray-400 text-lg">Please enter a search term.</p>';
+                return;
+            }
+
+            const filteredResults = searchableContent.filter(item =>
+                item.title.toLowerCase().includes(query) ||
+                item.description.toLowerCase().includes(query) ||
+                item.category.toLowerCase().includes(query)
+            );
+
+            if (filteredResults.length > 0) {
+                filteredResults.forEach(result => {
+                    const resultCard = `
+                        <div class="search-result-card bg-gray-700 rounded-xl p-6 shadow-md border border-gray-600">
+                            <h3 class="text-xl font-semibold mb-2 text-white">${result.title}</h3>
+                            <p class="text-gray-300 mb-4">${result.description}</p>
+                            <a href="${result.url}" class="text-blue-400 hover:underline">Go to page</a>
+                        </div>
+                    `;
+                    searchResultsContainer.innerHTML += resultCard;
+                });
+            } else {
+                noResultsMessage.classList.remove('hidden'); // Show no results message
+            }
+        }
+
+        // Handle search input on search.html itself
+        searchInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                const query = searchInput.value;
+                if (query) {
+                    window.location.href = `search.html?q=${encodeURIComponent(query)}`;
+                }
+            }
+        });
+
+        // Display results when the page loads
+        window.onload = displaySearchResults;
+    </script>
+
+</body>
+</html>
