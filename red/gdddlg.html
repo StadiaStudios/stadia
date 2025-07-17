@@ -14,14 +14,56 @@
     <header class="bg-gray-900 shadow-sm py-4 fixed top-0 left-0 w-full z-50">
         <nav class="container mx-auto px-4 flex justify-between items-center">
             <a href="../index.html" class="text-2xl font-bold text-blue-500">StadiaStudios</a>
-            <ul class="flex space-x-6">
+
+            <!-- Hamburger Icon for Mobile -->
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-gray-300 hover:text-blue-400 focus:outline-none">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Desktop Navigation -->
+            <ul class="hidden md:flex space-x-6 items-center">
                 <li><a href="../index.html" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">Browse</a></li>
                 <li><a href="../screenshots.html" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">Screenshots</a></li>
                 <li><a href="../pluginstore.html" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">Plugins</a></li>
                 <li><a href="../download.html" class="text-gray-300 hover:text-blue-400 transition-colors duration-200">Download</a></li>
+                <!-- Search Bar -->
+                <li class="relative">
+                    <input type="text" id="search-input-desktop" placeholder="Search tools..." class="bg-gray-700 text-white rounded-full py-2 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 w-32 sm:w-48 md:w-64">
+                    <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                </li>
             </ul>
         </nav>
     </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-gray-900 bg-opacity-95 z-50 transform translate-x-full transition-transform duration-300 ease-in-out md:hidden">
+        <div class="flex justify-end p-4">
+            <button id="close-mobile-menu" class="text-gray-300 hover:text-blue-400 focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+        <ul class="flex flex-col items-center space-y-6 mt-10">
+            <li><a href="../index.html" class="text-gray-300 hover:text-blue-400 transition-colors duration-200 text-2xl font-semibold">Browse</a></li>
+            <li><a href="../screenshots.html" class="text-gray-300 hover:text-blue-400 transition-colors duration-200 text-2xl font-semibold">Screenshots</a></li>
+            <li><a href="../pluginstore.html" class="text-gray-300 hover:text-blue-400 transition-colors duration-200 text-2xl font-semibold">Plugins</a></li>
+            <li><a href="../download.html" class="text-gray-300 hover:text-blue-400 transition-colors duration-200 text-2xl font-semibold">Download</a></li>
+            <!-- Search Bar for Mobile -->
+            <li class="relative w-full max-w-xs px-4">
+                <input type="text" id="search-input-mobile" placeholder="Search tools..." class="bg-gray-700 text-white rounded-full py-3 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 w-full">
+                <svg class="absolute left-7 top-1/2 transform -translate-y-1/2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+            </li>
+        </ul>
+    </div>
 
     <style>
       body {
@@ -31,7 +73,7 @@
 
 #navbar {
   position: sticky;
-  top: 0;
+  top: 64px; /* Adjusted to be below the main header */
   overflow: hidden;
   background-color: #000000;
   transition-duration: 0.2s;
@@ -77,20 +119,20 @@ p {
 .link-generate {
     font-family: 'Roboto Condensed', sans-serif;
 }
-    
+
 .title {
     font-size: 1.6em;
     color: rgb(255, 255, 255);
     margin: 15px 0 10px;
     padding-left:20px;
 }
-        
+
 .sub {
     font-size: 0.5em;
     color: white;
     vertical-align: middle;
 }
-        
+
 #button {
     display: block;
     font-family: arial;
@@ -106,7 +148,7 @@ p {
     box-shadow: 0 3px 5px 0px rgb(5, 114, 255);
     transition-duration: 0.2s;
 }
-        
+
 #button:hover {
     background: linear-gradient(90deg, #ad53893,#3c1053);
     transition-duration: 0.2s;
@@ -114,13 +156,13 @@ p {
 	box-shadow: 0 1px 2px 0px black;
 	border-color:blue;
 }
-        
+
 #button:active {
     background: #333;
     box-shadow: 0 2px 3px -1px #b5b5b5;
     transition-duration: 0.4s;
 }
-        
+
 #input, #output {
     font-size: 1.1em;
     display:block;
@@ -128,8 +170,10 @@ p {
     padding: 10px;
     border: 1px solid #b5b5b5;
     border-radius: 3px;
+    background-color:#d1d1d1; /* Added background for consistency */
+    color:blue;
 }
-        
+
 #help-text {
     font-weight: 600;
     margin: 10px;
@@ -148,48 +192,48 @@ p {
             document.getElementById("button").addEventListener("click", go);
             document.getElementById("output").addEventListener("click", copy);
         }
-        
+
         function setStatus(status, error = false) {
             var helpText = document.getElementById("help-text");
-            
+
             helpText.innerText = status;
-            
+
             if (error) {
                 helpText.style.color = "#c088ff";
             } else {
                 helpText.style.color = "#c088ff";
             }
         }
-          
+
         function go(){
             var linkId = document.getElementById("input").value;
             var idExtractor = /\/d\/(.+?)(?:\/|#|\?|$)/;
             var result = idExtractor.exec(linkId);
-            
+
             var outputBox = document.getElementById("output");
-            
-            
+
+
             if (!result) {
                 outputBox.value = "";
                 setStatus("Error: Invalid URL", true);
                 outputBox.disabled = true;
                 return;
             }
-            
+
             var finalLink = "https://drive.google.com/uc?export=download&id=" + result[1];
             outputBox.disabled = false;
             outputBox.value = finalLink;
             setStatus("Success! Click the output link to copy it to your clipboard");
         }
-        
+
         function copy() {
             if (this.disabled) {
                 return;
         }
-            
+
          this.select();
          var copied = document.execCommand("copy");
-            
+
         if (copied) {
             setStatus("Link copied to clipboard!");
         } else {
@@ -199,19 +243,19 @@ p {
 </script>
 
 <div id="navbar">
-  <a class="active" href="run.html">Gdrive Download Links</a>
+  <a class="active" href="gdddlg.html">Gdrive Download Links</a>
   <a href="ytsg.html">Generate YT Sub Links</a>
 </div>
 
     <div class="title">Enter URL:&nbsp;<span class="sub"></span></div>
     <input style="background-color:#d1d1d1;color:blue;" id="input" type="text">
-	
+
     <div class="title">Download link:</div>
     <input style="background-color:#d1d1d1;color:blue;" id="output" type="text" readonly="" disabled="">
     <div id="help-text"></div>
     <p style="color:#9c9c9c;">To create a link firstly go to your google drive file &gt; Share &gt; Anyone with the link &gt; Copy Link &gt; Paste in sharing Url &gt; Create Link</p>
     <button id="button">GENERATE LINK</button>
-    
+
 </div>
 
     <!-- Footer -->
@@ -221,10 +265,61 @@ p {
             <div class="flex justify-center space-x-6 mt-4">
                 <a href="https://sites.google.com/view/emulatorlounge" class="hover:text-white transition-colors duration-200">EmulatorLounge</a>
                 <a href="red/gdddlg.html" class="hover:text-white transition-colors duration-200">Tools</a>
+                <a href="https://sites.google.com/view/stadiaduck/home" class="hover:text-white transition-colors duration-200">Duck Browser</a>
                 <a href="download.html" class="hover:text-white transition-colors duration-200">Download</a>
+                <a href="https://sites.google.com/view/convertxs/" class="hover:text-white transition-colors duration-200">Convert Files online</a>
+                <a href="pluginstore.html" class="hover:text-white transition-colors duration-200">Plugins</a>
             </div>
         </div>
     </footer>
 
+    <script>
+        // Get the search input elements for desktop and mobile
+        const searchInputDesktop = document.getElementById('search-input-desktop');
+        const searchInputMobile = document.getElementById('search-input-mobile');
+
+        // Function to handle search redirection
+        function handleSearch(event, inputElement) {
+            if (event.key === 'Enter') {
+                const query = inputElement.value;
+                if (query) {
+                    // Adjust path for files in 'red/' subdirectory
+                    window.location.href = `../search.html?q=${encodeURIComponent(query)}`;
+                }
+            }
+        }
+
+        // Add event listeners for the 'keypress' event for both search inputs
+        if (searchInputDesktop) { // Check if element exists before adding listener
+            searchInputDesktop.addEventListener('keypress', function(event) {
+                handleSearch(event, searchInputDesktop);
+            });
+        }
+        if (searchInputMobile) { // Check if element exists before adding listener
+            searchInputMobile.addEventListener('keypress', function(event) {
+                handleSearch(event, searchInputMobile);
+            });
+        }
+
+        // Mobile menu toggle functionality
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const closeMobileMenuButton = document.getElementById('close-mobile-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.remove('translate-x-full');
+        });
+
+        closeMobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.add('translate-x-full');
+        });
+
+        // Close mobile menu when a link is clicked
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('translate-x-full');
+            });
+        });
+    </script>
 </body>
 </html>
