@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Text & Image Bot</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom styles for radio buttons to ensure visibility in dark mode */
+        input[type="radio"] {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            border-radius: 50%;
+            width: 1.25rem; /* h-5 */
+            height: 1.25rem; /* w-5 */
+            border: 2px solid;
+            cursor: pointer;
+            outline: none;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+
+        input[type="radio"]:checked {
+            background-color: currentColor; /* Uses the color from text-blue-500 or text-red-500 */
+            border-color: currentColor;
+        }
+
+        /* Specific colors for themes */
+        .theme-dark input[type="radio"][value="dark"]:checked {
+            background-color: #3B82F6; /* blue-500 */
+            border-color: #3B82F6;
+        }
+        .theme-dark input[type="radio"][value="gradient-red"]:checked {
+            background-color: #EF4444; /* red-500 */
+            border-color: #EF4444;
+        }
+        .theme-gradient-red input[type="radio"][value="dark"]:checked {
+            background-color: #6B7280; /* gray-500 for non-selected in light theme */
+            border-color: #6B7280;
+        }
+        .theme-gradient-red input[type="radio"][value="gradient-red"]:checked {
+            background-color: #EF4444; /* red-500 */
+            border-color: #EF4444;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-900 text-gray-100 font-inter flex flex-col theme-dark">
+
+    <!-- Navbar -->
+    <nav class="bg-gray-800 p-4 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-white">Stadia AI</h1>
+            <ul class="flex space-x-4">
+                <li><a href="#" id="home-nav-link" class="text-gray-300 hover:text-white transition-colors duration-200">Home</a></li>
+                <li><a href="#" id="settings-nav-link" class="text-gray-300 hover:text-white transition-colors duration-200">Settings</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <div id="main-content-area" class="flex-grow flex items-center justify-center p-4">
+        <!-- Content will be rendered here by JavaScript -->
+    </div>
+
+    <script>
+        // Global state variables
+        let prompt = '';
+        let textResponse = '';
+        let imageUrl = '';
+        let isLoading = false;
+        let error = '';
+        let generationType = 'text'; // 'text' or 'image'
+        let currentPage = 'home'; // 'home' or 'settings'
+        let theme = 'dark'; // 'dark' or 'gradient-red'
+
+        // DOM elements
+        const body = document.body;
+        const mainContentArea = document.getElementById('main-content-area');
+        const homeNavLink = document.getElementById('home-nav-link');
+        const settingsNavLink = document.getElementById('settings-nav-link');
+
+        // Function to update the UI based on current state
+        function renderUI() {
+            // Update body theme classes
+            body.className = `min-h-screen font-inter flex flex-col ${getBgClass()} ${getTextColorClass()} theme-${theme}`;
+
+            // Update nav link active state
+            homeNavLink.classList.toggle('text-white', currentPage === 'home');
+            homeNavLink.classList.toggle('font-semibold', currentPage === 'home');
+            settingsNavLink.classList.toggle('text-white', currentPage === 'settings');
+            settingsNavLink.classList.toggle('font-semibold', currentPage === 'settings');
+
+            // Clear main content area
+            mainContentArea.innerHTML = '';
+
+            // Render current page
+            if (currentPage === 'home') {
+                renderHomePage();
+            } else if (currentPage === 'settings') {
+                renderSettingsPage();
+            }
+        }
+
+        // Helper functions for theme-dependent classes
+        function getBgClass() {
+            return theme === 'dark' ? 'bg-gray-900' : 'bg-gradient-to-br from-red-100 to-pink-100';
+        }
+
+        function getTextColorClass() {
+            return theme === 'dark' ? 'text-gray-100' : 'text-gray-800';
+        }
+
+        function getCardBgClass() {
+            return theme === 'dark' ? 'bg-gray-800' : 'bg-white';
+        }
+
+        function getCardBorderClass() {
+            return theme === 'dark' ? 'border-gray-700' : 'border-gray-200';
+        }
+
+        function getHeadingTextColorClass() {
+            return theme === 'dark' ? 'text-white' : 'text-gray-800';
+        }
+
+        function getLabelTextColorClass() {
+            return theme === 'dark' ? 'text-gray-200' : 'text-gray-700';
+        }
+
+        function getTextareaBgClass() {
+            return theme === 'dark' ? 'bg-gray-700' : 'bg-white';
+        }
+
+        function getTextareaTextColorClass() {
+            return theme === 'dark' ? 'text-white' : 'text-gray-800';
+        }
+
+        function getTextareaPlaceholderColorClass() {
+            return theme === 'dark' ? 'placeholder-gray-400' : 'placeholder-gray-500';
+        }
+
+        function getErrorBgClass() {
+            return theme === 'dark' ? 'bg-red-800' : 'bg-red-100';
+        }
+
+        function getErrorBorderClass() {
+            return theme === 'dark' ? 'border-red-600' : 'border-red-400';
+        }
+
+        function getErrorTextColorClass() {
+            return theme === 'dark' ? 'text-red-200' : 'text-red-700';
+        }
+
+        function getResponseBgClass() {
+            return theme === 'dark' ? 'bg-gray-700' : 'bg-gray-50';
+        }
+
+        function getResponseBorderClass() {
+            return theme === 'dark' ? 'border-gray-600' : 'border-gray-200';
+        }
+
+        function getResponseHeadingTextColorClass() {
+            return theme === 'dark' ? 'text-white' : 'text-gray-800';
+        }
+
+        function getResponseBodyTextColorClass() {
+            return theme === 'dark' ? 'text-gray-200' : 'text-gray-700';
+        }
+
+        function getImageBorderClass() {
+            return theme === 'dark' ? 'border-gray-500' : 'border-gray-300';
+        }
+
+        function getInnerCardBgClass() {
+            return theme === 'dark' ? 'bg-gray-700' : 'bg-gray-50';
+        }
+
+        function getInnerCardBorderClass() {
+            return theme === 'dark' ? 'border-gray-600' : 'border-gray-200';
+        }
+
+        function getSubHeadingTextColorClass() {
+            return theme === 'dark' ? 'text-white' : 'text-gray-800';
+        }
+
+        function getListItemTextColorClass() {
+            return theme === 'dark' ? 'text-gray-300' : 'text-gray-600';
+        }
+
+        function getSmallTextColorClass() {
+            return theme === 'dark' ? 'text-gray-400' : 'text-gray-500';
+        }
+
+
+        // Render Home Page
+        function renderHomePage() {
+            const homeHtml = `
+                <div class="p-8 rounded-xl shadow-2xl w-full max-w-2xl border ${getCardBgClass()} ${getCardBorderClass()}">
+                    <h1 class="text-4xl font-extrabold text-center mb-8 ${getHeadingTextColorClass()}">AI Text & Image Bot</h1>
+
+                    <!-- Generation Type Selection -->
+                    <div class="mb-6 flex justify-center space-x-6">
+                        <label class="inline-flex items-center cursor-pointer">
+                            <input
+                                type="radio"
+                                name="generationType"
+                                value="text"
+                                ${generationType === 'text' ? 'checked' : ''}
+                                class="form-radio h-5 w-5 ${theme === 'dark' ? 'text-blue-400 bg-gray-700 border-gray-600' : 'text-blue-600 border-gray-300'} focus:ring-blue-500"
+                            />
+                            <span class="ml-2 text-lg font-medium ${getLabelTextColorClass()}">Generate Text</span>
+                        </label>
+                        <label class="inline-flex items-center cursor-pointer">
+                            <input
+                                type="radio"
+                                name="generationType"
+                                value="image"
+                                ${generationType === 'image' ? 'checked' : ''}
+                                class="form-radio h-5 w-5 ${theme === 'dark' ? 'text-purple-400 bg-gray-700 border-gray-600' : 'text-purple-600 border-gray-300'} focus:ring-purple-500"
+                            />
+                            <span class="ml-2 text-lg font-medium ${getLabelTextColorClass()}">Generate Image</span>
+                        </label>
+                    </div>
+
+                    <!-- Input area -->
+                    <div class="mb-6">
+                        <label for="prompt" class="block text-lg font-semibold mb-2 ${getLabelTextColorClass()}">
+                            Enter your prompt:
+                        </label>
+                        <textarea
+                            id="prompt-textarea"
+                            class="w-full p-4 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 ease-in-out resize-y min-h-[100px] ${getTextareaBgClass()} ${getTextareaTextColorClass()} ${getTextareaPlaceholderColorClass()}"
+                            rows="5"
+                            placeholder="${generationType === 'text' ? 'e.g., Write a short story about a brave knight and a dragon.' : 'e.g., A futuristic city at sunset, cyberpunk style, highly detailed.'}"
+                            ${isLoading ? 'disabled' : ''}
+                        >${prompt}</textarea>
+                    </div>
+
+                    <!-- Generate button -->
+                    <button
+                        id="generate-button"
+                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transform transition duration-300 ease-in-out hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 ${isLoading || !prompt.trim() ? 'opacity-50 cursor-not-allowed' : ''}"
+                        ${isLoading || !prompt.trim() ? 'disabled' : ''}
+                    >
+                        ${isLoading ? `
+                            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            ${generationType === 'text' ? 'Generating Text...' : 'Generating Image...'}
+                        ` : `Generate ${generationType === 'text' ? 'Text' : 'Image'}`}
+                    </button>
+
+                    <!-- Error message display -->
+                    ${error ? `
+                        <div class="mt-6 p-4 rounded-lg text-center ${getErrorBgClass()} ${getErrorBorderClass()} ${getErrorTextColorClass()}">
+                            <p class="font-semibold">Error:</p>
+                            <p>${error}</p>
+                        </div>
+                    ` : ''}
+
+                    <!-- Response display - Conditional based on generation type -->
+                    ${textResponse && generationType === 'text' ? `
+                        <div class="mt-8 p-6 rounded-lg shadow-inner ${getResponseBgClass()} ${getResponseBorderClass()}">
+                            <h2 class="text-xl font-bold mb-4 ${getResponseHeadingTextColorClass()}">AI Text Response:</h2>
+                            <div class="prose max-w-none leading-relaxed whitespace-pre-wrap ${getResponseBodyTextColorClass()}">
+                                ${textResponse}
+                            </div>
+                        </div>
+                    ` : ''}
+
+                    ${imageUrl && generationType === 'image' ? `
+                        <div class="mt-8 p-6 rounded-lg shadow-inner flex flex-col items-center ${getResponseBgClass()} ${getResponseBorderClass()}">
+                            <h2 class="text-xl font-bold mb-4 ${getResponseHeadingTextColorClass()}">AI Generated Image:</h2>
+                            <img
+                                src="${imageUrl}"
+                                alt="AI Generated"
+                                class="max-w-full h-auto rounded-lg shadow-md border ${getImageBorderClass()}"
+                                onerror="this.onerror=null; this.src='https://placehold.co/400x300/${theme === 'dark' ? '333333' : 'e0e0e0'}/${theme === 'dark' ? 'aaaaaa' : '555555'}?text=Image+Load+Error';"
+                            />
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+            mainContentArea.innerHTML = homeHtml;
+
+            // Attach event listeners after rendering
+            document.getElementById('prompt-textarea').value = prompt; // Set textarea value
+            document.getElementById('prompt-textarea').addEventListener('input', (e) => {
+                prompt = e.target.value;
+                renderUI(); // Re-render to update button disabled state
+            });
+
+            document.getElementById('generate-button').addEventListener('click', handleGenerate);
+
+            document.querySelectorAll('input[name="generationType"]').forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    generationType = e.target.value;
+                    textResponse = ''; // Clear responses on type change
+                    imageUrl = '';
+                    error = '';
+                    renderUI(); // Re-render to update placeholder and response area
+                });
+            });
+        }
+
+        // Render Settings Page
+        function renderSettingsPage() {
+            const settingsHtml = `
+                <div class="p-8 rounded-xl shadow-2xl w-full max-w-2xl border ${getCardBgClass()} ${getCardBorderClass()}">
+                    <h2 class="text-4xl font-extrabold text-center mb-8 ${getHeadingTextColorClass()}">Settings</h2>
+                    <div class="${getTextColorClass()} space-y-4">
+                        <p>Welcome to the settings page!</p>
+                        <p>Here you can customize various aspects of your AI Bot.</p>
+
+                        <!-- Theme Selection -->
+                        <div class="p-4 rounded-lg border ${getInnerCardBgClass()} ${getInnerCardBorderClass()}">
+                            <h3 class="text-xl font-semibold mb-4 ${getSubHeadingTextColorClass()}">Theme Settings</h3>
+                            <div class="flex space-x-6">
+                                <label class="inline-flex items-center cursor-pointer">
+                                    <input
+                                        type="radio"
+                                        name="theme-setting"
+                                        value="dark"
+                                        ${theme === 'dark' ? 'checked' : ''}
+                                        class="form-radio h-5 w-5 ${theme === 'dark' ? 'text-blue-500' : 'text-gray-400'} border-gray-300 focus:ring-blue-500"
+                                    />
+                                    <span class="ml-2 text-lg font-medium ${getListItemTextColorClass()}">Dark Theme</span>
+                                </label>
+                                <label class="inline-flex items-center cursor-pointer">
+                                    <input
+                                        type="radio"
+                                        name="theme-setting"
+                                        value="gradient-red"
+                                        ${theme === 'gradient-red' ? 'checked' : ''}
+                                        class="form-radio h-5 w-5 ${theme === 'gradient-red' ? 'text-red-500' : 'text-gray-400'} border-gray-300 focus:ring-red-500"
+                                    />
+                                    <span class="ml-2 text-lg font-medium ${getListItemTextColorClass()}">Light Mode</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="p-4 rounded-lg border ${getInnerCardBgClass()} ${getInnerCardBorderClass()}">
+                            <h3 class="text-xl font-semibold mb-2 ${getSubHeadingTextColorClass()}">Version</h3>
+                            <ul class="list-disc list-inside">
+                                <li class="${getListItemTextColorClass()}">V1.0.0</li>
+                            </ul>
+                        </div>
+                        <p class="text-sm mt-6 ${getSmallTextColorClass()}">More settings options will be added here in the future.</p>
+                    </div>
+                </div>
+            `;
+            mainContentArea.innerHTML = settingsHtml;
+
+            // Attach event listeners for theme radios after rendering
+            document.querySelectorAll('input[name="theme-setting"]').forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    theme = e.target.value;
+                    renderUI(); // Re-render the entire UI to apply new theme
+                });
+            });
+        }
+
+        // Function to call the Gemini API for text generation
+        async function generateText() {
+            isLoading = true;
+            error = '';
+            textResponse = ''; // Clear previous text response
+            imageUrl = ''; // Clear previous image response
+            renderUI(); // Re-render to show loading state
+
+            try {
+                let chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+
+                const payload = { contents: chatHistory };
+                const apiKey = ""; // API key is provided by the Canvas environment for gemini-2.0-flash
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const apiResponse = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!apiResponse.ok) {
+                    const errorData = await apiResponse.json();
+                    throw new Error(errorData.error?.message || 'Failed to generate text.');
+                }
+
+                const result = await apiResponse.json();
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    textResponse = result.candidates[0].content.parts[0].text;
+                } else {
+                    error = 'No text generated. Please try again.';
+                }
+            } catch (err) {
+                console.error('Error generating text:', err);
+                error = `Error: ${err.message || 'Something went wrong with text generation.'}`;
+            } finally {
+                isLoading = false;
+                renderUI(); // Re-render to show response or error
+            }
+        }
+
+        // Function to call the Imagen API for image generation
+        async function generateImage() {
+            isLoading = true;
+            error = '';
+            textResponse = ''; // Clear previous text response
+            imageUrl = ''; // Clear previous image response
+            renderUI(); // Re-render to show loading state
+
+            try {
+                const payload = { instances: { prompt: prompt }, parameters: { "sampleCount": 1} };
+                const apiKey = ""; // API key is provided by the Canvas environment for imagen-3.0-generate-002
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=${apiKey}`;
+
+                const apiResponse = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!apiResponse.ok) {
+                    const errorData = await apiResponse.json();
+                    throw new Error(errorData.error?.message || 'Failed to generate image.');
+                }
+
+                const result = await apiResponse.json();
+
+                if (result.predictions && result.predictions.length > 0 && result.predictions[0].bytesBase64Encoded) {
+                    const base64Image = result.predictions[0].bytesBase64Encoded;
+                    imageUrl = `data:image/png;base64,${base64Image}`;
+                } else {
+                    error = 'No image generated. Please try again with a different prompt.';
+                }
+            } catch (err) {
+                console.error('Error generating image:', err);
+                error = `Error: ${err.message || 'Something went wrong with image generation.'}`;
+            } finally {
+                isLoading = false;
+                renderUI(); // Re-render to show response or error
+            }
+        }
+
+        // Handle the main generation button click
+        function handleGenerate() {
+            if (generationType === 'text') {
+                generateText();
+            } else {
+                generateImage();
+            }
+        }
+
+        // Initial render when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            // Attach navigation event listeners
+            homeNavLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                currentPage = 'home';
+                renderUI();
+            });
+            settingsNavLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                currentPage = 'settings';
+                renderUI();
+            });
+
+            renderUI(); // Initial render of the home page
+        });
+    </script>
+</body>
+</html>

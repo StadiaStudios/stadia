@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>YT Sub Link Generator</title>
+  <link rel="stylesheet" href="default.css">
+  <link rel="icon" type="image/x-icon" href="rec/ytlinkgenerator.png">
+</head>
+<body>
+<div id="navbar">
+  <a href="../../index.html">Back</a>
+  <a class="active" href="index.html">Generate YT Links</a>
+</div>
+
+<audio id="sound1" src="../../../MusicPlayer/audio/03 Greedo - Substance (Official Lyric Video) - 03 Greedo.mp3 CuDi Day N Nite.mp3" preload="auto"></audio>
+
+<div class="padding">
+  <h1>YouTube Subscribe Link Generator</h1>
+  <p>Link Text:</p>
+  <input type="text" id="linkText" placeholder="Enter  YouTube Channel Link"><br>
+  <p>Link URL</p>
+  <input type="url" id="linkURL" placeholder="Enter  YouTube Channel Link"><br>
+  <button class="button" onclick="generateLink()">Generate Link</button>
+  <div id="generatedLink"></div>
+  <script>
+    function generateLink() {
+  const linkText = document.getElementById("linkText").value;
+  const linkURL = document.getElementById("linkURL").value;
+  const generatedLinkDiv = document.getElementById("generatedLink");
+
+  if (linkText && linkURL) {
+    const linkElement = `<a href="${linkURL}?sub_confirmation=1" target="_blank">${linkText}?sub_confirmation=1</a>`;
+    generatedLinkDiv.innerHTML = linkElement;
+  } else {
+    generatedLinkDiv.innerHTML = "Please enter both link text and URL.";
+  }
+}
+  </script>
+
+
+<div>
+    <h2>How to Generate Links</h2>
+    <p>Go to your YouTube Profile > Share/copylink from URL > Paste in "Link Text & Link URL". Then press generate link.<br>
+    Your link will appear in blue you have to copy it. If you click it. Youll go to the link</p>
+</div>
+</div>
+
+
+</body>
+</html>
