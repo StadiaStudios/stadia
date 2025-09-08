@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download & Install - StadiaStudios</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.png">
+    <link rel="manifest" href="manifest.json">
+    <!-- Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111;
+            color: #c9d1d9;
+        }
+
+        .cta-button {
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .gradient-text {
+            background-image: linear-gradient(to right, #6f80ff, #8a96ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* New nav-link effect */
+        .nav-link {
+            position: relative;
+            transition: color 0.2s ease;
+        }
+        .nav-link:hover {
+            color: #58a6ff;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #58a6ff;
+            transition: width 0.3s ease-in-out;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Active Link Styling */
+        .active-link {
+            color: #6f80ff; /* A brighter blue to indicate active state */
+            font-weight: 600; /* Bolder font for emphasis */
+        }
+        .active-link::after {
+            width: 100%;
+            background-color: #6f80ff;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #20232b;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #6f80ff;
+            border-radius: 10px;
+            border: 3px solid #20232b;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #8a96ff;
+        }
+
+        /* Mobile Menu */
+        #mobile-menu {
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+        
+        /* PWA Install Button */
+        #install-button {
+            display: none;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-[#161b22] bg-opacity-80 backdrop-filter backdrop-blur-lg shadow-sm border-b border-gray-700">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold tracking-tight text-white flex items-center">
+                <img src="assets/favicon.png" alt="StadiaStudios Logo" class="h-8 w-8 mr-1">
+                Stadia<span class="gradient-text">Studios</span>
+            </a>
+            <div class="hidden md:flex space-x-8 text-sm font-medium">
+                <a href="index.html" class="nav-link text-gray-400 hover:text-blue-400">Browse</a>
+                <a href="profile.html" class="nav-link text-gray-400 hover:text-blue-400">Account</a>
+                <a href="favorites.html" class="nav-link text-gray-400 hover:text-blue-400">Favorites</a>
+            </div>
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden">
+                <button id="mobile-menu-toggle" class="text-gray-400 hover:text-white focus:outline-none">
+                    <svg id="hamburger-icon" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                    <svg id="close-icon" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 z-40 bg-[#161b22] flex flex-col justify-center items-center transform -translate-y-full opacity-0 pointer-events-none">
+        <a href="index.html" class="text-3xl font-medium text-gray-400 hover:text-blue-400 transition-colors duration-200 mb-6">Browse</a>
+        <a href="profile.html" class="text-3xl font-medium text-gray-400 hover:text-blue-400 transition-colors duration-200 mb-6">Account</a>
+        <a href="favorites.html" class="text-3xl font-medium text-gray-400 hover:text-blue-400 transition-colors duration-200 mb-6">Favorites</a>
+    </div>
+
+    <main class="pt-20">
+        <section class="py-16 md:py-24 bg-[#111] flex items-center justify-center min-h-screen">
+            <div class="container mx-auto px-4 text-center max-w-2xl">
+                <img src="assets/favicon.png" alt="StadiaStudios App Logo" class="w-32 h-32 mx-auto mb-6 rounded-3xl shadow-lg">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4 text-white">Get the StadiaStudios App</h1>
+                <p class="text-lg md:text-xl text-gray-400 mb-8">
+                    Add our website to your home screen for a fast, app-like experience. It's easy, free, and works on any device.
+                </p>
+                <div id="installation-instructions" class="space-y-8 text-left">
+                    <!-- Mobile Instructions -->
+                    <div class="bg-[#161b22] p-8 rounded-xl border border-gray-700 shadow-md">
+                        <h2 class="text-2xl font-semibold text-white mb-4">On Mobile</h2>
+                        <ul class="text-gray-400 space-y-4">
+                            <li>
+                                <span class="font-bold text-blue-400">1.</span> Tap the browser's menu icon. (This is usually the three dots or the share icon <span class="inline-block align-middle ml-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block text-blue-400" viewBox="0 0 20 20" fill="currentColor">
+                                        <path d="M15 8a3 3 0 10-2.977-2.977l-4.12 1.15a3 3 0 10-.832.832l4.12-1.15A3.001 3.001 0 0015 8zm0 2a3 3 0 100 6 3 3 0 000-6zM5 8a3 3 0 100 6 3 3 0 000-6z"/>
+                                    </svg>
+                                </span>).
+                            </li>
+                            <li>
+                                <span class="font-bold text-blue-400">2.</span> Select <span class="font-bold text-white">"Add to Home Screen"</span> from the menu.
+                            </li>
+                            <li>
+                                <span class="font-bold text-blue-400">3.</span> Confirm the name, then tap <span class="font-bold text-white">"Add"</span>. The app icon will now appear on your device's home screen.
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Desktop Instructions -->
+                    <div class="bg-[#161b22] p-8 rounded-xl border border-gray-700 shadow-md">
+                        <h2 class="text-2xl font-semibold text-white mb-4">On PC (Chrome & Edge)</h2>
+                        <ul class="text-gray-400 space-y-4">
+                            <li>
+                                <span class="font-bold text-blue-400">1.</span> Look for the install icon in the address bar. (It looks like a computer with a download arrow <span class="inline-block align-middle ml-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block text-blue-400" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-8V6a1 1 0 012 0v4h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3z" clip-rule="evenodd"/>
+                                    </svg>
+                                </span>).
+                            </li>
+                            <li>
+                                <span class="font-bold text-blue-400">2.</span> Click the icon and follow the prompts to install the app.
+                            </li>
+                            <li>
+                                <span class="font-bold text-blue-400">3.</span> The StadiaStudios app will open in a new window and a shortcut will be added to your desktop and Start Menu.
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- PWA Install Button -->
+                    <button id="install-button" class="cta-button w-full bg-[#6f80ff] hover:bg-[#8a96ff] text-white font-medium py-4 px-8 rounded-full text-lg shadow-lg">
+                        Install App
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Mobile menu toggle functionality
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const hamburgerIcon = document.getElementById('hamburger-icon');
+        const closeIcon = document.getElementById('close-icon');
+
+        if (mobileMenuToggle && mobileMenu) {
+            mobileMenuToggle.addEventListener('click', () => {
+                mobileMenu.classList.toggle('transform');
+                mobileMenu.classList.toggle('-translate-y-full');
+                mobileMenu.classList.toggle('opacity-0');
+                mobileMenu.classList.toggle('pointer-events-none');
+                
+                hamburgerIcon.classList.toggle('hidden');
+                closeIcon.classList.toggle('hidden');
+            });
+        }
+        
+        // PWA Installation
+        let deferredPrompt;
+        const installButton = document.getElementById('install-button');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Prevent the mini-infobar from appearing on mobile
+            e.preventDefault();
+            // Stash the event so it can be triggered later.
+            deferredPrompt = e;
+            // Update UI to show the install button
+            installButton.style.display = 'block';
+        });
+
+        installButton.addEventListener('click', (e) => {
+            // hide the install button
+            installButton.style.display = 'none';
+            // Show the install prompt
+            deferredPrompt.prompt();
+            // Wait for the user to respond to the prompt
+            deferredPrompt.userChoice
+                .then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('User accepted the install prompt');
+                    } else {
+                        console.log('User dismissed the install prompt');
+                    }
+                    deferredPrompt = null;
+                });
+        });
+
+        window.addEventListener('appinstalled', (evt) => {
+            console.log('StadiaStudios PWA was installed');
+        });
+    </script>
+</body>
+</html>

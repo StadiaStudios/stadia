@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.png">
+    <!-- Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111;
+            color: #c9d1d9;
+        }
+
+        .gradient-text {
+            background-image: linear-gradient(to right, #6f80ff, #8a96ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Nav Link Effect */
+        .nav-link {
+            position: relative;
+            transition: color 0.2s ease;
+        }
+        .nav-link:hover {
+            color: #58a6ff;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #58a6ff;
+            transition: width 0.3s ease-in-out;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Active Link Styling */
+        .active-link {
+            color: #6f80ff; /* A brighter blue to indicate active state */
+            font-weight: 600; /* Bolder font for emphasis */
+        }
+        .active-link::after {
+            width: 100%;
+            background-color: #6f80ff;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #20232b;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #6f80ff;
+            border-radius: 10px;
+            border: 3px solid #20232b;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #8a96ff;
+        }
+
+        /* Mobile Menu */
+        #mobile-menu {
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-[#161b22] bg-opacity-80 backdrop-filter backdrop-blur-lg shadow-sm border-b border-gray-700">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold tracking-tight text-white flex items-center">
+                <img src="assets/favicon.png" alt="StadiaStudios Logo" class="h-8 w-8 mr-1">
+                Stadia<span class="gradient-text">Studios</span>
+            </a>
+            <div class="hidden md:flex space-x-8 text-sm font-medium">
+                <a href="index.html" class="nav-link text-gray-400 hover:text-blue-400">Browse</a>
+                <a href="profile.html" class="nav-link text-gray-400 hover:text-blue-400 active-link">Account</a>
+                <a href="favorites.html" class="nav-link text-gray-400 hover:text-blue-400">Favorites</a>
+            </div>
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden">
+                <button id="mobile-menu-toggle" class="text-gray-400 hover:text-white focus:outline-none">
+                    <svg id="hamburger-icon" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                    <svg id="close-icon" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 z-40 bg-[#161b22] flex flex-col justify-center items-center transform -translate-y-full opacity-0 pointer-events-none">
+        <a href="index.html" class="text-3xl font-medium text-gray-400 hover:text-blue-400 transition-colors duration-200 mb-6">Browse</a>
+        <a href="profile.html" class="text-3xl font-medium text-gray-400 hover:text-blue-400 active-link transition-colors duration-200 mb-6">Account</a>
+        <a href="favorites.html" class="text-3xl font-medium text-gray-400 hover:text-blue-400 transition-colors duration-200 mb-6">Favorites</a>
+    </div>
+
+    <main class="pt-20">
+        <!-- Profile Section -->
+        <section class="py-16 md:py-24 bg-[#111]">
+            <div class="container mx-auto px-4 max-w-2xl text-center">
+                <div class="bg-[#161b22] border border-gray-700 rounded-xl p-8 shadow-lg">
+                    <h1 class="text-3xl md:text-4xl font-bold mb-4 text-white">Local Account</h1>
+                    <div class="mb-6">
+                        <p class="text-xl text-gray-400 mb-2">Name:</p>
+                        <p id="current-username" class="text-3xl font-semibold text-blue-400"></p>
+                    </div>
+                    <form id="username-form" class="space-y-4">
+                        <input type="text" id="new-username-input" placeholder="Enter new Name" class="w-full px-4 py-2 rounded-lg bg-[#222] border border-gray-600 text-white placeholder-gray-500 focus:outline-none focus:border-blue-400">
+                        <button type="submit" class="w-full bg-[#333] hover:bg-[#444] text-white font-medium py-2 px-4 rounded-lg transition duration-200">
+                            Update Name
+                        </button>
+                    </form>
+                    <div id="message" class="mt-4 text-sm font-medium hidden"></div>
+                    <button id="logout-button" class="mt-8 w-full bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200">
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Confirmation Modal (custom pop-up) -->
+    <div id="confirmation-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+        <div class="bg-[#161b22] border border-gray-700 rounded-xl p-8 max-w-sm mx-4 text-center shadow-lg">
+            <h3 class="text-xl font-bold mb-4 text-white">Confirm Logout</h3>
+            <p class="text-gray-400 mb-6">Are you sure you want to log out? This will clear all your local data.</p>
+            <div class="flex justify-center space-x-4">
+                <button id="cancel-button" class="bg-gray-600 hover:bg-gray-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200">
+                    Cancel
+                </button>
+                <button id="confirm-logout-button" class="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200">
+                    Confirm Logout
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to update the displayed username
+        function updateUsernameDisplay() {
+            const currentUsernameElement = document.getElementById('current-username');
+            const storedUsername = localStorage.getItem('username');
+            const username = storedUsername ? storedUsername : 'Guest';
+            currentUsernameElement.textContent = username;
+        }
+
+        // Handle the username form submission
+        const usernameForm = document.getElementById('username-form');
+        const newUsernameInput = document.getElementById('new-username-input');
+        const messageDiv = document.getElementById('message');
+
+        usernameForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const newUsername = newUsernameInput.value.trim();
+            if (newUsername) {
+                // Save the new username to localStorage
+                localStorage.setItem('username', newUsername);
+                // Update the display on the page
+                updateUsernameDisplay();
+                // Show a success message
+                messageDiv.textContent = 'Username updated successfully!';
+                messageDiv.classList.remove('hidden', 'text-red-400');
+                messageDiv.classList.add('text-green-400');
+                // Clear the input field
+                newUsernameInput.value = '';
+            } else {
+                // Show an error message if the input is empty
+                messageDiv.textContent = 'Please enter a valid username.';
+                messageDiv.classList.remove('hidden', 'text-green-400');
+                messageDiv.classList.add('text-red-400');
+            }
+        });
+
+        // Get references for the new logout functionality
+        const logoutButton = document.getElementById('logout-button');
+        const confirmationModal = document.getElementById('confirmation-modal');
+        const cancelButton = document.getElementById('cancel-button');
+        const confirmLogoutButton = document.getElementById('confirm-logout-button');
+
+        // Show the confirmation modal when the logout button is clicked
+        logoutButton.addEventListener('click', () => {
+            confirmationModal.classList.remove('hidden');
+        });
+
+        // Hide the confirmation modal when the cancel button is clicked
+        cancelButton.addEventListener('click', () => {
+            confirmationModal.classList.add('hidden');
+        });
+
+        // Clear local data and redirect to the home page when confirm is clicked
+        confirmLogoutButton.addEventListener('click', () => {
+            localStorage.clear();
+            window.location.href = 'index.html';
+        });
+
+        // Mobile menu toggle functionality
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const hamburgerIcon = document.getElementById('hamburger-icon');
+        const closeIcon = document.getElementById('close-icon');
+
+        if (mobileMenuToggle && mobileMenu) {
+            mobileMenuToggle.addEventListener('click', () => {
+                const isMenuOpen = mobileMenu.classList.toggle('transform');
+                mobileMenu.classList.toggle('-translate-y-full');
+                mobileMenu.classList.toggle('opacity-0');
+                mobileMenu.classList.toggle('pointer-events-none');
+                
+                hamburgerIcon.classList.toggle('hidden');
+                closeIcon.classList.toggle('hidden');
+            });
+        }
+
+        // Initialize the username display when the page loads
+        document.addEventListener('DOMContentLoaded', updateUsernameDisplay);
+    </script>
+</body>
+</html>

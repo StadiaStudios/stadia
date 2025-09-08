@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StadiaStudios - Terms of Service</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.png">
+    <!-- Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111;
+            color: #c9d1d9;
+        }
+
+        .hero-section {
+            background: linear-gradient(180deg, rgba(13, 17, 23, 0.6) 0%, rgba(13, 17, 23, 0.8) 100%), url('assets/banner.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            padding-bottom: 8rem;
+        }
+
+        .cta-button {
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .gradient-text {
+            background-image: linear-gradient(to right, #6f80ff, #8a96ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* New nav-link effect */
+        .nav-link {
+            position: relative;
+            transition: color 0.2s ease;
+        }
+        .nav-link:hover {
+            color: #58a6ff;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #58a6ff;
+            transition: width 0.3s ease-in-out;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Active Link Styling */
+        .active-link {
+            color: #6f80ff; /* A brighter blue to indicate active state */
+            font-weight: 600; /* Bolder font for emphasis */
+        }
+        .active-link::after {
+            width: 100%;
+            background-color: #6f80ff;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #20232b;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #6f80ff;
+            border-radius: 10px;
+            border: 3px solid #20232b;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #8a96ff;
+        }
+
+        /* Mobile Menu */
+        #mobile-menu {
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+
+        /* Terms of Service specific styling */
+        .content-section {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        .content-section h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+        .content-section p {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        .content-section ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-[#161b22] bg-opacity-80 backdrop-filter backdrop-blur-lg shadow-sm border-b border-gray-700">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold tracking-tight text-white flex items-center">
+                <img src="assets/favicon.png" alt="StadiaStudios Logo" class="h-8 w-8 mr-1">
+                Stadia<span class="gradient-text">Studios</span>
+            </a>
+            <div class="hidden md:flex space-x-8 text-sm font-medium">
+                <a href="index.html" class="nav-link text-gray-400 hover:text-blue-400">Back to Browse</a>
+            </div>
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden">
+                <a href="index.html" class="nav-link text-gray-400 hover:text-blue-400">Back to Browse</a>
+            </div>
+        </div>
+    </nav>
+    
+    <main class="pt-20">
+        <!-- Hero Section -->
+        <section id="hero" class="hero-section text-center py-20 md:py-32">
+            <div class="container mx-auto px-4">
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight mb-4 text-white">
+                    Terms of <br class="hidden md:inline">
+                    <span class="gradient-text">Service</span>
+                </h1>
+            </div>
+        </section>
+
+        <!-- Terms of Service Content -->
+        <section class="content-section bg-[#111]">
+            <p class="text-gray-300">
+                Welcome to StadiaStudios. By accessing or using our website and services, you agree to be bound by these Terms of Service. Please read them carefully.
+            </p>
+
+            <h2>StadiaStudios Terms of Service</h2>
+            <p class="italic text-sm text-gray-400">
+                Last Updated: September 7, 2025
+            </p>
+
+            <h2>1. Introduction and Agreement to Terms</h2>
+            <p>
+                Welcome to StadiaStudios! These Terms of Service govern your use of our websites, games, applications, and services (collectively, the "Services"). The Services are provided by StadiaStudios,
+                By accessing or using any of our Services, you agree to be bound by these Terms. If you do not agree to these Terms, you may not use our Services.
+            </p>
+
+            <h2>2. Services Offered</h2>
+            <p>
+                StadiaStudios offers a range of digital products, including but not limited to games such as LumberTycoon and privacy-focused applications like our password manager, PassPro. These Terms apply equally to all Services.
+            </p>
+
+            <h2>3. Your StadiaStudios Account</h2>
+            <p>
+                On the official Website or in some cases a "Stadia App" You'll have a local account stored in your storage on your device. This allows you to save progress and do things such as add favorites.
+            </p>
+
+            <h2>5. Specific Terms for PassPro</h2>
+            <ul>
+                <li><strong>Encryption and User Responsibility:</strong> PassPro is a zero-knowledge service. This means all your data, including passwords, is encrypted on your device only. We cannot access or view your data.</li>
+                <li><strong>For Other TOS Regarding PassPro: </strong><a href="https://stadiastudios.github.io/passpro/terms_of_service.html" class="text-blue-400 hover:underline">Click Here</a></li>
+            </ul>
+        </section>
+    </main>
+
+</body>
+</html>
