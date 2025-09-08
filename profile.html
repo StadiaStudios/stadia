@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="assets/favicon.png">
-    <!-- Inter Font -->
+    <link rel="manifest" href="manifest.json">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -15,7 +14,7 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #111;
+            background-color: #161b22;
             color: #c9d1d9;
         }
 
@@ -116,26 +115,24 @@
     </div>
 
     <main class="pt-20">
-        <!-- Profile Section -->
-        <section class="py-16 md:py-24 bg-[#111]">
-            <div class="container mx-auto px-4 max-w-2xl text-center">
-                <div class="bg-[#161b22] border border-gray-700 rounded-xl p-8 shadow-lg">
-                    <h1 class="text-3xl md:text-4xl font-bold mb-4 text-white">Local Account</h1>
-                    <div class="mb-6">
-                        <p class="text-xl text-gray-400 mb-2">Name:</p>
-                        <p id="current-username" class="text-3xl font-semibold text-blue-400"></p>
-                    </div>
-                    <form id="username-form" class="space-y-4">
-                        <input type="text" id="new-username-input" placeholder="Enter new Name" class="w-full px-4 py-2 rounded-lg bg-[#222] border border-gray-600 text-white placeholder-gray-500 focus:outline-none focus:border-blue-400">
-                        <button type="submit" class="w-full bg-[#333] hover:bg-[#444] text-white font-medium py-2 px-4 rounded-lg transition duration-200">
-                            Update Name
-                        </button>
-                    </form>
-                    <div id="message" class="mt-4 text-sm font-medium hidden"></div>
-                    <button id="logout-button" class="mt-8 w-full bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200">
-                        Logout
-                    </button>
+        <!-- Profile Section - Now Fullscreen -->
+        <section class="min-h-screen py-16 md:py-24 flex items-center justify-center text-center">
+            <div class="w-full max-w-4xl mx-auto px-4">
+                <h1 class="text-3xl md:text-4xl font-bold mb-4 text-white">Local Account</h1>
+                <div class="mb-6">
+                    <p class="text-xl text-gray-400 mb-2">Name:</p>
+                    <p id="current-username" class="text-3xl font-semibold text-blue-400"></p>
                 </div>
+                <form id="username-form" class="space-y-4 max-w-sm mx-auto">
+                    <input type="text" id="new-username-input" placeholder="Enter new Name" class="w-full px-4 py-2 rounded-lg bg-[#222] border border-gray-600 text-white placeholder-gray-500 focus:outline-none focus:border-blue-400">
+                    <button type="submit" class="w-full bg-[#333] hover:bg-[#444] text-white font-medium py-2 px-4 rounded-lg transition duration-200">
+                        Update Name
+                    </button>
+                </form>
+                <div id="message" class="mt-4 text-sm font-medium hidden"></div>
+                <button id="logout-button" class="mt-8 max-w-sm mx-auto w-full bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200">
+                    Logout
+                </button>
             </div>
         </section>
     </main>
