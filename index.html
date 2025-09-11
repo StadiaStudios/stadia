@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StadiaStudios - The Future of Entertainment</title>
+    <title>StadiaStudios | Official Website</title>
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/svg+xml" href="assets/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,17 +13,16 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: arial;
             background-color: #111;
             color: #c9d1d9;
         }
 
         .hero-section {
-            background: linear-gradient(180deg, rgba(13, 17, 23, 0.6) 0%, rgba(13, 17, 23, 0.8) 100%), url('assets/banner.png');
+            background: url('assets/banner.png');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            padding-bottom: 8rem;
         }
 
         .cta-button {
@@ -40,367 +39,188 @@
         }
 
         .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
         }
 
-        .gradient-text {
-            background-image: linear-gradient(to right, #6f80ff, #8a96ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        /* New nav-link effect */
-        .nav-link {
+        .nav-link,
+        .footer-link {
             position: relative;
-            transition: color 0.2s ease;
         }
-        .nav-link:hover {
-            color: #58a6ff;
-        }
-        .nav-link::after {
+
+        .nav-link::after,
+        .footer-link::after {
             content: '';
             position: absolute;
+            left: 0;
+            bottom: -5px;
             width: 0;
             height: 2px;
-            bottom: -4px;
-            left: 0;
-            background-color: #58a6ff;
+            background-color: #168bf9;
             transition: width 0.3s ease-in-out;
         }
-        .nav-link:hover::after {
-            width: 100%;
-        }
 
-        /* Active Link Styling */
-        .active-link {
-            color: #6f80ff; /* A brighter blue to indicate active state */
-            font-weight: 600; /* Bolder font for emphasis */
-        }
-        .active-link::after {
+        .nav-link:hover::after,
+        .footer-link:hover::after {
             width: 100%;
-            background-color: #6f80ff;
-        }
-        
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 12px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #20232b;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb {
-            background-color: #6f80ff;
-            border-radius: 10px;
-            border: 3px solid #20232b;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background-color: #8a96ff;
-        }
-
-        /* Mobile Menu */
-        #mobile-menu {
-            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
         }
     </style>
 </head>
-<body class="overflow-x-hidden">
-
-    <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-[#161b22] bg-opacity-80 backdrop-filter backdrop-blur-lg shadow-sm border-b border-gray-700">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <a href="index.html" class="text-2xl font-bold tracking-tight text-white flex items-center">
-                <img src="assets/favicon.png" alt="StadiaStudios Logo" class="h-8 w-8 mr-1">
-                Stadia<span class="gradient-text">Studios</span>
-            </a>
-            <div class="hidden md:flex space-x-8 text-sm font-medium">
-                <a href="index.html" class="nav-link text-gray-400 hover:text-blue-400 active-link">Browse</a>
-                <a href="profile.html" class="nav-link text-gray-400 hover:text-blue-400">Account</a>
-                <a href="favorites.html" class="nav-link text-gray-400 hover:text-blue-400">Favorites</a>
+<body class="bg-[#0D1117] text-[#C9D1D9]">
+    <header class="p-6 sticky top-0 z-10 bg-[#111] bg-opacity-90 backdrop-blur-sm">
+        <nav class="container mx-auto flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-[#E6EDF3]">StadiaStudios</a>
+            <div class="hidden md:flex space-x-6">
+                <a href="index.html" class="nav-link text-white hover:text-white-500 transition-colors">Browse</a>
             </div>
-            <!-- Mobile Menu Button -->
             <div class="md:hidden">
-                <button id="mobile-menu-toggle" class="text-gray-400 hover:text-white focus:outline-none">
-                    <svg id="hamburger-icon" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <button class="text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                    </svg>
-                    <svg id="close-icon" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
                 </button>
             </div>
-        </div>
-    </nav>
-    
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="fixed inset-0 z-40 bg-[#161b22] flex flex-col justify-center items-center transform -translate-y-full opacity-0 pointer-events-none">
-        <a href="index.html" class="text-3xl font-medium text-gray-400 hover:text-blue-400 active-link transition-colors duration-200 mb-6">Browse</a>
-        <a href="profile.html" class="text-3xl font-medium text-gray-400 hover:text-blue-400 transition-colors duration-200 mb-6">Account</a>
-        <a href="favorites.html" class="text-3xl font-medium text-gray-400 hover:text-blue-400 transition-colors duration-200 mb-6">Favorites</a>
-    </div>
+        </nav>
+    </header>
 
-    <main class="pt-20">
-        <!-- Hero Section -->
-        <section id="hero" class="hero-section text-center py-20 md:py-32">
-            <div class="container mx-auto px-4">
-                <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight mb-4 text-white">
-                    Stadia <br class="hidden md:inline">
-                    <span class="gradient-text">Studios</span>
-                </h1>
-            </div>
+    <main>
+        <section class="hero-section text-center py-20 px-4 md:py-32 rounded-b-3xl bg-fixed">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-[#E6EDF3] leading-tight">
+                StadiaStudios
+            </h1>
+            <p class="text-lg md:text-xl text-[#8B949E] mt-4 mb-8 max-w-2xl mx-auto">
+                Discover a curated collection of innovative and engaging web apps that will change the way you play and work.
+            </p>
+            <a href="#apps" class="cta-button bg-[#238636] hover:bg-[#2EA043] text-white font-medium py-3 px-8 rounded-full text-lg shadow-lg">
+                Explore Apps
+            </a>
         </section>
 
-        <!-- Welcome Section -->
-        <section id="welcome-message" class="py-16 md:py-24 bg-[#111]">
-            <div class="container mx-auto px-4 max-w-4xl text-center">
-                <h2 id="welcome-heading" class="text-3xl md:text-4xl font-bold mb-6 text-white"></h2>
-            </div>
-        </section>
+        <section id="apps" class="container mx-auto py-16 px-4">
+            <h2 class="text-3xl font-bold text-center text-[#E6EDF3] mb-12">Tool Applications</h2>
+            <div id="app-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <div class="app-card card bg-[#161B22] rounded-2xl overflow-hidden shadow-lg border border-[#30363D]">
+                    <!-- Updated image class to w-full to ensure it fills the container on all screen sizes -->
+                    <img src="assets/apps/pp.png" alt="Game Hub" class="w-full mx-auto aspect-square object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-[#E6EDF3] mb-2">PassPro</h3>
+                        <p class="text-[#8B949E] text-sm mb-4">This app is a Free Password manager app that saves your data. To install it just add it to your homescreen. Make sure to backup data as well, Set a PIN Lock.</p>
+                        <div class="flex justify-between items-center">
+                            <a href="https://stadiastudios.github.io/passpro/" class="cta-button bg-[#30363D] hover:bg-[#444C56] text-white font-medium py-2 px-6 rounded-full text-sm">
+                                Open
+                            </a>
+                        </div>
+                    </div>
+                </div>
 
-        <!-- Apps Section -->
-        <section id="apps" class="py-16 md:py-24 bg-[#111]">
-            <div class="container mx-auto px-4">
-                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-white">Apps</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Apps Card 1 -->
-                    <div class="card app-card bg-[#161b22] border border-gray-700 rounded-xl p-6 flex flex-col items-center text-center" data-app-id="app-1" data-app-title="PassPro" data-app-desc="This app is a Free Password manager app that saves your data. To install it just add it to your homescreen. Make sure to backup data as well, Set a PIN Lock." data-app-img="assets/apps/pp.png" data-app-url="https://stadiastudios.github.io/passpro/">
-                        <img src="assets/apps/pp.png" alt="App 1 Icon" class="w-28 h-28 rounded-lg mb-4 shadow-lg">
-                        <h3 class="text-2xl font-semibold mb-2 text-white">PassPro</h3>
-                        <p class="text-gray-400 text-sm mb-4">This app is a Free Password manager app that saves your data. To install it just add it to your homescreen. Make sure to backup data as well, Set a PIN Lock.</p>
-                        <div class="flex items-center space-x-4">
-                             <a href="https://stadiastudios.github.io/passpro/" class="cta-button inline-block bg-[#222] hover:bg-[#333] text-white font-medium py-2 px-6 rounded-full text-sm">Open PassPro</a>
-                             <button class="favorite-button p-2 rounded-full hover:bg-gray-700">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400 hover:text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    <!-- Apps Card 2 -->
-                    <div class="card app-card bg-[#161b22] border border-gray-700 rounded-xl p-6 flex flex-col items-center text-center" data-app-id="app-2" data-app-title="LumberTycoon" data-app-desc="Build your lumber empire, chop trees, and become a tycoon!" data-app-img="assets/apps/lumbertycoon.png" data-app-url="https://stadiastudios.github.io/lumbertycoon">
-                        <img src="assets/apps/lumbertycoon.png" alt="App 2 Icon" class="w-28 h-28 rounded-lg mb-4 shadow-lg">
-                        <h3 class="text-2xl font-semibold mb-2 text-white">LumberTycoon</h3>
-                        <p class="text-gray-400 text-sm mb-4">Build your lumber empire, chop trees, and become a tycoon!</p>
-                        <div class="flex items-center space-x-4">
-                             <a href="https://drive.google.com/uc?export=download&id=1mj8yHtBDRuv9PZLUzQ4ecu0VLUVl6Ybj" class="cta-button inline-block bg-[#222] hover:bg-[#333] text-white font-medium py-2 px-6 rounded-full text-sm">Download Now</a>
-                             <button class="favorite-button p-2 rounded-full hover:bg-gray-700">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400 hover:text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    <!-- Apps Card 3 -->
-                    <div class="card app-card bg-[#161b22] border border-gray-700 rounded-xl p-6 flex flex-col items-center text-center" data-app-id="app-3" data-app-title="Jet Surfers" data-app-desc="Float through space, Dodge Obstacles, Upgrade, Buy Jets," data-app-img="assets/apps/JetSurfers.png" data-app-url="https://stadiastudios.github.io/JetSurfers">
-                        <img src="assets/apps/JetSurfers.png" alt="App 3 Icon" class="w-28 h-28 rounded-lg mb-4 shadow-lg">
-                        <h3 class="text-2xl font-semibold mb-2 text-white">Jet Surfers</h3>
-                        <p class="text-gray-400 text-sm mb-4">Float through space, Dodge Obstacles, Upgrade, Buy Jets,</p>
-                        <div class="flex items-center space-x-4">
-                             <a href="https://drive.google.com/uc?export=download&id=14gJk2N3nFoSUFlROreiqdDq7NsEqcGUF" class="cta-button inline-block bg-[#222] hover:bg-[#333] text-white font-medium py-2 px-6 rounded-full text-sm">Download Now</a>
-                             <button class="favorite-button p-2 rounded-full hover:bg-gray-700">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400 hover:text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    <!-- New App Card 4 - GDrive Link Generator -->
-                    <div class="card app-card bg-[#161b22] border border-gray-700 rounded-xl p-6 flex flex-col items-center text-center" data-app-id="app-4" data-app-title="Gdrive Generator" data-app-desc="Generate direct download links for Google Drive files." data-app-img="assets/apps/gdrive.png" data-app-url="webapp/gdrivegen/run.html">
-                        <img src="assets/apps/gdrive.png" alt="GDrive Direct Link Icon" class="w-28 h-28 rounded-lg mb-4 shadow-lg">
-                        <h3 class="text-2xl font-semibold mb-2 text-white">Gdrive Generator</h3>
-                        <p class="text-gray-400 text-sm mb-4">Generate direct download links for Google Drive files.</p>
-                        <div class="flex items-center space-x-4">
-                             <a href="webapp/gdrivegen/run.html" class="cta-button inline-block bg-[#222] hover:bg-[#333] text-white font-medium py-2 px-6 rounded-full text-sm">Open App</a>
-                             <button class="favorite-button p-2 rounded-full hover:bg-gray-700">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400 hover:text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    <!-- New App Card 5 - YT Sub Link Generator -->
-                    <div class="card app-card bg-[#161b22] border border-gray-700 rounded-xl p-6 flex flex-col items-center text-center" data-app-id="app-5" data-app-title="YT Sub Link Generator" data-app-desc="Generate direct YouTube channel subscription links." data-app-img="assets/apps/ytlinkgenerator.png" data-app-url="webapp/ytsubgen/gen.html">
-                        <img src="assets/apps/ytlinkgenerator.png" alt="YT Sub Link Generator Icon" class="w-28 h-28 rounded-lg mb-4 shadow-lg">
-                        <h3 class="text-2xl font-semibold mb-2 text-white">YT Sub Link Generator</h3>
-                        <p class="text-gray-400 text-sm mb-4">Generate direct YouTube channel subscription links.</p>
-                        <div class="flex items-center space-x-4">
-                             <a href="webapp/ytsubgen/gen.html" class="cta-button inline-block bg-[#222] hover:bg-[#333] text-white font-medium py-2 px-6 rounded-full text-sm">Open App</a>
-                             <button class="favorite-button p-2 rounded-full hover:bg-gray-700">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400 hover:text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card app-card bg-[#161b22] border border-gray-700 rounded-xl p-6 flex flex-col items-center text-center" data-app-id="app-6" data-app-title="StadiaPad+" data-app-desc="A simple, Notes/Code Editor App." data-app-img="assets/apps/stadiapad.png" data-app-url="stadiapadplus.html">
-                        <img src="assets/apps/stadiapad.png" alt="StadiaPad+ Icon" class="w-28 h-28 rounded-lg mb-4 shadow-lg">
-                        <h3 class="text-2xl font-semibold mb-2 text-white">StadiaPad+</h3>
-                        <p class="text-gray-400 text-sm mb-4">A simple, Notes/Code Editor App.</p>
-                        <div class="flex items-center space-x-4">
-                             <a href="https://stadiastudios.github.io/stadiapadplus" class="cta-button inline-block bg-[#222] hover:bg-[#333] text-white font-medium py-2 px-6 rounded-full text-sm">Open App</a>
-                             <button class="favorite-button p-2 rounded-full hover:bg-gray-700">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400 hover:text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                </svg>
-                            </button>
+                <div class="app-card card bg-[#161B22] rounded-2xl overflow-hidden shadow-lg border border-[#30363D]">
+                    <!-- Updated image class to w-full to ensure it fills the container on all screen sizes -->
+                    <img src="assets/apps/stadiapad.png" alt="NoteSync" class="w-full mx-auto aspect-square object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-[#E6EDF3] mb-2">StadiaPad+</h3>
+                        <p class="text-[#8B949E] text-sm mb-4">A simple, Notes/Code Editor App.</p>
+                        <div class="flex justify-between items-center">
+                            <a href="https://stadiastudios.github.io/stadiapadplus/" class="cta-button bg-[#30363D] hover:bg-[#444C56] text-white font-medium py-2 px-6 rounded-full text-sm">
+                                Open
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Security App Section -->
-        <section id="security-app" class="py-16 md:py-24 bg-[#111]">
-            <div class="container mx-auto px-4">
-                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-white">Security Apps</h2>
-                <div class="grid grid-cols-1 gap-8">
-                    <!-- Security App Card 1 -->
-                    <div class="card app-card bg-[#161b22] border border-gray-700 rounded-xl p-6 flex flex-col items-center text-center" data-app-id="sec-1" data-app-title="PassPro" data-app-desc="This app is a Free Password manager app that saves your data. To install it just add it to your homescreen. Make sure to backup data as well, Set a PIN Lock." data-app-img="assets/apps/pp.png" data-app-url="https://stadiastudios.github.io/passpro/">
-                        <img src="assets/apps/pp.png" alt="Virus Shield Icon" class="w-28 h-28 rounded-lg mb-4 shadow-lg">
-                        <h3 class="text-2xl font-semibold mb-2 text-white">PassPro</h3>
-                        <p class="text-gray-400 text-sm mb-4">This app is a Free Password manager app that saves your data. To install it just add it to your homescreen. Make sure to backup data as well, Set a PIN Lock.</p>
-                        <div class="flex items-center space-x-4">
-                             <a href="https://stadiastudios.github.io/passpro/" class="cta-button inline-block bg-[#222] hover:bg-[#333] text-white font-medium py-2 px-6 rounded-full text-sm">Open App in New Tab</a>
-                             <button class="favorite-button p-2 rounded-full hover:bg-gray-700">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400 hover:text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                </svg>
-                            </button>
+        <section id="generator-apps" class="container mx-auto py-16 px-4">
+            <h2 class="text-3xl font-bold text-center text-[#E6EDF3] mb-12">Generator Applications</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <div class="app-card card bg-[#161B22] rounded-2xl overflow-hidden shadow-lg border border-[#30363D]">
+                    <!-- Updated image class to w-full to ensure it fills the container on all screen sizes -->
+                    <img src="assets/apps/ytlinkgenerator.png" alt="Generator App" class="w-full mx-auto aspect-square object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-[#E6EDF3] mb-2">YT Sub Link Generator</h3>
+                        <p class="text-[#8B949E] text-sm mb-4">Generate direct YouTube channel subscription links.</p>
+                        <div class="flex justify-between items-center">
+                            <a href="webapp/ytsubgen/gen.html" class="cta-button bg-[#30363D] hover:bg-[#444C56] text-white font-medium py-2 px-6 rounded-full text-sm">
+                                Open
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="app-card card bg-[#161B22] rounded-2xl overflow-hidden shadow-lg border border-[#30363D]">
+                    <!-- Updated image class to w-full to ensure it fills the container on all screen sizes -->
+                    <img src="assets/apps/gdrive.png" alt="Generator App" class="w-full mx-auto aspect-square object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-[#E6EDF3] mb-2">Gdrive Generator</h3>
+                        <p class="text-[#8B949E] text-sm mb-4">Generate direct download links for Google Drive files.</p>
+                        <div class="flex justify-between items-center">
+                            <a href="webapp/gdrivegen/run.html" class="cta-button bg-[#30363D] hover:bg-[#444C56] text-white font-medium py-2 px-6 rounded-full text-sm">
+                                Open
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
+        <section id="generator-apps" class="container mx-auto py-16 px-4">
+            <h2 class="text-3xl font-bold text-center text-[#E6EDF3] mb-12">Games</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <div class="app-card card bg-[#161B22] rounded-2xl overflow-hidden shadow-lg border border-[#30363D]">
+                    <!-- Updated image class to w-full to ensure it fills the container on all screen sizes -->
+                    <img src="assets/apps/lumbertycoon.png" alt="Generator App" class="w-full mx-auto aspect-square object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-[#E6EDF3] mb-2">Lumber Tycoon</h3>
+                        <p class="text-[#8B949E] text-sm mb-4">Build your lumber empire, chop trees, and become a tycoon!</p>
+                        <div class="flex justify-between items-center">
+                            <a href="https://drive.google.com/uc?export=download&id=1mj8yHtBDRuv9PZLUzQ4ecu0VLUVl6Ybj" class="cta-button bg-[#30363D] hover:bg-[#444C56] text-white font-medium py-2 px-6 rounded-full text-sm">
+                                Download Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="app-card card bg-[#161B22] rounded-2xl overflow-hidden shadow-lg border border-[#30363D]">
+                    <!-- Updated image class to w-full to ensure it fills the container on all screen sizes -->
+                    <img src="assets/apps/JetSurfers.png" alt="Generator App" class="w-full mx-auto aspect-square object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-[#E6EDF3] mb-2">Jet Surfers</h3>
+                        <p class="text-[#8B949E] text-sm mb-4">Float through space, Dodge Obstacles, Upgrade, Buy Jets.</p>
+                        <div class="flex justify-between items-center">
+                            <a href="https://drive.google.com/uc?export=download&id=14gJk2N3nFoSUFlROreiqdDq7NsEqcGUF" class="cta-button bg-[#30363D] hover:bg-[#444C56] text-white font-medium py-2 px-6 rounded-full text-sm">
+                                Download Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="bg-[#161B22] rounded-t-3xl py-16 px-4">
+            <div class="container mx-auto text-center">
+                <h2 class="text-3xl font-bold text-[#E6EDF3] mb-4">About StadiaStudios</h2>
+                <p class="text-lg text-[#8B949E] max-w-3xl mx-auto">
+                    StadiaStudios is dedicated to building innovative and user-friendly web applications that redefine digital experiences. Our team is passionate about creating tools that are both powerful and accessible, and we're always working on new projects to bring you the best in web technology.
+                </p>
+            </div>
+        </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-[#161b22] py-10 border-t border-gray-700">
-        <div class="container mx-auto px-4 text-center">
-            <div class="flex flex-col md:flex-row justify-center md:space-x-8 space-y-4 md:space-y-0 text-sm mb-6">
-                <a href="https://yaktenz.github.io/mayolibrary" class="nav-link text-gray-400 hover:text-gray-200">Mayonaise</a>
-                <a href="terms.html" class="nav-link text-gray-400 hover:text-gray-200">Terms And Conditions</a>
-                <a href="download.html" class="nav-link text-gray-400 hover:text-gray-200">Stadia Launcher</a>
+    <footer class="bg-[#0D1117] text-[#8B949E] py-8">
+        <div class="container mx-auto text-center">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="terms.html" class="footer-link text-gray hover:text-[#FFFFFF] transition-colors">Terms of Service</a>
+                <a href="https://yaktenz.github.io/mayolibrary" class="footer-link text-gray hover:text-[#FFFFFF] transition-colors">Mayonaise</a>
             </div>
-            <p class="text-gray-500 text-xs mt-4">
-                © 2025 StadiaStudios. All rights reserved.
-            </p>
+            <p>&copy; 2025 StadiaStudios. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
-        // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
-                // Prevent default behavior for all links starting with #
                 e.preventDefault();
-                
-                // Get the href attribute
-                const href = this.getAttribute('href');
-
-                // Check if the href is just a '#' or empty, and return if so
-                if (href === '#' || href === '') {
-                    return;
-                }
-
-                // Smooth scroll to the section
-                const targetElement = document.querySelector(href);
-                if (targetElement) {
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
             });
-        });
-
-        // Mobile menu toggle functionality
-        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const hamburgerIcon = document.getElementById('hamburger-icon');
-        const closeIcon = document.getElementById('close-icon');
-
-        if (mobileMenuToggle && mobileMenu) {
-            mobileMenuToggle.addEventListener('click', () => {
-                mobileMenu.classList.toggle('transform');
-                mobileMenu.classList.toggle('-translate-y-full');
-                mobileMenu.classList.toggle('opacity-0');
-                mobileMenu.classList.toggle('pointer-events-none');
-                
-                hamburgerIcon.classList.toggle('hidden');
-                closeIcon.classList.toggle('hidden');
-            });
-        }
-        
-        // Get the welcome heading element
-        const welcomeHeading = document.getElementById('welcome-heading');
-
-        // Check for a saved username in localStorage
-        const storedUsername = localStorage.getItem('username');
-        const username = storedUsername ? storedUsername : 'Guest';
-
-        // Update the welcome message
-        welcomeHeading.textContent = `Welcome to StadiaStudios, ${username}!`;
-
-        // Favorite functionality
-        const favoriteButtons = document.querySelectorAll('.favorite-button');
-        const appCards = document.querySelectorAll('.app-card');
-
-        // Initial state of favorite buttons
-        function updateFavoriteButtons() {
-            const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-            appCards.forEach(card => {
-                const appId = card.getAttribute('data-app-id');
-                const isFavorited = favorites.some(app => app.id === appId);
-                const favoriteButton = card.querySelector('.favorite-button');
-                const heartIcon = favoriteButton.querySelector('svg');
-                if (isFavorited) {
-                    heartIcon.classList.remove('text-gray-400', 'hover:text-red-500');
-                    heartIcon.classList.add('text-red-500');
-                    heartIcon.setAttribute('fill', 'currentColor');
-                } else {
-                    heartIcon.classList.remove('text-red-500');
-                    heartIcon.classList.add('text-gray-400', 'hover:text-red-500');
-                    heartIcon.setAttribute('fill', 'none');
-                }
-            });
-        }
-
-        favoriteButtons.forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.preventDefault();
-                const card = e.target.closest('.app-card');
-                const appId = card.getAttribute('data-app-id');
-                const appTitle = card.getAttribute('data-app-title');
-                const appDesc = card.getAttribute('data-app-desc');
-                const appImg = card.getAttribute('data-app-img');
-                const appUrl = card.getAttribute('data-app-url');
-
-                let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-                const existingAppIndex = favorites.findIndex(app => app.id === appId);
-
-                if (existingAppIndex > -1) {
-                    // App is already favorited, remove it
-                    favorites.splice(existingAppIndex, 1);
-                } else {
-                    // App is not favorited, add it
-                    favorites.push({
-                        id: appId,
-                        title: appTitle,
-                        description: appDesc,
-                        image: appImg,
-                        url: appUrl
-                    });
-                }
-                
-                localStorage.setItem('favorites', JSON.stringify(favorites));
-                updateFavoriteButtons();
-            });
-        });
-
-        // Run on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            updateFavoriteButtons();
         });
     </script>
 </body>
