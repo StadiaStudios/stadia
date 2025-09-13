@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud App Store | Settings</title>
+    <link rel="manifest" href="../manifest.json">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-color: #111111;
+            color: #f5f5f7;
+        }
+        
+        .card-bg {
+            background-color: #222222;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: #444444;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header with navigation buttons pointing back to the main app store and downloads -->
+    <header class="flex flex-col md:flex-row items-center justify-between p-4 md:px-8 pb-6 border-b border-gray-700 mb-6 sticky top-0 z-40 bg-[#111]">
+        
+        <!-- Profile picture on mobile -->
+        <div id="profilePictureContainerMobile" class="block md:hidden">
+            <a href="settings.html">
+                <img id="navbarProfilePictureMobile" class="w-10 h-10 rounded-full cursor-pointer border-4 border-gray-600 object-cover hover:border-blue-500 transition-colors duration-200" src="https://placehold.co/96x96/444444/ffffff?text=Add" alt="Profile Picture">
+            </a>
+        </div>
+
+        <h1 class="text-4xl font-bold tracking-tight cursor-pointer"><a href="index.html">Cloud App Store</a></h1>
+        
+        <div class="flex items-center gap-4 w-full md:w-auto mt-4 md:mt-0">
+            <!-- Downloads Button -->
+            <a href="downloads.html" class="px-4 py-2 bg-[none] text-white-700 rounded-full hover:text-[orange] transition-colors duration-200">
+                <span class="hidden md:inline">Downloads</span>
+                <img src="assets/downloads.png" alt="Downloads icon" class="md:hidden w-6 h-6">
+            </a>
+            
+            <!-- Settings Button (now hidden on desktop) -->
+            <a href="settings.html" class="px-4 py-2 bg-[none] text-white-700 rounded-full hover:text-[orange] transition-colors duration-200 md:hidden">
+                <span class="hidden md:inline">Settings</span>
+                <img src="assets/settings.png" alt="Settings icon" class="md:hidden w-6 h-6">
+            </a>
+            
+            <!-- Search container with conditional visibility -->
+            <div id="searchContainer" class="relative w-full md:w-96">
+                <!-- Search icon for mobile -->
+                <button id="searchIconBtn" class="block md:hidden absolute right-0 top-1/2 transform -translate-y-1/2 p-2 text-blue-400">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
+                </button>
+                
+                <!-- Search input form -->
+                <form id="searchForm" class="hidden absolute inset-x-0 top-1/2 transform -translate-y-1/2 md:relative md:top-auto md:transform-none card-bg rounded-full shadow-lg md:shadow-none transition-all duration-300 md:flex">
+                    <input type="text" id="searchInput" placeholder="Search for games, apps, stories, and more" class="w-full px-4 py-2 pl-10 pr-4 rounded-full bg-transparent focus:outline-none text-base text-gray-100 placeholder-gray-400">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Profile picture on desktop -->
+            <div id="profilePictureContainer" class="hidden md:flex items-center">
+                <a href="settings.html">
+                    <img id="navbarProfilePicture" class="w-10 h-10 rounded-full cursor-pointer border-4 border-gray-600 object-cover hover:border-blue-500 transition-colors duration-200" src="https://placehold.co/96x96/444444/ffffff?text=Add" alt="Profile Picture">
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container for Settings -->
+    <div class="p-4 md:p-8">
+        <div id="settingsPage">
+            <h2 class="text-3xl font-bold tracking-tight mb-6">Settings</h2>
+            <div class="card-bg p-6 shadow-md space-y-6">
+                <!-- Profile Picture Section -->
+                <div class="flex flex-col items-center">
+                    <label class="block text-gray-400 mb-2">Profile Picture</label>
+                    <img id="profilePicture" class="w-24 h-24 rounded-full border-2 border-gray-600 object-cover mb-4" src="https://placehold.co/96x96/444444/ffffff?text=Add" alt="Profile Picture">
+                    <input type="file" id="profilePictureInput" class="hidden" accept="image/*">
+                    <button id="addProfilePicBtn" class="px-6 py-2 bg-blue-500 text-white font-semibold hover:bg-blue-600 transition-colors duration-200">Add Profile Picture</button>
+                    <p id="profilePicMessage" class="hidden text-green-400 mt-2">Profile picture saved successfully!</p>
+                </div>
+
+                <hr class="border-gray-700">
+
+                <!-- Full Name Section -->
+                <div>
+                    <label for="fullNameInput" class="block text-gray-400 mb-2">Full Name</label>
+                    <input type="text" id="fullNameInput" class="w-full px-4 py-2 bg-[#333] text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="Enter your full name">
+                    <button id="saveNameBtn" class="mt-4 px-6 py-2 bg-green-700 text-white font-semibold hover:bg-green-600 transition-colors duration-200">Save Name</button>
+                    <p id="nameSavedMessage" class="hidden text-green-400 mt-2">Name saved successfully!</p>
+                </div>
+                
+                <hr class="border-gray-700">
+
+                <!-- Clear Cache Section -->
+                <div>
+                    <button id="resetAppBtn" class="px-6 py-2 bg-red-500 text-white font-semibold hover:bg-red-600 transition-colors duration-200">Clear Cache</button>
+                    <p class="text-sm text-gray-400 mt-2">This will clear all downloaded apps and settings from your device.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const fullNameInput = document.getElementById('fullNameInput');
+            const saveNameBtn = document.getElementById('saveNameBtn');
+            const nameSavedMessage = document.getElementById('nameSavedMessage');
+            const resetAppBtn = document.getElementById('resetAppBtn');
+            const profilePicture = document.getElementById('profilePicture');
+            const profilePictureInput = document.getElementById('profilePictureInput');
+            const addProfilePicBtn = document.getElementById('addProfilePicBtn');
+            const profilePicMessage = document.getElementById('profilePicMessage');
+            const navbarProfilePicture = document.getElementById('navbarProfilePicture');
+            const navbarProfilePictureMobile = document.getElementById('navbarProfilePictureMobile');
+
+            // Mock app data for search functionality
+            const apps = [
+                { id: 1, name: 'Spotify', developer: 'Spotify Ltd.', category: 'Music', rating: 4.7, description: 'Listen to music and podcasts on a personalized platform. Explore new songs, artists, and albums.', icon: 'assets/apps/spotify.png', url: 'https://www.spotify.com' },
+                { id: 2, name: 'Minecraft', developer: 'Mojang', category: 'Games', rating: 4.5, description: 'Explore infinite worlds and build everything from the simplest of homes to the grandest of castles. This is the Classic Version', icon: 'assets/apps/minecraft.png', url: 'https://classic.minecraft.net' },
+                { id: 3, name: 'TikTok', developer: 'TikTok Inc.', category: 'Entertainment', rating: 4.6, description: 'A global video community where you can share short, creative videos with the world.', icon: 'assets/apps/tiktok.jpg', url: 'https://www.tiktok.com' },
+                { id: 4, name: 'Flexi AI', developer: 'CK-12 Foundation.', category: 'AI', rating: 3.9, description: 'Flexi – The Free AI Tutor for Math, Science & Homework Help!', icon: 'assets/apps/flexi.png', url: 'https://www.ck12.org/flexi' },
+                { id: 5, name: 'Krunker', developer: 'FRVR', category: 'Games', rating: 2.2, description: 'Krunker.io is a fast-paced, pixelated first-person shooter (FPS) that can be played for free directly in a web browser. It features online multiplayer battles where players from around the world compete in various arenas. The game requires no download or setup and has a simple, low-poly art style reminiscent of Minecraft or Roblox', icon: 'assets/apps/krunker.png', url: 'https://krunker.io/' },
+                { id: 6, name: 'Grammarly Humanizer', developer: 'Grammarly LLC', category: 'AI', rating: 4.6, description: 'Rewrite paragraphs in seconds. With Grammarlys free online paragraph rewriter, you can use AI to instantly rewrite text for essays, articles, and more.', icon: 'assets/apps/grammarly.png', url: 'https://www.grammarly.com/ai-humanizer' },
+                { id: 7, name: 'YT Sub Link Generator', developer: 'StadiaStudios', category: 'Utilities', rating: 4.9, description: 'Generate direct YouTube channel subscription links.', icon: 'assets/apps/ytlinkgenerator.png', url: 'https://www.google.com/gmail/' },
+                { id: 8, name: 'PassPro', developer: 'StadiaStudios', category: 'Utilities', rating: 5, description: 'A secure password manager to store and manage all your login credentials.', icon: 'assets/apps/passpro.png', url: 'https://stadiastudios.github.io/passpro/' },
+                { id: 9, name: 'StadiaPad+', developer: 'StadiaStudios', category: 'Utilities', rating: 5, description: 'A simple, Notes/Code Editor App.', icon: 'assets/apps/stadiapad.png', url: 'https://stadiastudios.github.io/stadiapadplus/' },
+            ];
+
+            // Functions for local storage - duplicated here to keep file self-contained
+            const getFullName = () => {
+                return localStorage.getItem('fullName') || '';
+            };
+
+            const saveFullName = (name) => {
+                localStorage.setItem('fullName', name);
+            };
+
+            const getProfilePicture = () => {
+                return localStorage.getItem('profilePicture') || 'https://placehold.co/96x96/444444/ffffff?text=Add';
+            };
+
+            const saveProfilePicture = (base64Image) => {
+                localStorage.setItem('profilePicture', base64Image);
+                navbarProfilePicture.src = base64Image;
+                navbarProfilePictureMobile.src = base64Image;
+            };
+
+            // Settings page event listeners
+            saveNameBtn.addEventListener('click', () => {
+                const name = fullNameInput.value.trim();
+                if (name) {
+                    saveFullName(name);
+                    nameSavedMessage.style.display = 'block';
+                    setTimeout(() => {
+                        nameSavedMessage.style.display = 'none';
+                    }, 3000);
+                }
+            });
+
+            // Profile picture functionality
+            addProfilePicBtn.addEventListener('click', () => {
+                profilePictureInput.click();
+            });
+
+            profilePictureInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        const base64Image = event.target.result;
+                        saveProfilePicture(base64Image);
+                        profilePicture.src = base64Image;
+                        profilePicMessage.textContent = 'Profile picture saved!';
+                        profilePicMessage.classList.remove('hidden');
+                        setTimeout(() => {
+                            profilePicMessage.classList.add('hidden');
+                        }, 3000);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            resetAppBtn.addEventListener('click', () => {
+                localStorage.clear();
+                location.reload();
+            });
+
+            // Function to initialize the navbar profile picture
+            const initializeNavbarProfilePicture = () => {
+                const profilePicSrc = getProfilePicture();
+                navbarProfilePicture.src = profilePicSrc;
+                navbarProfilePictureMobile.src = profilePicSrc;
+                profilePicture.src = profilePicSrc; // This line was added to fix the issue
+            };
+
+            // Search bar functionality (copied from index.html)
+            const searchInput = document.getElementById('searchInput');
+            const searchForm = document.getElementById('searchForm');
+            const searchIconBtn = document.getElementById('searchIconBtn');
+            const mainContent = document.querySelector('.p-4.md\\:p-8');
+
+            searchIconBtn.addEventListener('click', () => {
+                searchForm.classList.remove('hidden');
+                searchForm.classList.add('flex');
+                searchInput.focus();
+            });
+
+            searchForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                if (window.innerWidth < 768) {
+                    searchForm.classList.remove('flex');
+                    searchForm.classList.add('hidden');
+                }
+            });
+
+            searchInput.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                const filteredApps = apps.filter(app => 
+                    app.name.toLowerCase().includes(searchTerm) ||
+                    app.developer.toLowerCase().includes(searchTerm) ||
+                    app.category.toLowerCase().includes(searchTerm)
+                );
+                // The settings page doesn't have an app list, so we'll just hide the settings content
+                // and show a "No apps found" message.
+                if (searchTerm.length > 0) {
+                    mainContent.innerHTML = `
+                        <h2 class="text-3xl font-bold tracking-tight mb-6">Search Results</h2>
+                        <div id="searchResults" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 mb-8">
+                            <p class="text-center text-gray-400 text-lg col-span-full">No apps found matching your search on this page. Search the main store!</p>
+                        </div>
+                    `;
+                } else {
+                    // Reload the page to restore the original settings content
+                    location.reload();
+                }
+            });
+
+            // Initial render of downloaded apps
+            fullNameInput.value = getFullName();
+            initializeNavbarProfilePicture();
+        });
+    </script>
+</body>
+</html>
