@@ -2,7 +2,7 @@
   "name": "App Store",
   "short_name": "StadiaStore",
   "description": "Your hub for StadiaProjects",
-  "start_url": "appstore/downloads.html",
+  "start_url": "downloads.html",
   "display": "standalone",
   "background_color": "#111",
   "theme_color": "#111",
@@ -19,3 +19,4 @@
     }
   ]
 }
+
