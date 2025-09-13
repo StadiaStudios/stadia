@@ -200,7 +200,7 @@
                 { id: 12, name: 'Fortnite', developer: 'Epic Games', category: 'Games', rating: 4.4, description: 'If you can dream it, you can do it in Fortnite. <br><br>A world of new experiences is now at your fingertips on the go, from blasting your way to victory in tactical last-player-standing shooters like Battle Royale and Reload, to headlining a concert in front of screaming fans in Festival, to building a house or Village in LEGO® Fortnite. Not to mention tens of thousands of creator-made games with new ones released every day!', icon: 'assets/apps/fortnite.png', url: 'https://www.xbox.com/en-US/play/games/fortnite/BT5P2X999VH2' },
                 { id: 13, name: 'Discord - Talk, Play, Hang Out', developer: 'Discord, Inc', category: 'Social', rating: 4.7, description: 'Group Chat That’s Fun & Games', icon: 'assets/apps/discord.jpg', url: 'https://discord.com/login' },
                 { id: 14, name: 'SoundCloud: The Music You Love', developer: 'SoundCloud Global Limited & Co KG', category: 'Music', rating: 4.8, description: 'Discover 400+ million songs', icon: 'assets/apps/soundcloud.png', url: 'https://soundcloud.com/' },
-                { id: 14, name: 'IMG Extractor (Coming Soon...)', developer: 'StadiaStudios', category: 'Utilities', rating: 4.8, description: 'Quickly Download images by URL in a PNG or JPG Format.', icon: 'assets/user/default.jpg', url: '#' },
+                { id: 14, name: 'IMG Extractor', developer: 'StadiaStudios', category: 'Utilities', rating: 4.8, description: 'Quickly Download images by URL in a PNG or JPG Format.', icon: 'assets/apps/imgextracter.png', url: '../webapp/imgextracter/index.html' },
             ];
 
             const getDownloads = () => {
@@ -314,7 +314,7 @@
                 
                 if (isDownloaded) {
                     buttonText = 'OPEN';
-                    buttonClass = 'bg-blue-500 hover:bg-green-600';
+                    buttonClass = 'bg-blue-500 hover:bg-blue-600';
                 }
 
                 if (type === 'featured') {
@@ -348,7 +348,7 @@
                         downloadApp(app);
                         actionButton.textContent = 'OPEN';
                         actionButton.classList.remove('bg-blue-500', 'hover:bg-blue-600');
-                        actionButton.classList.add('bg-green-500', 'hover:bg-green-600');
+                        actionButton.classList.add('bg-blue-500', 'hover:bg-blue-600');
                     } else if (actionButton.textContent === 'OPEN') {
                         window.location.href = app.url;
                     }
@@ -366,7 +366,7 @@
                 const downloadedApps = getDownloads();
                 const isDownloaded = downloadedApps.some(a => a.id === app.id);
                 const buttonText = isDownloaded ? 'OPEN' : 'GET';
-                const buttonClass = isDownloaded ? 'bg-green-500 hover:bg-green-600' : 'bg-blue-500 hover:bg-blue-600';
+                const buttonClass = isDownloaded ? 'bg-blue-500 hover:bg-blue-600' : 'bg-blue-500 hover:bg-blue-600';
 
                 modalContent.innerHTML = `
                     <div class="flex items-center mb-6">
