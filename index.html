@@ -13,7 +13,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
-            font-family: arial;
+            font-family: 'Inter', sans-serif;
             background-color: #111;
             color: #c9d1d9;
         }
@@ -59,22 +59,53 @@
             background-color: #168bf9;
             transition: width 0.3s ease-in-out;
         }
-
         .nav-link:hover::after,
         .footer-link:hover::after {
             width: 100%;
         }
+        ::-webkit-scrollbar {
+        width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+        background: #111; 
+        }
+        ::-webkit-scrollbar-thumb {
+        background: #222;
+        border-radius: 10px; 
+        }
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+/* Mobile menu specific styles */
+.mobile-menu {
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(100%);
+}
+.mobile-menu.open {
+    transform: translateX(0);
+}
     </style>
 </head>
 <body class="bg-[#0D1117] text-[#C9D1D9]">
-    <header class="p-6 sticky top-0 z-10 bg-[#111] bg-opacity-90 backdrop-blur-sm">
+    <!-- Announcement Section -->
+    <div class="bg-red-600 text-white text-center py-2 px-4">
+        <p class="text-sm font-medium">✨ New! StadiaAI Coming Soon including New AI Tools with a DashBoard! ✨</p>
+    </div>
+
+    <header class="p-6 sticky top-0 z-10 bg-[black] backdrop-blur-sm">
         <nav class="container mx-auto flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-[#E6EDF3]">StadiaStudios</a>
+            <a href="#" class="text-2xl font-bold text-[#E6EDF3]">𝔖𝔱𝔞𝔡𝔦𝔞𝔖𝔱𝔲𝔡𝔦𝔬𝔰</a>
             <div class="hidden md:flex space-x-6">
-                <a href="index.html" class="nav-link text-white hover:text-white-500 transition-colors">Browse</a>
+                <a href="index.html" class="nav-link text-white hover:text-white-500 transition-colors">ℌ𝔬𝔪𝔢</a>
+                <a href="https://discord.com/invite/a7eNTUaYPh" class="nav-link text-white hover:text-white-500 transition-colors">𝔍𝔬𝔦𝔫 𝔇𝔦𝔰𝔠𝔬𝔯𝔡</a>
+                <a href="https://yaktenz.github.io/mayolibrary" class="nav-link text-white hover:text-white-500 transition-colors">𝔐𝔞𝔶𝔬𝔫𝔞𝔦𝔰𝔢</a>
             </div>
+            <!-- Mobile Menu Button -->
             <div class="md:hidden">
-                <button class="text-white focus:outline-none">
+                <button id="mobile-menu-button" class="text-white focus:outline-none">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
                     </svg>
@@ -82,6 +113,13 @@
             </div>
         </nav>
     </header>
+
+    <!-- Mobile Menu Container -->
+    <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 h-full w-2/3 bg-[#111] z-20 shadow-lg p-6 md:hidden flex flex-col items-center pt-20">
+        <a href="index.html" class="nav-link text-white text-xl my-4 hover:text-white-500 transition-colors" onclick="closeMobileMenu()">ℌ𝔬𝔪𝔢</a>
+        <a href="https://discord.com/invite/a7eNTUaYPh" class="nav-link text-white text-xl my-4 hover:text-white-500 transition-colors" onclick="closeMobileMenu()">𝔍𝔬𝔦𝔫 𝔇𝔦𝔰𝔠𝔬𝔯𝔡</a>
+        <a href="https://yaktenz.github.io/mayolibrary" class="nav-link text-white text-xl my-4 hover:text-white-500 transition-colors" onclick="closeMobileMenu()">𝔐𝔞𝔶𝔬𝔫𝔞𝔦𝔰𝔢</a>
+    </div>
 
     <main>
         <section class="hero-section text-center py-20 px-4 md:py-32 rounded-b-3xl bg-fixed">
@@ -197,7 +235,7 @@
             <div class="container mx-auto text-center">
                 <h2 class="text-3xl font-bold text-[#E6EDF3] mb-4">About StadiaStudios</h2>
                 <p class="text-lg text-[#8B949E] max-w-3xl mx-auto">
-                    StadiaStudios is dedicated to building innovative and user-friendly web applications that redefine digital experiences. Our team is passionate about creating tools that are both powerful and accessible, and we're always working on new projects to bring you the best in web technology.
+                    Welcome to StadiaStudios! We are passionate creators focused on developing engaging games and useful applications, Our most useful app being PassPro, is a reliable password manager designed to keep your digital life safe and easy. At StadiaStudios, we combine creativity and technology to provide solutions that entertain and protect.
                 </p>
             </div>
         </section>
@@ -207,6 +245,7 @@
         <div class="container mx-auto text-center">
             <div class="flex justify-center space-x-6 mb-4">
                 <a href="terms.html" class="footer-link text-gray hover:text-[#FFFFFF] transition-colors">Terms of Service</a>
+                <a href="https://discord.com/invite/a7eNTUaYPh" class="footer-link text-gray hover:text-[#FFFFFF] transition-colors">Join Discord</a>
                 <a href="https://yaktenz.github.io/mayolibrary" class="footer-link text-gray hover:text-[#FFFFFF] transition-colors">Mayonaise</a>
             </div>
             <p>&copy; 2025 StadiaStudios. All rights reserved.</p>
@@ -214,6 +253,7 @@
     </footer>
 
     <script>
+        // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -221,6 +261,27 @@
                     behavior: 'smooth'
                 });
             });
+        });
+
+        // Mobile menu functionality
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('open');
+        }
+
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('open');
+        }
+
+        mobileMenuButton.addEventListener('click', toggleMobileMenu);
+
+        // Close menu on outside click
+        document.addEventListener('click', function(event) {
+            if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target)) {
+                closeMobileMenu();
+            }
         });
     </script>
 </body>
