@@ -56,51 +56,68 @@
 </head>
 <body>
 
-    <!-- Header with Search, Downloads, and Settings Buttons -->
-    <header class="flex flex-col md:flex-row items-center justify-between p-4 md:px-8 pb-6 border-b border-gray-700 mb-6 sticky top-0 z-40 bg-[#111]">
-        
-        <!-- Profile picture on mobile -->
-        <div id="profilePictureContainerMobile" class="block md:hidden">
-            <a href="settings.html">
-                <img id="navbarProfilePictureMobile" class="w-10 h-10 rounded-full cursor-pointer border-4 border-gray-600 object-cover hover:border-blue-500 transition-colors duration-200" src="https://placehold.co/96x96/444444/ffffff?text=Add" alt="Profile Picture">
-            </a>
-        </div>
-
-        <h1 id="homeBtn" class="text-4xl font-bold tracking-tight cursor-pointer"><a href="index.html">App Store</a></h1>
-        
-        <div class="flex items-center gap-4 w-full md:w-auto mt-4 md:mt-0">
-            <a href="downloads.html" class="px-4 py-2 bg-[none] text-white-700 rounded-full hover:text-[orange] transition-colors duration-200">
-                <span class="hidden md:inline">Downloads</span>
-                <img src="assets/downloads.png" alt="Downloads icon" class="md:hidden w-16 h-12">
-            </a>
-            
-            <!-- Settings Button (now hidden on desktop) -->
-            <a href="settings.html" class="px-4 py-2 bg-[none] text-white-700 rounded-full hover:text-[orange] transition-colors duration-200 md:hidden">
-                <span class="hidden md:inline">Settings</span>
-                <img src="assets/settings.png" alt="Settings icon" class="md:hidden w-16 h-12">
-            </a>
-            
-            <!-- Search container with conditional visibility -->
-            <div id="searchContainer" class="relative w-full md:w-96">
-                <!-- Search icon for mobile -->
-                <button id="searchIconBtn" class="block md:hidden absolute right-0 top-1/2 transform -translate-y-1/2 p-2 text-blue-400">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
-                </button>
-                
-                <!-- Search input form -->
-                <form id="searchForm" class="hidden absolute inset-x-0 top-1/2 transform -translate-y-1/2 md:relative md:top-auto md:transform-none card-bg rounded-full shadow-lg md:shadow-none transition-all duration-300 md:flex">
-                    <input type="text" id="searchInput" placeholder="Search your downloads" class="w-full px-4 py-2 pl-10 pr-4 rounded-full bg-transparent focus:outline-none text-base text-gray-100 placeholder-gray-400">
-                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                        <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
-                    </div>
-                </form>
+    <!-- Redesigned Navbar -->
+    <header class="sticky top-0 z-50 bg-[#111] py-4 px-4 md:px-8 border-b border-gray-700">
+        <div class="flex items-center justify-between">
+            <!-- Left side content (Profile & Downloads) -->
+            <div class="flex items-center space-x-4">
+                <!-- Profile picture on mobile -->
+                <a href="settings.html" class="md:hidden">
+                    <img id="navbarProfilePictureMobile" class="w-10 h-10 rounded-full cursor-pointer border-2 border-gray-600 object-cover hover:border-blue-500 transition-colors duration-200" src="https://assets.website-files.com/64b55f1f77d33b9347d4e511/64b8d0006323b20759ce13a0_Profile%20Picture.png" alt="Profile Picture">
+                </a>
+                <!-- Downloads button on mobile -->
+                <a href="downloads.html" class="md:hidden text-white hover:text-blue-400 transition-colors duration-200">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                    </svg>
+                </a>
             </div>
 
-            <!-- Profile picture on desktop -->
-            <div id="profilePictureContainer" class="hidden md:flex items-center">
-                <a href="settings.html">
-                    <img id="navbarProfilePicture" class="w-10 h-10 rounded-full cursor-pointer border-4 border-gray-600 object-cover hover:border-blue-500 transition-colors duration-200" src="https://placehold.co/96x96/444444/ffffff?text=Add" alt="Profile Picture">
+            <!-- Center Content (Logo and Search) -->
+            <div class="flex-1 flex justify-center md:items-center md:justify-start md:pl-8">
+                <h1 id="homeBtn" class="text-3xl md:text-4xl font-bold tracking-tight cursor-pointer">
+                    <a href="index.html">App Store</a>
+                </h1>
+                
+                <!-- Search bar for desktop -->
+                <div class="hidden md:block relative ml-8 w-full max-w-lg">
+                    <div class="relative w-full">
+                        <input type="text" id="searchInput" placeholder="Search your downloads" class="w-full px-4 py-2 pl-10 pr-4 rounded-full bg-gray-800 text-base text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right side content (Downloads & Settings) -->
+            <div class="flex items-center space-x-4">
+                <!-- Search icon for mobile -->
+                <button id="searchIconBtn" class="md:hidden text-white hover:text-blue-400 transition-colors duration-200">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
+                </button>
+                <!-- Downloads link for desktop -->
+                <a href="downloads.html" class="hidden md:inline-flex items-center px-4 py-2 text-white rounded-full hover:bg-gray-800 transition-colors duration-200">
+                    Downloads
                 </a>
+                <!-- Settings link for desktop -->
+                <a href="settings.html" class="hidden md:inline-flex items-center px-4 py-2 text-white rounded-full hover:bg-gray-800 transition-colors duration-200">
+                    Settings
+                </a>
+                <!-- Profile picture on desktop -->
+                <a href="settings.html" class="hidden md:block">
+                    <img id="navbarProfilePicture" class="w-10 h-10 rounded-full cursor-pointer border-2 border-gray-600 object-cover hover:border-blue-500 transition-colors duration-200" src="https://assets.website-files.com/64b55f1f77d33b9347d4e511/64b8d0006323b20759ce13a0_Profile%20Picture.png" alt="Profile Picture">
+                </a>
+            </div>
+        </div>
+
+        <!-- Mobile search container -->
+        <div id="mobileSearchContainer" class="hidden absolute top-full left-0 right-0 p-4 pt-0 transition-all duration-300">
+            <div class="relative w-full">
+                <input type="text" id="mobileSearchInput" placeholder="Search your downloads" class="w-full px-4 py-2 pl-10 pr-4 rounded-full bg-gray-800 text-base text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
+                </div>
             </div>
         </div>
     </header>
@@ -108,11 +125,10 @@
     <!-- Main Content Container -->
     <div class="p-4 md:p-8">
         <h2 class="text-2xl font-bold tracking-tight mb-4">Your Downloads</h2>
-        <div id="downloadsContainer" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 mb-8">
+        <div id="downloadsList" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             <!-- Downloaded app cards will be dynamically inserted here -->
         </div>
-        <!-- Dedicated container for search status messages -->
-        <div id="searchStatusMessage"></div>
+        <p id="emptyDownloadsMessage" class="hidden text-center text-gray-400 mt-12 text-lg">You haven't downloaded any apps yet.</p>
     </div>
 
     <!-- App Detail Modal -->
@@ -129,44 +145,33 @@
             </div>
         </div>
     </div>
-
+    
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const downloadsContainer = document.getElementById('downloadsContainer');
+            const downloadsList = document.getElementById('downloadsList');
+            const emptyDownloadsMessage = document.getElementById('emptyDownloadsMessage');
             const searchInput = document.getElementById('searchInput');
-            const searchForm = document.getElementById('searchForm');
+            const mobileSearchInput = document.getElementById('mobileSearchInput');
             const searchIconBtn = document.getElementById('searchIconBtn');
+            const mobileSearchContainer = document.getElementById('mobileSearchContainer');
             const appModal = document.getElementById('appModal');
             const modalContent = document.getElementById('modalContent');
             const closeModalBtn = document.getElementById('closeModalBtn');
+            const homeBtn = document.getElementById('homeBtn');
             const navbarProfilePicture = document.getElementById('navbarProfilePicture');
             const navbarProfilePictureMobile = document.getElementById('navbarProfilePictureMobile');
-            const searchStatusMessage = document.getElementById('searchStatusMessage');
 
-            // Functions for local storage - duplicated across files for self-contained functionality
             const getDownloads = () => {
                 const downloads = localStorage.getItem('downloadedApps');
                 return downloads ? JSON.parse(downloads) : [];
             };
-            
+
             const saveDownloads = (appsToSave) => {
                 localStorage.setItem('downloadedApps', JSON.stringify(appsToSave));
             };
-
+            
             const getProfilePicture = () => {
-                return localStorage.getItem('profilePicture') || 'https://placehold.co/96x96/444444/ffffff?text=Add';
-            };
-
-            const saveProfilePicture = (base64Image) => {
-                localStorage.setItem('profilePicture', base64Image);
-                navbarProfilePicture.src = base64Image;
-                navbarProfilePictureMobile.src = base64Image;
-            };
-
-            const removeApp = (appId) => {
-                let downloadedApps = getDownloads();
-                downloadedApps = downloadedApps.filter(app => app.id !== appId);
-                saveDownloads(downloadedApps);
+                return localStorage.getItem('profilePicture') || 'https://assets.website-files.com/64b55f1f77d33b9347d4e511/64b8d0006323b20759ce13a0_Profile%20Picture.png';
             };
 
             const createStarRating = (rating) => {
@@ -186,43 +191,43 @@
                 return starsHtml;
             };
 
-            const renderDownloadedApps = (apps) => {
-                downloadsContainer.innerHTML = '';
-                searchStatusMessage.innerHTML = ''; // Clear previous messages
-
-                if (apps.length === 0) {
-                    const message = document.createElement('p');
-                    message.className = 'text-center text-gray-400 text-lg';
-                    if (searchInput.value.trim() === '') {
-                        message.textContent = 'You have no downloads yet.';
-                    } else {
-                        message.textContent = 'No downloads found matching your search.';
-                    }
-                    searchStatusMessage.appendChild(message);
+            const renderDownloadedApps = (appsToRender) => {
+                downloadsList.innerHTML = '';
+                if (appsToRender.length === 0) {
+                    emptyDownloadsMessage.classList.remove('hidden');
                 } else {
-                    apps.forEach(app => {
-                        const appCard = document.createElement('div');
-                        appCard.className = 'app-card card-bg p-4 rounded-3xl shadow-md flex flex-col items-center text-center';
-                        appCard.innerHTML = `
-                            <img src="${app.icon}" alt="${app.name} icon" class="app-icon w-20 h-20 rounded-2xl shadow-sm mb-2">
-                            <div class="font-semibold text-lg truncate w-full text-gray-100">${app.name}</div>
-                            <div class="text-gray-400 text-sm truncate w-full">${app.developer}</div>
-                            <button class="mt-2 px-4 py-1 text-white font-semibold rounded-full bg-blue-500 hover:bg-blue-600 transition-colors duration-200 open-btn">OPEN</button>
-                            <button class="mt-2 px-4 py-1 text-white font-semibold rounded-full bg-red-500 hover:bg-red-600 transition-colors duration-200 remove-btn">REMOVE</button>
-                        `;
-                        appCard.querySelector('.open-btn').addEventListener('click', (e) => {
-                            e.stopPropagation();
-                            window.location.href = app.url;
-                        });
-                        appCard.querySelector('.remove-btn').addEventListener('click', (e) => {
-                            e.stopPropagation();
-                            removeApp(app.id);
-                            renderDownloadedApps(getDownloads());
-                        });
-                        appCard.addEventListener('click', () => showAppDetail(app));
-                        downloadsContainer.appendChild(appCard);
+                    emptyDownloadsMessage.classList.add('hidden');
+                    appsToRender.forEach(app => {
+                        const appCard = createDownloadedAppCard(app);
+                        downloadsList.appendChild(appCard);
                     });
                 }
+            };
+            
+            const createDownloadedAppCard = (app) => {
+                const appCard = document.createElement('div');
+                appCard.className = 'app-card card-bg p-4 rounded-3xl shadow-md flex items-center justify-between text-left';
+                appCard.innerHTML = `
+                    <div class="flex items-center">
+                        <img src="${app.icon}" alt="${app.name} icon" class="app-icon w-16 h-16 rounded-xl shadow-sm mr-4">
+                        <div class="flex-1 min-w-0">
+                            <div class="font-semibold text-lg truncate text-gray-100">${app.name}</div>
+                            <div class="text-gray-400 text-sm truncate">${app.developer}</div>
+                            <div class="flex items-center text-sm">
+                                <span class="mr-1 text-yellow-400">${app.rating}</span>
+                                <div class="flex text-lg">${createStarRating(app.rating)}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="ml-4 px-4 py-1 text-white font-semibold rounded-full transition-colors duration-200 bg-blue-500 hover:bg-blue-600" data-app-id="${app.id}">OPEN</button>
+                `;
+                const openButton = appCard.querySelector('button');
+                openButton.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    window.location.href = app.url;
+                });
+                appCard.addEventListener('click', () => showAppDetail(app));
+                return appCard;
             };
 
             const showAppDetail = (app) => {
@@ -232,8 +237,8 @@
                         <div class="flex-1">
                             <h3 class="text-3xl font-bold tracking-tight mb-1">${app.name}</h3>
                             <p class="text-gray-400 text-lg mb-2">${app.developer}</p>
-                            <button id="modalActionButton" class="px-6 py-2 text-white font-semibold rounded-full transition-colors duration-200 bg-green-500 hover:bg-green-600">OPEN</button>
-                            <button id="modalRemoveButton" class="px-6 py-2 text-white font-semibold rounded-full transition-colors duration-200 bg-red-500 hover:bg-red-600">REMOVE</button>
+                            <button id="modalActionButton" class="px-6 py-2 text-white font-semibold rounded-full transition-colors duration-200 bg-blue-500 hover:bg-blue-600">OPEN</button>
+                            <button id="modalDeleteButton" class="px-6 py-2 text-white font-semibold rounded-full transition-colors duration-200 bg-red-500 hover:bg-red-600 ml-2">DELETE</button>
                         </div>
                     </div>
 
@@ -266,16 +271,17 @@
                     appModal.querySelector('div').classList.add('scale-100', 'opacity-100');
                 }, 50);
 
-                // Add event listeners to the modal's buttons
                 const modalActionButton = document.getElementById('modalActionButton');
                 modalActionButton.addEventListener('click', () => {
                     closeModal();
                     window.location.href = app.url;
                 });
-                const modalRemoveButton = document.getElementById('modalRemoveButton');
-                modalRemoveButton.addEventListener('click', () => {
-                    removeApp(app.id);
-                    renderDownloadedApps(getDownloads());
+
+                const modalDeleteButton = document.getElementById('modalDeleteButton');
+                modalDeleteButton.addEventListener('click', () => {
+                    const downloadedApps = getDownloads().filter(a => a.id !== app.id);
+                    saveDownloads(downloadedApps);
+                    renderDownloadedApps(downloadedApps);
                     closeModal();
                 });
             };
@@ -296,39 +302,29 @@
                 }
             });
 
-            // Mobile search functionality
+            // Toggle mobile search input
             searchIconBtn.addEventListener('click', () => {
-                searchForm.classList.remove('hidden');
-                searchForm.classList.add('flex');
-                searchInput.focus();
+                const isHidden = mobileSearchContainer.classList.contains('hidden');
+                mobileSearchContainer.classList.toggle('hidden', !isHidden);
+                mobileSearchInput.focus();
             });
 
-            searchForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                if (window.innerWidth < 768) {
-                    searchForm.classList.remove('flex');
-                    searchForm.classList.add('hidden');
-                }
-            });
-
-            searchInput.addEventListener('input', (e) => {
-                const searchTerm = e.target.value.toLowerCase();
+            // Sync search inputs
+            const syncSearchInputs = (activeInput, passiveInput) => {
+                passiveInput.value = activeInput.value;
+                const searchTerm = activeInput.value.toLowerCase();
                 const downloadedApps = getDownloads();
-                
-                if (searchTerm.trim() === '') {
-                    // If search bar is cleared, render all downloads
-                    renderDownloadedApps(downloadedApps);
-                } else {
-                    const filteredDownloads = downloadedApps.filter(app =>
-                        app.name.toLowerCase().includes(searchTerm) ||
-                        app.developer.toLowerCase().includes(searchTerm) ||
-                        app.category.toLowerCase().includes(searchTerm)
-                    );
-                    renderDownloadedApps(filteredDownloads);
-                }
-            });
+                const filteredDownloads = downloadedApps.filter(app => 
+                    app.name.toLowerCase().includes(searchTerm) ||
+                    app.developer.toLowerCase().includes(searchTerm) ||
+                    app.category.toLowerCase().includes(searchTerm)
+                );
+                renderDownloadedApps(filteredDownloads);
+            };
 
-            // Function to initialize the navbar profile picture
+            searchInput.addEventListener('input', () => syncSearchInputs(searchInput, mobileSearchInput));
+            mobileSearchInput.addEventListener('input', () => syncSearchInputs(mobileSearchInput, searchInput));
+
             const initializeNavbarProfilePicture = () => {
                 const profilePicSrc = getProfilePicture();
                 navbarProfilePicture.src = profilePicSrc;

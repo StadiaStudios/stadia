@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service | App Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-color: #111111;
+            color: #f5f5f7;
+        }
+
+        .card-bg {
+            background-color: #222222;
+        }
+        
+        /* Custom scrollbar for webkit browsers */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: #444444;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Redesigned Navbar (from your index.html) -->
+    <header class="sticky top-0 z-50 bg-[#111] py-4 px-4 md:px-8 border-b border-gray-700">
+        <div class="flex items-center justify-between">
+            <!-- Left side content (Profile & Back button) -->
+            <div class="flex items-center space-x-4">
+                <a href="settings.html" class="md:hidden">
+                    <img id="navbarProfilePictureMobile" class="w-10 h-10 rounded-full cursor-pointer border-2 border-gray-600 object-cover hover:border-blue-500 transition-colors duration-200" src="https://assets.website-files.com/64b55f1f77d33b9347d4e511/64b8d0006323b20759ce13a0_Profile%20Picture.png" alt="Profile Picture">
+                </a>
+            </div>
+
+            <!-- Center Content (Logo and Back to App Store button) -->
+            <div class="flex-1 flex justify-center md:items-center md:justify-start md:pl-8">
+                <h1 id="homeBtn" class="text-3xl md:text-4xl font-bold tracking-tight cursor-pointer">
+                    <a href="index.html">App Store</a>
+                </h1>
+            </div>
+            
+            <!-- Right side content -->
+            <div class="flex items-center space-x-4">
+                <a href="settings.html" class="inline-flex items-center px-4 py-2 text-white rounded-full hover:bg-gray-800 transition-colors duration-200">
+                    Back to Settings
+                </a>
+                <a href="settings.html" class="hidden md:block">
+                    <img id="navbarProfilePicture" class="w-10 h-10 rounded-full cursor-pointer border-2 border-gray-600 object-cover hover:border-blue-500 transition-colors duration-200" src="https://assets.website-files.com/64b55f1f77d33b9347d4e511/64b8d0006323b20759ce13a0_Profile%20Picture.png" alt="Profile Picture">
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container for Terms of Service -->
+    <div class="container mx-auto p-4 md:p-8 max-w-4xl">
+        <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-6 text-center">Beta App Store Terms of Service</h1>
+        <div class="card-bg rounded-3xl p-6 md:p-10 shadow-lg">
+
+            <p class="mb-4 text-gray-300">Last Updated: September 13, 2025</p>
+
+            <p class="mb-4 text-gray-300">Welcome to our beta app store. Please read these Terms of Service carefully before using the Service.</p>
+
+            <p class="mb-4 text-gray-300">By accessing or using the Service, you agree to these Terms. If you disagree with any part of the Terms, you cannot access the Service.</p>
+            
+            <h2 class="text-2xl font-semibold mt-6 mb-3">1. Beta Service</h2>
+            <p class="text-gray-300 mb-4 leading-relaxed">You acknowledge that the Service is in a beta stage. This means the Service is provided "as is" and "as available." The Service may have bugs, errors, and might not work fully. Your use of the Service is at your own risk. We do not guarantee uptime, availability, or stability of the Service.</p>
+            
+            <h2 class="text-2xl font-semibold mt-6 mb-3">2. Your Data and Privacy</h2>
+            <p class="text-gray-300 mb-4 leading-relaxed">We take your privacy seriously. Since this is a beta service, we want to clarify our data practices.</p>
+            
+            <p class="text-gray-300 mb-2 leading-relaxed font-semibold">No Access to Device Data:</p>
+            <p class="text-gray-300 mb-4 leading-relaxed">Our Service does not access or store any personal data from your device, including but not limited to photos, contacts, location history, or any other personal information.</p>
+            
+            <p class="text-gray-300 mb-2 leading-relaxed font-semibold">Limited User Information:</p>
+            <p class="text-gray-300 mb-4 leading-relaxed">When you use the Service, we may collect non-personal, aggregated data to improve the Service. This may include crash reports, app usage statistics (e.g., how often an app is opened), and general app store performance metrics.</p>
+
+            <h2 class="text-2xl font-semibold mt-6 mb-3">3. Intellectual Property</h2>
+            <p class="text-gray-300 mb-4 leading-relaxed">While we may include a few of our apps, Most of the apps on the store are not ours nor do we claim to own rights to these websites.</p>
+            
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navbarProfilePicture = document.getElementById('navbarProfilePicture');
+            const navbarProfilePictureMobile = document.getElementById('navbarProfilePictureMobile');
+
+            // Helper function to get data from localStorage
+            const getProfilePicture = () => {
+                return localStorage.getItem('profilePicture') || 'https://assets.website-files.com/64b55f1f77d33b9347d4e511/64b8d0006323b20759ce13a0_Profile%20Picture.png';
+            };
+
+            const initializeNavbarProfilePicture = () => {
+                const profilePicSrc = getProfilePicture();
+                if (navbarProfilePicture) {
+                    navbarProfilePicture.src = profilePicSrc;
+                }
+                if (navbarProfilePictureMobile) {
+                    navbarProfilePictureMobile.src = profilePicSrc;
+                }
+            };
+
+            initializeNavbarProfilePicture();
+        });
+    </script>
+    
+</body>
+</html>

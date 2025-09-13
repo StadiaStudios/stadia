@@ -19,6 +19,58 @@
         .card-bg {
             background-color: #222222;
         }
+
+        /* Toggle switch styles */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 48px;
+            height: 24px;
+        }
+
+        .switch input { 
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #444;
+            transition: .4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+        }
+
+        input:checked + .slider {
+            background-color: #3b82f6;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
+
+        .slider.round {
+            border-radius: 24px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
         
         ::-webkit-scrollbar {
             width: 8px;
@@ -32,234 +84,284 @@
             background-color: #444444;
             border-radius: 4px;
         }
+        
+        .message-modal {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1000;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            color: white;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .message-modal.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body>
 
-    <!-- Header with navigation buttons pointing back to the main app store and downloads -->
-    <header class="flex flex-col md:flex-row items-center justify-between p-4 md:px-8 pb-6 border-b border-gray-700 mb-6 sticky top-0 z-40 bg-[#111]">
-        
-        <!-- Profile picture on mobile -->
-        <div id="profilePictureContainerMobile" class="block md:hidden">
-            <a href="settings.html">
-                <img id="navbarProfilePictureMobile" class="w-10 h-10 rounded-full cursor-pointer border-4 border-gray-600 object-cover hover:border-blue-500 transition-colors duration-200" src="https://placehold.co/96x96/444444/ffffff?text=Add" alt="Profile Picture">
-            </a>
-        </div>
-
-        <h1 class="text-4xl font-bold tracking-tight cursor-pointer"><a href="index.html">App Store</a></h1>
-        
-        <div class="flex items-center gap-4 w-full md:w-auto mt-4 md:mt-0">
-            <!-- Downloads Button -->
-            <a href="downloads.html" class="px-4 py-2 bg-[none] text-white-700 rounded-full hover:text-[orange] transition-colors duration-200">
-                <span class="hidden md:inline">Downloads</span>
-                <img src="assets/downloads.png" alt="Downloads icon" class="md:hidden w-16 h-12">
-            </a>
-            
-            <a href="settings.html" class="px-4 py-2 bg-[none] text-white-700 rounded-full hover:text-[orange] transition-colors duration-200 md:hidden">
-                <span class="hidden md:inline">Settings</span>
-                <img src="assets/settings.png" alt="Settings icon" class="md:hidden w-16 h-12">
-            </a>
-            
-            <!-- Search container with conditional visibility -->
-            <div id="searchContainer" class="relative w-full md:w-96">
-                <!-- Search icon for mobile -->
-                <button id="searchIconBtn" class="block md:hidden absolute right-0 top-1/2 transform -translate-y-1/2 p-2 text-blue-400">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
-                </button>
-                
-                <!-- Search input form -->
-                <form id="searchForm" class="hidden absolute inset-x-0 top-1/2 transform -translate-y-1/2 md:relative md:top-auto md:transform-none card-bg rounded-full shadow-lg md:shadow-none transition-all duration-300 md:flex">
-                    <input type="text" id="searchInput" placeholder="Search for games, apps, stories, and more" class="w-full px-4 py-2 pl-10 pr-4 rounded-full bg-transparent focus:outline-none text-base text-gray-100 placeholder-gray-400">
-                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                        <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
-                    </div>
-                </form>
+    <!-- Redesigned Navbar -->
+    <header class="sticky top-0 z-50 bg-[#111] py-4 px-4 md:px-8 border-b border-gray-700">
+        <div class="flex items-center justify-between">
+            <!-- Left side content (Profile & Downloads) -->
+            <div class="flex items-center space-x-4">
+                <!-- Profile picture on mobile -->
+                <a href="settings.html" class="md:hidden">
+                    <img id="navbarProfilePictureMobile" class="w-10 h-10 rounded-full cursor-pointer border-2 border-gray-600 object-cover hover:border-blue-500 transition-colors duration-200" src="https://assets.website-files.com/64b55f1f77d33b9347d4e511/64b8d0006323b20759ce13a0_Profile%20Picture.png" alt="Profile Picture">
+                </a>
+                <!-- Downloads button on mobile -->
+                <a href="downloads.html" class="md:hidden text-white hover:text-blue-400 transition-colors duration-200">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                    </svg>
+                </a>
             </div>
 
-            <!-- Profile picture on desktop -->
-            <div id="profilePictureContainer" class="hidden md:flex items-center">
-                <a href="settings.html">
-                    <img id="navbarProfilePicture" class="w-10 h-10 rounded-full cursor-pointer border-4 border-gray-600 object-cover hover:border-blue-500 transition-colors duration-200" src="https://placehold.co/96x96/444444/ffffff?text=Add" alt="Profile Picture">
+            <!-- Center Content (Logo and Search) -->
+            <div class="flex-1 flex justify-center md:items-center md:justify-start md:pl-8">
+                <h1 id="homeBtn" class="text-3xl md:text-4xl font-bold tracking-tight cursor-pointer">
+                    <a href="index.html">App Store</a>
+                </h1>
+                
+                <!-- Search bar for desktop -->
+                <div class="hidden md:block relative ml-8 w-full max-w-lg">
+                    <div class="relative w-full">
+                        <input type="text" id="searchInput" placeholder="Search the store" class="w-full px-4 py-2 pl-10 pr-4 rounded-full bg-gray-800 text-base text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right side content (Downloads & Settings) -->
+            <div class="flex items-center space-x-4">
+                <!-- Search icon for mobile -->
+                <button id="searchIconBtn" class="md:hidden text-white hover:text-blue-400 transition-colors duration-200">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
+                </button>
+                <!-- Downloads link for desktop -->
+                <a href="downloads.html" class="hidden md:inline-flex items-center px-4 py-2 text-white rounded-full hover:bg-gray-800 transition-colors duration-200">
+                    Downloads
                 </a>
+                <!-- Settings link for desktop -->
+                <a href="settings.html" class="hidden md:inline-flex items-center px-4 py-2 text-white rounded-full hover:bg-gray-800 transition-colors duration-200">
+                    Settings
+                </a>
+                <!-- Profile picture on desktop -->
+                <a href="settings.html" class="hidden md:block">
+                    <img id="navbarProfilePicture" class="w-10 h-10 rounded-full cursor-pointer border-2 border-gray-600 object-cover hover:border-blue-500 transition-colors duration-200" src="https://assets.website-files.com/64b55f1f77d33b9347d4e511/64b8d0006323b20759ce13a0_Profile%20Picture.png" alt="Profile Picture">
+                </a>
+            </div>
+        </div>
+
+        <!-- Mobile search container -->
+        <div id="mobileSearchContainer" class="hidden absolute top-full left-0 right-0 p-4 pt-0 transition-all duration-300">
+            <div class="relative w-full">
+                <input type="text" id="mobileSearchInput" placeholder="Search the store" class="w-full px-4 py-2 pl-10 pr-4 rounded-full bg-gray-800 text-base text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
+                </div>
             </div>
         </div>
     </header>
 
-    <!-- Main Content Container for Settings -->
-    <div class="p-4 md:p-8">
-        <div id="settingsPage">
-            <h2 class="text-3xl font-bold tracking-tight mb-6">Settings</h2>
-            <div class="card-bg p-6 shadow-md space-y-6">
-                <!-- Profile Picture Section -->
-                <div class="flex flex-col items-center">
-                    <label class="block text-gray-400 mb-2">Profile Picture</label>
-                    <img id="profilePicture" class="w-24 h-24 rounded-full border-2 border-gray-600 object-cover mb-4" src="https://placehold.co/96x96/444444/ffffff?text=Add" alt="Profile Picture">
-                    <input type="file" id="profilePictureInput" class="hidden" accept="image/*">
-                    <button id="addProfilePicBtn" class="px-6 py-2 bg-blue-500 text-white font-semibold hover:bg-blue-600 transition-colors duration-200">Add Profile Picture</button>
-                    <p id="profilePicMessage" class="hidden text-green-400 mt-2">Profile picture saved successfully!</p>
-                </div>
-
-                <hr class="border-gray-700">
-
-                <!-- Full Name Section -->
-                <div>
-                    <label for="fullNameInput" class="block text-gray-400 mb-2">Full Name</label>
-                    <input type="text" id="fullNameInput" class="w-full px-4 py-2 bg-[#333] text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="Enter your full name">
-                    <button id="saveNameBtn" class="mt-4 px-6 py-2 bg-green-700 text-white font-semibold hover:bg-green-600 transition-colors duration-200">Save Name</button>
-                    <p id="nameSavedMessage" class="hidden text-green-400 mt-2">Name saved successfully!</p>
-                </div>
-                
-                <hr class="border-gray-700">
-
-                <!-- Clear Cache Section -->
-                <div>
-                    <button id="resetAppBtn" class="px-6 py-2 bg-red-500 text-white font-semibold hover:bg-red-600 transition-colors duration-200">Clear Cache</button>
-                    <p class="text-sm text-gray-400 mt-2">This will clear all downloaded apps and settings from your device.</p>
-                </div>
-            </div>
-        </div>
+    <!-- Main Content Container -->
+    <div id="mainContent" class="p-4 md:p-8">
+        <!-- Content will be rendered here -->
     </div>
 
+    <!-- Message Modal Container -->
+    <div id="messageModal" class="message-modal hidden"></div>
+    
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const fullNameInput = document.getElementById('fullNameInput');
-            const saveNameBtn = document.getElementById('saveNameBtn');
-            const nameSavedMessage = document.getElementById('nameSavedMessage');
-            const resetAppBtn = document.getElementById('resetAppBtn');
-            const profilePicture = document.getElementById('profilePicture');
-            const profilePictureInput = document.getElementById('profilePictureInput');
-            const addProfilePicBtn = document.getElementById('addProfilePicBtn');
-            const profilePicMessage = document.getElementById('profilePicMessage');
+            const searchInput = document.getElementById('searchInput');
+            const mobileSearchInput = document.getElementById('mobileSearchInput');
+            const searchIconBtn = document.getElementById('searchIconBtn');
+            const mobileSearchContainer = document.getElementById('mobileSearchContainer');
+            const mainContent = document.getElementById('mainContent');
             const navbarProfilePicture = document.getElementById('navbarProfilePicture');
             const navbarProfilePictureMobile = document.getElementById('navbarProfilePictureMobile');
 
-            // Mock app data for search functionality
-            const apps = [
-                { id: 1, name: 'Spotify', developer: 'Spotify Ltd.', category: 'Music', rating: 4.7, description: 'Listen to music and podcasts on a personalized platform. Explore new songs, artists, and albums.', icon: 'assets/apps/spotify.png', url: 'https://www.spotify.com' },
-                { id: 2, name: 'Minecraft', developer: 'Mojang', category: 'Games', rating: 4.5, description: 'Explore infinite worlds and build everything from the simplest of homes to the grandest of castles. This is the Classic Version', icon: 'assets/apps/minecraft.png', url: 'https://classic.minecraft.net' },
-                { id: 3, name: 'TikTok', developer: 'TikTok Inc.', category: 'Entertainment', rating: 4.6, description: 'A global video community where you can share short, creative videos with the world.', icon: 'assets/apps/tiktok.jpg', url: 'https://www.tiktok.com' },
-                { id: 4, name: 'Flexi AI', developer: 'CK-12 Foundation.', category: 'AI', rating: 3.9, description: 'Flexi – The Free AI Tutor for Math, Science & Homework Help!', icon: 'assets/apps/flexi.png', url: 'https://www.ck12.org/flexi' },
-                { id: 5, name: 'Krunker', developer: 'FRVR', category: 'Games', rating: 2.2, description: 'Krunker.io is a fast-paced, pixelated first-person shooter (FPS) that can be played for free directly in a web browser. It features online multiplayer battles where players from around the world compete in various arenas. The game requires no download or setup and has a simple, low-poly art style reminiscent of Minecraft or Roblox', icon: 'assets/apps/krunker.png', url: 'https://krunker.io/' },
-                { id: 6, name: 'Grammarly Humanizer', developer: 'Grammarly LLC', category: 'AI', rating: 4.6, description: 'Rewrite paragraphs in seconds. With Grammarlys free online paragraph rewriter, you can use AI to instantly rewrite text for essays, articles, and more.', icon: 'assets/apps/grammarly.png', url: 'https://www.grammarly.com/ai-humanizer' },
-                { id: 7, name: 'YT Sub Link Generator', developer: 'StadiaStudios', category: 'Utilities', rating: 4.9, description: 'Generate direct YouTube channel subscription links.', icon: 'assets/apps/ytlinkgenerator.png', url: 'https://www.google.com/gmail/' },
-                { id: 8, name: 'PassPro', developer: 'StadiaStudios', category: 'Utilities', rating: 5, description: 'A secure password manager to store and manage all your login credentials.', icon: 'assets/apps/passpro.png', url: 'https://stadiastudios.github.io/passpro/' },
-                { id: 9, name: 'StadiaPad+', developer: 'StadiaStudios', category: 'Utilities', rating: 5, description: 'A simple, Notes/Code Editor App.', icon: 'assets/apps/stadiapad.png', url: 'https://stadiastudios.github.io/stadiapadplus/' },
-            ];
+            // Helper function to get data from localStorage
+            const getProfilePicture = () => {
+                return localStorage.getItem('profilePicture') || 'assets/default.jpg';
+            };
 
-            // Functions for local storage - duplicated here to keep file self-contained
             const getFullName = () => {
                 return localStorage.getItem('fullName') || '';
             };
 
-            const saveFullName = (name) => {
-                localStorage.setItem('fullName', name);
-            };
-
-            const getProfilePicture = () => {
-                return localStorage.getItem('profilePicture') || 'https://placehold.co/96x96/444444/ffffff?text=Add';
-            };
-
-            const saveProfilePicture = (base64Image) => {
-                localStorage.setItem('profilePicture', base64Image);
-                navbarProfilePicture.src = base64Image;
-                navbarProfilePictureMobile.src = base64Image;
-            };
-
-            // Settings page event listeners
-            saveNameBtn.addEventListener('click', () => {
-                const name = fullNameInput.value.trim();
-                if (name) {
-                    saveFullName(name);
-                    nameSavedMessage.style.display = 'block';
-                    setTimeout(() => {
-                        nameSavedMessage.style.display = 'none';
-                    }, 3000);
+            const calculateCacheSize = () => {
+                let totalSize = 0;
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    const value = localStorage.getItem(key);
+                    totalSize += (key.length * 2) + (value.length * 2); // 2 bytes per character
                 }
-            });
+                return totalSize;
+            };
 
-            // Profile picture functionality
-            addProfilePicBtn.addEventListener('click', () => {
-                profilePictureInput.click();
-            });
+            const formatBytes = (bytes) => {
+                if (bytes === 0) return '0 KB';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+            };
 
-            profilePictureInput.addEventListener('change', (e) => {
+            const showMessage = (message, type = 'success') => {
+                const modal = document.getElementById('messageModal');
+                modal.textContent = message;
+                modal.className = `message-modal ${type === 'success' ? 'bg-green-500' : 'bg-red-500'} show`;
+                
+                setTimeout(() => {
+                    modal.classList.remove('show');
+                }, 3000);
+            };
+
+            // Main function to render settings content and attach all listeners
+            const renderSettingsContent = () => {
+                mainContent.innerHTML = `
+                    <div class="max-w-xl mx-auto p-4 md:p-8 card-bg rounded-3xl shadow-xl">
+                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-6 text-center">Settings</h2>
+                        <div class="flex flex-col items-center mb-8">
+                            <div class="relative w-32 h-32">
+                                <img id="profilePicture" class="w-32 h-32 rounded-full border-4 border-blue-500 object-cover" src="${getProfilePicture()}" alt="Profile Picture">
+                                <label for="profilePictureInput" class="absolute bottom-0 right-0 bg-blue-500 p-2 rounded-full border-2 border-gray-800 cursor-pointer hover:bg-blue-600 transition-colors duration-200">
+                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.808-1.212A2 2 0 0110.19 4h3.62c.983 0 1.81.59 2.158 1.41l.808 1.212a2 2 0 001.664.89H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                </label>
+                                <input type="file" id="profilePictureInput" accept="image/*" class="hidden">
+                            </div>
+                            <div class="mt-4 text-center">
+                                <label for="fullNameInput" class="block text-gray-400 text-sm mb-2">Full Name</label>
+                                <input type="text" id="fullNameInput" class="w-full px-4 py-2 rounded-lg bg-gray-800 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your full name">
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">App Management</h3>
+                            <div class="space-y-2 text-gray-300">
+                                <button id="clearCacheBtn" class="w-full text-left p-3 card-bg rounded-lg flex items-center justify-between hover:bg-gray-700 transition-colors duration-200">
+                                    <span class="flex items-center">
+                                        Clear App Cache
+                                        <span id="cacheSizeDisplay" class="ml-2 text-xs px-2 py-1 rounded-full bg-gray-600 text-white-500">${formatBytes(calculateCacheSize())}</span>
+                                    </span>
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                </button>
+                            </div>
+                        </div>
+                        <br>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">About</h3>
+                            <div class="space-y-2 text-gray-300">
+                                <a href="tos.html" class="block w-full text-left p-3 card-bg rounded-lg flex items-center justify-between hover:bg-gray-700 transition-colors duration-200">
+                                    <span>Terms of Service</span>
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                                </a>
+                                <a href="tos.html" class="block w-full text-left p-3 card-bg rounded-lg flex items-center justify-between hover:bg-gray-700 transition-colors duration-200">
+                                    <span>Privacy Policy</span>
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                // Re-attach listeners after re-rendering
+                attachEventListeners();
+                document.getElementById('profilePictureInput').addEventListener('change', handleProfilePictureChange);
+                document.getElementById('fullNameInput').addEventListener('input', handleFullNameChange);
+            };
+
+            const attachEventListeners = () => {
+                const clearCacheBtn = document.getElementById('clearCacheBtn');
+                const deleteAllBtn = document.getElementById('deleteAllBtn');
+                
+                if (clearCacheBtn) {
+                    clearCacheBtn.addEventListener('click', () => {
+                        localStorage.clear();
+                        showMessage('App cache cleared!', 'success');
+                        renderSettingsContent();
+                        initializeNavbarProfilePicture();
+                        document.getElementById('fullNameInput').value = getFullName();
+                    });
+                }
+                
+                if (deleteAllBtn) {
+                    deleteAllBtn.addEventListener('click', () => {
+                        // TODO: Implement logic to specifically delete downloads from local storage.
+                        // For now, this will not clear other data like profile pictures.
+                        showMessage('All downloads deleted!', 'success');
+                        // No need to re-render, as no data has changed.
+                    });
+                }
+            };
+            
+            const handleProfilePictureChange = (e) => {
                 const file = e.target.files[0];
                 if (file) {
                     const reader = new FileReader();
                     reader.onload = (event) => {
                         const base64Image = event.target.result;
-                        saveProfilePicture(base64Image);
-                        profilePicture.src = base64Image;
-                        profilePicMessage.textContent = 'Profile picture saved!';
-                        profilePicMessage.classList.remove('hidden');
-                        setTimeout(() => {
-                            profilePicMessage.classList.add('hidden');
-                        }, 3000);
+                        localStorage.setItem('profilePicture', base64Image);
+                        document.getElementById('profilePicture').src = base64Image;
+                        navbarProfilePicture.src = base64Image;
+                        navbarProfilePictureMobile.src = base64Image;
+                        renderSettingsContent();
                     };
                     reader.readAsDataURL(file);
                 }
-            });
+            };
 
-            resetAppBtn.addEventListener('click', () => {
-                localStorage.clear();
-                location.reload();
-            });
+            const handleFullNameChange = (e) => {
+                localStorage.setItem('fullName', e.target.value);
+            };
 
-            // Function to initialize the navbar profile picture
             const initializeNavbarProfilePicture = () => {
                 const profilePicSrc = getProfilePicture();
                 navbarProfilePicture.src = profilePicSrc;
                 navbarProfilePictureMobile.src = profilePicSrc;
-                profilePicture.src = profilePicSrc; // This line was added to fix the issue
             };
 
-            // Search bar functionality (copied from index.html)
-            const searchInput = document.getElementById('searchInput');
-            const searchForm = document.getElementById('searchForm');
-            const searchIconBtn = document.getElementById('searchIconBtn');
-            const mainContent = document.querySelector('.p-4.md\\:p-8');
-
+            // Toggle mobile search input
             searchIconBtn.addEventListener('click', () => {
-                searchForm.classList.remove('hidden');
-                searchForm.classList.add('flex');
-                searchInput.focus();
+                const isHidden = mobileSearchContainer.classList.contains('hidden');
+                mobileSearchContainer.classList.toggle('hidden', !isHidden);
+                mobileSearchInput.focus();
             });
 
-            searchForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                if (window.innerWidth < 768) {
-                    searchForm.classList.remove('flex');
-                    searchForm.classList.add('hidden');
-                }
-            });
+            // Sync search inputs
+            const syncSearchInputs = (activeInput) => {
+                const searchTerm = activeInput.value.toLowerCase();
+                const passiveInput = activeInput === searchInput ? mobileSearchInput : searchInput;
+                passiveInput.value = searchTerm;
 
-            searchInput.addEventListener('input', (e) => {
-                const searchTerm = e.target.value.toLowerCase();
-                const filteredApps = apps.filter(app => 
-                    app.name.toLowerCase().includes(searchTerm) ||
-                    app.developer.toLowerCase().includes(searchTerm) ||
-                    app.category.toLowerCase().includes(searchTerm)
-                );
-                // The settings page doesn't have an app list, so we'll just hide the settings content
-                // and show a "No apps found" message.
                 if (searchTerm.length > 0) {
                     mainContent.innerHTML = `
-                        <h2 class="text-3xl font-bold tracking-tight mb-6">Search Results</h2>
+                        <h2 class="text-3xl font-bold tracking-tight mb-6 text-center">Search Results</h2>
                         <div id="searchResults" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 mb-8">
                             <p class="text-center text-gray-400 text-lg col-span-full">No apps found matching your search on this page. Search the main store!</p>
                         </div>
                     `;
                 } else {
-                    // Reload the page to restore the original settings content
-                    location.reload();
+                    renderSettingsContent();
                 }
-            });
+            };
 
-            // Initial render of downloaded apps
-            fullNameInput.value = getFullName();
+            searchInput.addEventListener('input', () => syncSearchInputs(searchInput));
+            mobileSearchInput.addEventListener('input', () => syncSearchInputs(mobileSearchInput));
+
+            // Initial render
+            renderSettingsContent();
+            document.getElementById('fullNameInput').value = getFullName();
             initializeNavbarProfilePicture();
         });
     </script>
 </body>
 </html>
-
