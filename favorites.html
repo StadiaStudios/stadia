@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favorites - StadiaStudios</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/x-icon" href="assets/websitefavicon.png"> 
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Add Font Awesome for the heart icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+        .text-epic-green {
+            color: #0078f2;
+        }
+        .bg-epic-dark {
+            background-color: #121212;
+        }
+        .bg-epic-card {
+            background-color: #202020;
+        }
+        .hover\:scale-105:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #121212;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #444;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        .gradient-overlay {
+            background: linear-gradient(to top, rgba(18, 18, 18, 1) 0%, rgba(18, 18, 18, 0.5) 50%, rgba(18, 18, 18, 0) 100%);
+        }
+
+        /* Heart icon styling */
+        .favorite-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #ff4d4d;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+    </style>
+</head>
+<body class="bg-epic-dark">
+
+    <!-- Header -->
+    <header class="bg-epic-dark py-4 px-6 md:px-12 flex justify-between items-center sticky top-0 z-10">
+        <div class="flex items-center space-x-8">
+            <a href="index.html" class="text-3xl font-bold text-white">Stadia<span class="text-[red]">Studios</span></a>
+            <nav class="hidden md:flex space-x-6 text-gray-400">
+                <a href="store.html" class="hover:text-white transition duration-300">Store</a>
+                <a href="favorites.html" class="hover:text-white transition duration-300">Favorites</a>
+                <a href="#" class="hover:text-white transition duration-300">Help</a>
+            </nav>
+        </div>
+        <div class="flex items-center space-x-4">
+            <a href="signup.html" class="text-gray-400 hover:text-white transition duration-300 hidden md:block">Sign In</a>
+            <a href="#" class="bg-epic-green text-white font-semibold py-2 px-4 rounded-lg hover:opacity-80 transition duration-300 hidden md:block">Download</a>
+        </div>
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" class="md:hidden text-white focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+            </svg>
+        </button>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-epic-dark bg-opacity-95 z-50 flex flex-col items-center justify-center space-y-8 hidden">
+        <button id="close-menu-btn" class="absolute top-6 right-6 text-white text-2xl">&times;</button>
+        <a href="store.html" class="w-full text-center text-2xl text-white hover:text-epic-green transition duration-300">Store</a>
+        <a href="favorites.html" class="w-full text-center text-2xl text-white hover:text-epic-green transition duration-300">Favorites</a>
+        <a href="#" class="w-full text-center text-2xl text-white hover:text-epic-green transition duration-300">Help</a>
+        <a href="signup.html" class="w-full text-center text-2xl text-white hover:text-epic-green transition duration-300">Sign In</a>
+        <a href="#" class="w-full text-center bg-epic-green text-white text-2xl font-semibold py-3 px-6 rounded-lg hover:opacity-80 transition duration-300">Download</a>
+    </div>
+
+    <main class="py-6 px-4 md:px-12">
+        <section class="grid grid-cols-1 gap-8">
+            <div id="favorites-section">
+                <div class="flex flex-col sm:flex-row justify-between items-center mb-6">
+                    <h2 class="text-2xl md:text-3xl font-bold text-white mb-4 sm:mb-0">Downloads</h2>
+                </div>
+                
+                <div id="favorites-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+                    <!-- Favorite Cards will be dynamically inserted here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal for App Details -->
+    <div id="app-detail-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50 hidden transition-opacity duration-300">
+        <div class="bg-epic-card rounded-2xl max-w-2xl w-full p-6 relative transform transition-transform duration-300 scale-95">
+            <button id="close-modal-btn" class="absolute top-4 right-4 text-white text-3xl leading-none">&times;</button>
+            <div class="flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-6">
+                <div class="md:w-1/2 flex justify-center">
+                    <img id="modal-app-image" src="" alt="App Image" class="w-full h-auto rounded-lg object-cover">
+                </div>
+                <div class="md:w-1/2 flex flex-col justify-between">
+                    <div>
+                        <h2 id="modal-app-title" class="text-3xl font-bold text-white mb-2"></h2>
+                        <p id="modal-app-description" class="text-gray-300 text-lg mb-4"></p>
+                    </div>
+                    <div class="flex flex-col space-y-4">
+                        <a id="modal-app-link" href="#" class="w-full text-center bg-epic-green text-white font-bold py-3 px-6 rounded-lg hover:opacity-80 transition duration-300">Open App</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const closeMenuBtn = document.getElementById('close-menu-btn');
+            const appDetailModal = document.getElementById('app-detail-modal');
+            const closeModalBtn = document.getElementById('close-modal-btn');
+            const favoritesGrid = document.getElementById('favorites-grid');
+
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            });
+
+            closeMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            });
+
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 768) {
+                    mobileMenu.classList.add('hidden');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            closeModalBtn.addEventListener('click', () => {
+                appDetailModal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            });
+            
+            appDetailModal.addEventListener('click', (e) => {
+                if (e.target === appDetailModal) {
+                    appDetailModal.classList.add('hidden');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+
+            // Function to get favorites from localStorage
+            const getFavorites = () => JSON.parse(localStorage.getItem('favorites')) || {};
+
+            // Function to save favorites to localStorage
+            const saveFavorites = (favorites) => localStorage.setItem('favorites', JSON.stringify(favorites));
+
+            // Function to render favorite cards
+            const renderFavorites = () => {
+                const favorites = getFavorites();
+                favoritesGrid.innerHTML = ''; // Clear existing cards
+                const favoriteArray = Object.values(favorites);
+
+                if (favoriteArray.length === 0) {
+                    favoritesGrid.innerHTML = '<p class="text-gray-400 col-span-full text-center">You have no favorites yet. Add some from the <a href="store.html" class="text-[white] hover:underline">Store</a>!</p>';
+                    return;
+                }
+
+                favoriteArray.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = `group ${item.type}-card relative bg-epic-card rounded-xl overflow-hidden shadow-lg transition duration-300 hover:scale-105 cursor-pointer`;
+                    card.setAttribute('data-name', item.name);
+                    card.setAttribute('data-description', item.description);
+                    card.setAttribute('data-image', item.image);
+                    card.setAttribute('data-link', item.link);
+
+                    card.innerHTML = `
+                        <button class="favorite-btn" data-id="${Object.keys(favorites).find(key => favorites[key] === item)}"><i class="fas fa-heart"></i></button>
+                        <img src="${item.image}" alt="${item.name}" class="w-full h-auto aspect-square object-cover" onclick="openAppDetail(this.parentElement)">
+                        <div class="p-4" onclick="openAppDetail(this.parentElement)">
+                            <h3 class="text-lg font-semibold text-white truncate">${item.name}</h3>
+                            <p class="text-gray-400 mt-1 text-sm truncate">${item.description}</p>
+                        </div>
+                    `;
+                    favoritesGrid.appendChild(card);
+                });
+                
+                // Add event listeners to favorite buttons on the new cards
+                document.querySelectorAll('.favorite-btn').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const id = button.dataset.id;
+                        const favorites = getFavorites();
+                        if (favorites[id]) {
+                            delete favorites[id];
+                        }
+                        saveFavorites(favorites);
+                        renderFavorites(); // Re-render the grid
+                    });
+                });
+            };
+
+            renderFavorites();
+        });
+
+        function openAppDetail(card) {
+            const appDetailModal = document.getElementById('app-detail-modal');
+            document.getElementById('modal-app-title').textContent = card.dataset.name;
+            document.getElementById('modal-app-description').textContent = card.dataset.description;
+            document.getElementById('modal-app-image').src = card.dataset.image;
+            document.getElementById('modal-app-link').href = card.dataset.link;
+            
+            appDetailModal.classList.remove('hidden');
+            appDetailModal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+    </script>
+</body>
+</html>

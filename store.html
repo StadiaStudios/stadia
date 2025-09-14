@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Store - StadiaStudios</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/x-icon" href="assets/websitefavicon.png"> 
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Add Font Awesome for the heart and share icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+        .text-epic-green {
+            color: #0078f2;
+        }
+        .bg-epic-dark {
+            background-color: #121212;
+        }
+        .bg-epic-card {
+            background-color: #202020;
+        }
+        .hover\:scale-105:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #121212;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #444;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        .gradient-overlay {
+            background: linear-gradient(to top, rgba(18, 18, 18, 1) 0%, rgba(18, 18, 18, 0.5) 50%, rgba(18, 18, 18, 0) 100%);
+        }
+
+        /* Heart and share icon styling */
+        .favorite-btn, .share-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #ccc;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .share-btn {
+            right: 40px;
+        }
+
+        .favorite-btn.favorited {
+            color: #ff4d4d;
+        }
+        
+        .modal-fade-in {
+            animation: fadeIn 0.3s ease-in-out forwards;
+        }
+        
+        .modal-fade-out {
+            animation: fadeOut 0.3s ease-in-out forwards;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body class="bg-epic-dark">
+
+    <!-- Header -->
+    <header class="bg-epic-dark py-4 px-6 md:px-12 flex justify-between items-center sticky top-0 z-10">
+        <div class="flex items-center space-x-8">
+            <a href="index.html" class="text-3xl font-bold text-white">Stadia<span class="text-[red]">Studios</span></a>
+            <nav class="hidden md:flex space-x-6 text-gray-400">
+                <a href="store.html" class="hover:text-white transition duration-300">Store</a>
+                <a href="favorites.html" class="hover:text-white transition duration-300">Favorites</a>
+                <a href="#" class="hover:text-white transition duration-300">Help</a>
+            </nav>
+        </div>
+        <div class="flex items-center space-x-4">
+            <div class="relative hidden md:block">
+                <input type="text" id="desktop-search" placeholder="Search..." class="bg-gray-700 text-white placeholder-gray-400 rounded-full py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-epic-green transition-all duration-300 w-48">
+                <svg class="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
+            </div>
+            <a href="signup.html" class="text-gray-400 hover:text-white transition duration-300 hidden md:block">Sign In</a>
+            <a href="#" class="bg-epic-green text-white font-semibold py-2 px-4 rounded-lg hover:opacity-80 transition duration-300 hidden md:block">Download</a>
+        </div>
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" class="md:hidden text-white focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+            </svg>
+        </button>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-epic-dark bg-opacity-95 z-50 flex flex-col items-center justify-center space-y-8 hidden">
+        <button id="close-menu-btn" class="absolute top-6 right-6 text-white text-2xl">&times;</button>
+        <a href="#" class="w-full text-center text-2xl text-white hover:text-epic-green transition duration-300">Store</a>
+        <a href="favorites.html" class="w-full text-center text-2xl text-white hover:text-epic-green transition duration-300">Favorites</a>
+        <a href="#" class="w-full text-center text-2xl text-white hover:text-epic-green transition duration-300">Help</a>
+        <div class="w-full px-8 relative">
+            <input type="text" id="mobile-search" placeholder="Search..." class="w-full bg-gray-700 text-white placeholder-gray-400 rounded-full py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-epic-green transition-all duration-300">
+            <svg class="w-5 h-5 absolute left-11 top-1/2 -translate-y-1/2 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
+        </div>
+        <a href="signup.html" class="w-full text-center text-2xl text-white hover:text-epic-green transition duration-300">Sign In</a>
+        <a href="#" class="w-full text-center bg-epic-green text-white text-2xl font-semibold py-3 px-6 rounded-lg hover:opacity-80 transition duration-300">Download</a>
+    </div>
+
+    <main class="py-6 px-4 md:px-12">
+        <!-- Hero Section -->
+        <section class="relative h-[60vh] md:h-[70vh] rounded-2xl overflow-hidden mb-12">
+            <img src="assets/apps/JetSurfers.png" alt="Featured App" class="absolute inset-0 w-full h-full object-cover">
+            <div class="absolute inset-0 gradient-overlay"></div>
+            <div class="absolute inset-0 flex flex-col justify-end p-6 md:p-12 text-white">
+                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">Jet Surfers</h1>
+                <p class="mt-4 text-lg md:text-xl max-w-xl">
+                    Float through space, Dodge Obstacles, Upgrade, Buy Jets.
+                </p>
+                <div class="mt-6">
+                    <a href="https://drive.google.com/uc?export=download&id=14gJk2N3nFoSUFlROreiqdDq7NsEqcGUF"><button class="bg-white text-black font-bold py-3 px-6 rounded-lg hover:bg-gray-200 transition duration-300">Download Now</button></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content Grid -->
+        <section class="grid grid-cols-1 gap-8">
+            <!-- Apps Section -->
+            <div id="apps-section">
+                <div class="flex flex-col sm:flex-row justify-between items-center mb-6">
+                    <h2 class="text-2xl md:text-3xl font-bold text-white mb-4 sm:mb-0">All Apps</h2>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-gray-400">Sort by:</span>
+                        <select id="app-sort-select" class="bg-epic-card text-white p-2 rounded-lg border border-gray-700 focus:outline-none">
+                            <option value="newest">Newest</option>
+                            <option value="popular">Most Popular</option>
+                            <option value="az">A-Z</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div id="app-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+                    <!-- App Card 1 -->
+                    <div class="group app-card relative bg-epic-card rounded-xl overflow-hidden shadow-lg transition duration-300 hover:scale-105 cursor-pointer" 
+                         data-name="StadiaPad+" data-id="stadiapad" data-date="2024-05-15" data-popularity="85"
+                         data-description="A simple, Notes/Code Editor App."
+                         data-image="assets/apps/stadiapad.png"
+                         data-link="https://stadiastudios.github.io/stadiapadplus/">
+                        <button class="favorite-btn" data-id="stadiapad"><i class="far fa-heart"></i></button>
+                        <img src="assets/apps/stadiapad.png" alt="App 1" class="w-full h-auto aspect-square object-cover" onclick="openAppDetail(this.parentElement)">
+                        <div class="p-4" onclick="openAppDetail(this.parentElement)">
+                            <h3 class="text-lg font-semibold text-white truncate">StadiaPad+</h3>
+                            <p class="text-gray-400 mt-1 text-sm truncate">Notes/Code Editor App</p>
+                        </div>
+                    </div>
+                    
+                    <!-- App Card 2 -->
+                    <div class="group app-card relative bg-epic-card rounded-xl overflow-hidden shadow-lg transition duration-300 hover:scale-105 cursor-pointer" 
+                         data-name="PassPro" data-id="passpro" data-date="2024-04-20" data-popularity="92"
+                         data-description="This app is a Free Password manager app that saves your data. To install it just add it to your homescreen. Make sure to backup data as well, Set a PIN Lock."
+                         data-image="assets/apps/pp.png"
+                         data-link="https://stadiastudios.github.io/passpro/">
+                        <button class="favorite-btn" data-id="passpro"><i class="far fa-heart"></i></button>
+                        <img src="assets/apps/pp.png" alt="App 2" class="w-full h-auto aspect-square object-cover" onclick="openAppDetail(this.parentElement)">
+                        <div class="p-4" onclick="openAppDetail(this.parentElement)">
+                            <h3 class="text-lg font-semibold text-white truncate">PassPro - Password Manager</h3>
+                            <p class="text-gray-400 mt-1 text-sm truncate">Password Manager</p>
+                        </div>
+                    </div>
+
+                    <!-- App Card 3 -->
+                    <div class="group app-card relative bg-epic-card rounded-xl overflow-hidden shadow-lg transition duration-300 hover:scale-105 cursor-pointer" 
+                         data-name="YT Sub Link Generator" data-id="ytsubgen" data-date="2024-03-10" data-popularity="65"
+                         data-description="Generate YouTube subscription links with ease."
+                         data-image="assets/apps/ytlinkgenerator.png"
+                         data-link="webapp/ytsubgen/gen.html">
+                        <button class="favorite-btn" data-id="ytsubgen"><i class="far fa-heart"></i></button>
+                        <img src="assets/apps/ytlinkgenerator.png" alt="App 3" class="w-full h-auto aspect-square object-cover" onclick="openAppDetail(this.parentElement)">
+                        <div class="p-4" onclick="openAppDetail(this.parentElement)">
+                            <h3 class="text-lg font-semibold text-white truncate">YT Sub Link Generator</h3>
+                            <p class="text-gray-400 mt-1 text-sm truncate">Generate direct YouTube channel links.</p>
+                        </div>
+                    </div>
+
+                    <!-- App Card 4 -->
+                    <div class="group app-card relative bg-epic-card rounded-xl overflow-hidden shadow-lg transition duration-300 hover:scale-105 cursor-pointer" 
+                         data-name="IMG Extracter" data-id="imgextracter" data-date="2024-02-05" data-popularity="78"
+                         data-description="Extract images from URLs quickly and easily."
+                         data-image="assets/apps/imgextracter.png"
+                         data-link="webapp/imgextracter/index.html">
+                        <button class="favorite-btn" data-id="imgextracter"><i class="far fa-heart"></i></button>
+                        <img src="assets/apps/imgextracter.png" alt="App 4" class="w-full h-auto aspect-square object-cover" onclick="openAppDetail(this.parentElement)">
+                        <div class="p-4" onclick="openAppDetail(this.parentElement)">
+                            <h3 class="text-lg font-semibold text-white truncate">IMG Extracter</h3>
+                            <p class="text-gray-400 mt-1 text-sm truncate">Extract images from URLs</p>
+                        </div>
+                    </div>
+
+                    <!-- App Card 5 -->
+                    <div class="group app-card relative bg-epic-card rounded-xl overflow-hidden shadow-lg transition duration-300 hover:scale-105 cursor-pointer" 
+                         data-name="Gdrive Generator" data-id="gdrivegen" data-date="2024-01-25" data-popularity="88"
+                         data-description="Generate direct download links for Google Drive files."
+                         data-image="assets/apps/gdrive.png"
+                         data-link="webapp/gdrivegen/run.html">
+                        <button class="favorite-btn" data-id="gdrivegen"><i class="far fa-heart"></i></button>
+                        <img src="assets/apps/gdrive.png" alt="App 5" class="w-full h-auto aspect-square object-cover" onclick="openAppDetail(this.parentElement)">
+                        <div class="p-4" onclick="openAppDetail(this.parentElement)">
+                            <h3 class="text-lg font-semibold text-white truncate">Gdrive Generator</h3>
+                            <p class="text-gray-400 mt-1 text-sm truncate">Create direct download links</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Games Section -->
+            <div id="games-section">
+                <div class="flex flex-col sm:flex-row justify-between items-center mt-12 mb-6">
+                    <h2 class="text-2xl md:text-3xl font-bold text-white mb-4 sm:mb-0">Games</h2>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-gray-400">Sort by:</span>
+                        <select id="game-sort-select" class="bg-epic-card text-white p-2 rounded-lg border border-gray-700 focus:outline-none">
+                            <option value="newest">Newest</option>
+                            <option value="popular">Most Popular</option>
+                            <option value="az">A-Z</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="game-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+                    <!-- Game Card 1 -->
+                    <div class="group game-card relative bg-epic-card rounded-xl overflow-hidden shadow-lg transition duration-300 hover:scale-105 cursor-pointer"
+                         data-name="Lumber Tycoon" data-id="lumbertycoon" data-date="2024-04-01" data-popularity="95"
+                         data-description="Build your lumber empire, chop trees, and become a tycoon!"
+                         data-image="assets/apps/lumbertycoon.png"
+                         data-link="https://drive.google.com/uc?export=download&id=1mj8yHtBDRuv9PZLUzQ4ecu0VLUVl6Ybj">
+                        <button class="favorite-btn" data-id="lumbertycoon"><i class="far fa-heart"></i></button>
+                        <img src="assets/apps/lumbertycoon.png" alt="Game 1" class="w-full h-48 object-cover" onclick="openAppDetail(this.parentElement)">
+                        <div class="p-4" onclick="openAppDetail(this.parentElement)">
+                            <h3 class="text-lg font-semibold text-white truncate">Lumber Tycoon</h3>
+                            <p class="text-gray-400 mt-1 text-sm truncate">Build your lumber empire, chop trees, and become a tycoon!</p>
+                        </div>
+                    </div>
+                    <!-- Game Card 2 -->
+                    <div class="group game-card relative bg-epic-card rounded-xl overflow-hidden shadow-lg transition duration-300 hover:scale-105 cursor-pointer"
+                         data-name="Jet Surfers" data-id="jetsurfers" data-date="2024-03-25" data-popularity="80"
+                         data-description="Float through space, Dodge Obstacles, Upgrade, Buy Jets."
+                         data-image="assets/apps/JetSurfers.png"
+                         data-link="https://drive.google.com/uc?export=download&id=14gJk2N3nFoSUFlROreiqdDq7NsEqcGUF">
+                        <button class="favorite-btn" data-id="jetsurfers"><i class="far fa-heart"></i></button>
+                        <img src="assets/apps/JetSurfers.png" alt="Game 2" class="w-full h-48 object-cover" onclick="openAppDetail(this.parentElement)">
+                        <div class="p-4" onclick="openAppDetail(this.parentElement)">
+                            <h3 class="text-lg font-semibold text-white truncate">Jet Surfers</h3>
+                            <p class="text-gray-400 mt-1 text-sm truncate">Float through space, Dodge Obstacles, Upgrade, Buy Jets.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Modal for App Details -->
+    <div id="app-detail-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50 hidden transition-opacity duration-300">
+        <div class="bg-epic-card rounded-2xl max-w-2xl w-full p-6 relative transform transition-transform duration-300 scale-95">
+            <button id="close-modal-btn" class="absolute top-4 right-4 text-white text-3xl leading-none">&times;</button>
+            <div class="flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-6">
+                <div class="md:w-1/2 flex justify-center">
+                    <img id="modal-app-image" src="" alt="App Image" class="w-full h-auto rounded-lg object-cover">
+                </div>
+                <div class="md:w-1/2 flex flex-col justify-between">
+                    <div>
+                        <h2 id="modal-app-title" class="text-3xl font-bold text-white mb-2"></h2>
+                        <p id="modal-app-description" class="text-gray-300 text-lg mb-4"></p>
+                    </div>
+                    <div class="flex flex-col space-y-4">
+                        <a id="modal-app-link" href="#" class="w-full text-center bg-epic-green text-white font-bold py-3 px-6 rounded-lg hover:opacity-80 transition duration-300">Open App</a>
+                        <button id="share-app-btn" class="w-full text-center bg-gray-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-gray-700 transition duration-300 flex items-center justify-center space-x-2">
+                             <i class="fas fa-share-alt"></i>
+                             <span>Share</span>
+                        </button>
+                        <span id="share-message" class="text-center text-green-400 text-sm hidden">Link copied to clipboard!</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const closeMenuBtn = document.getElementById('close-menu-btn');
+            const appDetailModal = document.getElementById('app-detail-modal');
+            const closeModalBtn = document.getElementById('close-modal-btn');
+            const appSortSelect = document.getElementById('app-sort-select');
+            const gameSortSelect = document.getElementById('game-sort-select');
+            const appGrid = document.getElementById('app-grid');
+            const gameGrid = document.getElementById('game-grid');
+            const desktopSearch = document.getElementById('desktop-search');
+            const mobileSearch = document.getElementById('mobile-search');
+            const shareAppBtn = document.getElementById('share-app-btn');
+            const shareMessage = document.getElementById('share-message');
+            
+            // Function to get favorites from localStorage
+            const getFavorites = () => JSON.parse(localStorage.getItem('favorites')) || {};
+
+            // Function to save favorites to localStorage
+            const saveFavorites = (favorites) => localStorage.setItem('favorites', JSON.stringify(favorites));
+
+            // Function to check and update favorite buttons on load
+            const updateFavoriteButtons = () => {
+                const favorites = getFavorites();
+                const favButtons = document.querySelectorAll('.favorite-btn');
+                favButtons.forEach(button => {
+                    const id = button.dataset.id;
+                    if (favorites[id]) {
+                        button.classList.add('favorited');
+                        button.querySelector('i').classList.remove('far');
+                        button.querySelector('i').classList.add('fas');
+                    } else {
+                        button.classList.remove('favorited');
+                        button.querySelector('i').classList.remove('fas');
+                        button.querySelector('i').classList.add('far');
+                    }
+                });
+            };
+
+            // Add event listeners to favorite buttons
+            document.querySelectorAll('.favorite-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Prevent the parent card's click event
+                    const id = button.dataset.id;
+                    const favorites = getFavorites();
+                    if (favorites[id]) {
+                        delete favorites[id];
+                    } else {
+                        const card = button.parentElement;
+                        const data = {
+                            name: card.dataset.name,
+                            description: card.dataset.description,
+                            image: card.dataset.image,
+                            link: card.dataset.link,
+                            type: card.classList.contains('app-card') ? 'app' : 'game'
+                        };
+                        favorites[id] = data;
+                    }
+                    saveFavorites(favorites);
+                    updateFavoriteButtons();
+                });
+            });
+
+            // Initial check for favorite buttons on page load
+            updateFavoriteButtons();
+
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            });
+
+            closeMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            });
+
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 768) {
+                    mobileMenu.classList.add('hidden');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            closeModalBtn.addEventListener('click', () => {
+                appDetailModal.classList.add('modal-fade-out');
+                setTimeout(() => {
+                    appDetailModal.classList.remove('modal-fade-out');
+                    appDetailModal.classList.add('hidden');
+                    document.body.style.overflow = 'auto';
+                }, 300); // Wait for the fade-out animation to finish
+            });
+            
+            appDetailModal.addEventListener('click', (e) => {
+                if (e.target === appDetailModal) {
+                    closeModalBtn.click();
+                }
+            });
+
+            // Sorting logic for apps
+            appSortSelect.addEventListener('change', (event) => {
+                const sortBy = event.target.value;
+                const cards = Array.from(appGrid.querySelectorAll('.app-card'));
+                
+                cards.sort((a, b) => {
+                    if (sortBy === 'az') {
+                        return a.dataset.name.localeCompare(b.dataset.name);
+                    } else if (sortBy === 'newest') {
+                        const dateA = new Date(a.dataset.date);
+                        const dateB = new Date(b.dataset.date);
+                        return dateB - dateA;
+                    } else if (sortBy === 'popular') {
+                        const popA = parseInt(a.dataset.popularity);
+                        const popB = parseInt(b.dataset.popularity);
+                        return popB - popA;
+                    }
+                });
+
+                appGrid.innerHTML = '';
+                cards.forEach(card => appGrid.appendChild(card));
+            });
+
+            // Sorting logic for games
+            gameSortSelect.addEventListener('change', (event) => {
+                const sortBy = event.target.value;
+                const cards = Array.from(gameGrid.querySelectorAll('.game-card'));
+                
+                cards.sort((a, b) => {
+                    if (sortBy === 'az') {
+                        return a.dataset.name.localeCompare(b.dataset.name);
+                    } else if (sortBy === 'newest') {
+                        const dateA = new Date(a.dataset.date);
+                        const dateB = new Date(b.dataset.date);
+                        return dateB - dateA;
+                    } else if (sortBy === 'popular') {
+                        const popA = parseInt(a.dataset.popularity);
+                        const popB = parseInt(b.dataset.popularity);
+                        return popB - popA;
+                    }
+                });
+
+                gameGrid.innerHTML = '';
+                cards.forEach(card => gameGrid.appendChild(card));
+            });
+
+            // Search logic
+            const searchAll = (query) => {
+                const appCards = document.querySelectorAll('.app-card');
+                const gameCards = document.querySelectorAll('.game-card');
+
+                appCards.forEach(card => {
+                    const name = card.dataset.name.toLowerCase();
+                    const visible = name.includes(query.toLowerCase());
+                    card.style.display = visible ? '' : 'none';
+                });
+                
+                gameCards.forEach(card => {
+                    const name = card.dataset.name.toLowerCase();
+                    const visible = name.includes(query.toLowerCase());
+                    card.style.display = visible ? '' : 'none';
+                });
+            };
+
+            desktopSearch.addEventListener('input', (event) => {
+                searchAll(event.target.value);
+            });
+
+            mobileSearch.addEventListener('input', (event) => {
+                searchAll(event.target.value);
+            });
+            
+            // Share button logic
+            shareAppBtn.addEventListener('click', () => {
+                const appId = appDetailModal.dataset.appId;
+                const shareLink = `${window.location.origin}${window.location.pathname}?appId=${appId}`;
+                
+                const tempInput = document.createElement('input');
+                tempInput.value = shareLink;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempInput);
+                
+                shareMessage.classList.remove('hidden');
+                setTimeout(() => {
+                    shareMessage.classList.add('hidden');
+                }, 3000); // Hide message after 3 seconds
+            });
+
+            // Handle URL parameters to open specific app on load
+            const urlParams = new URLSearchParams(window.location.search);
+            const initialAppId = urlParams.get('appId');
+            if (initialAppId) {
+                const card = document.querySelector(`.app-card[data-id="${initialAppId}"], .game-card[data-id="${initialAppId}"]`);
+                if (card) {
+                    openAppDetail(card);
+                }
+            }
+        });
+
+        function openAppDetail(card) {
+            const appDetailModal = document.getElementById('app-detail-modal');
+            document.getElementById('modal-app-title').textContent = card.dataset.name;
+            document.getElementById('modal-app-description').textContent = card.dataset.description;
+            document.getElementById('modal-app-image').src = card.dataset.image;
+            document.getElementById('modal-app-link').href = card.dataset.link;
+            
+            // Set the data-app-id attribute on the modal for the share function
+            appDetailModal.dataset.appId = card.dataset.id;
+            
+            appDetailModal.classList.remove('hidden');
+            appDetailModal.classList.add('flex', 'modal-fade-in');
+            document.body.style.overflow = 'hidden';
+        }
+    </script>
+
+</body>
+</html>

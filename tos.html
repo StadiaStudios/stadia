@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StadiaStudios - Terms of Service</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/x-icon" href="assets/websitefavicon.png"> 
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+        .text-epic-green {
+            color: #0078f2;
+        }
+        .bg-epic-dark {
+            background-color: #121212;
+        }
+        .bg-epic-card {
+            background-color: #202020;
+        }
+        .hover\:scale-105:hover {
+            transform: scale(1.05);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #121212;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #444;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Modal styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.75);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 50;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-container {
+            background-color: #202020;
+            border-radius: 12px;
+            padding: 1.5rem;
+            max-width: 90%;
+            max-height: 90%;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+        .modal-overlay.open .modal-container {
+            transform: scale(1);
+        }
+    </style>
+</head>
+<body class="bg-epic-dark">
+
+    <!-- Header -->
+    <header class="bg-epic-dark py-4 px-6 md:px-12 flex justify-between items-center fixed w-full z-10 top-0 left-0">
+        <div class="flex items-center space-x-8">
+            <a href="index.html" class="text-3xl font-bold text-white">Stadia<span class="text-[red]">Studios</span></a>
+            <nav class="hidden md:flex space-x-6 text-gray-400">
+                <a href="index.html" class="hover:text-white transition duration-300">Store</a>
+                <a href="favorites.html" class="hover:text-white transition duration-300">Favorites</a>
+                <a href="#" class="hover:text-white transition duration-300">Help</a>
+            </nav>
+        </div>
+        <div class="flex items-center space-x-4">
+            <a href="signup.html" class="text-gray-400 hover:text-white transition duration-300 hidden md:block">Sign In</a>
+            <!-- Updated 'Download' button in the navbar -->
+            <a href="#" id="download-navbar-btn" class="bg-epic-green text-white font-semibold py-2 px-4 rounded-lg hover:opacity-80 transition duration-300 hidden md:block">Download</a>
+        </div>
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" class="md:hidden text-white focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+            </svg>
+        </button>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-epic-dark bg-opacity-95 z-50 flex flex-col items-center justify-center space-y-8 hidden">
+        <button id="close-menu-btn" class="absolute top-6 right-6 text-white text-2xl">&times;</button>
+        <a href="index.html" class="w-full text-center text-2xl text-white hover:text-epic-green transition duration-300">Store</a>
+        <a href="favorites.html" class="w-full text-center text-2xl text-white hover:text-epic-green transition duration-300">Favorites</a>
+        <a href="#" class="w-full text-center text-2xl text-white hover:text-epic-green transition duration-300">Help</a>
+        <a href="signup.html" class="w-full text-center text-2xl text-white hover:text-epic-green transition duration-300">Sign In</a>
+        <!-- Updated 'Download' button in the mobile menu -->
+        <a href="#" id="download-mobile-btn" class="w-full text-center bg-epic-green text-white text-2xl font-semibold py-3 px-6 rounded-lg hover:opacity-80 transition duration-300">Download</a>
+    </div>
+
+    <!-- Main content container with top padding to account for the fixed header -->
+    <main class="pt-20 p-8">
+        <div class="max-w-4xl mx-auto bg-epic-card rounded-lg shadow-lg p-6 md:p-12">
+            <h1 class="text-3xl md:text-5xl font-bold text-white mb-4">Terms of Service</h1>
+            <p class="text-gray-400 mb-8">Last Updated: September 7, 2025</p>
+
+            <h2 class="text-2xl font-semibold text-white mt-8 mb-4">1. Introduction and Agreement to Terms</h2>
+            <p class="mb-4">
+                Welcome to StadiaStudios. By accessing or using our website and services, you agree to be bound by these Terms of Service. Please read them carefully. These Terms of Service govern your use of our websites, games, applications, and services (collectively, the "Services"). The Services are provided by StadiaStudios, By accessing or using any of our Services, you agree to be bound by these Terms. If you do not agree to these Terms, you may not use our Services.
+            </p>
+
+            <h2 class="text-2xl font-semibold text-white mt-8 mb-4">2. Services Offered</h2>
+            <p class="mb-4">
+                StadiaStudios offers a range of digital products, including but not limited to games such as LumberTycoon and privacy-focused applications like our password manager, PassPro. These Terms apply equally to all Services.
+            </p>
+
+            <h2 class="text-2xl font-semibold text-white mt-8 mb-4">3. Your StadiaStudios Account</h2>
+            <p class="mb-4">
+                On the official Website or in some cases a "Stadia App" You'll have a local account stored in your storage on your device. This allows you to save progress and do things such as add favorites.
+            </p>
+
+            <h2 class="text-2xl font-semibold text-white mt-8 mb-4">4. Specific Terms for PassPro</h2>
+            <p class="mb-4">
+                <span class="font-semibold">Encryption and User Responsibility:</span> PassPro is a zero-knowledge service. This means all your data, including passwords, is encrypted on your device only. We cannot access or view your data.
+            </p>
+            <p class="mb-4">
+                <span class="font-semibold">For Other TOS Regarding PassPro:</span> <a href="https://stadiastudios.github.io/passpro/terms_of_service.html" class="text-[gray] none hover:text-[white] transition duration-500 ease-in-out">Click Here</a>.
+            </p>
+        </div>
+    </main>
+
+    <!-- Instruction Modal for PWA Installation -->
+    <div id="install-instructions-modal" class="modal-overlay">
+        <div class="modal-container text-white w-full md:w-1/2">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-2xl font-bold">Add to Homescreen</h3>
+                <button id="close-instructions-btn" class="text-2xl leading-none">&times;</button>
+            </div>
+            <p class="mb-4">
+                If the automatic prompt didn't show up, you can manually add this app to your homescreen.
+            </p>
+
+            <!-- Instructions for iOS -->
+            <div class="mb-6">
+                <h4 class="font-semibold text-lg mb-2">For iOS (iPhone & iPad)</h4>
+                <ol class="list-decimal list-inside space-y-2 text-gray-300">
+                    <li>Tap the Share button . It's usually at the bottom of the screen in Safari.</li>
+                    <li>Scroll down and select **Add to Home Screen** .</li>
+                    <li>Tap **Add** in the top-right corner.</li>
+                </ol>
+            </div>
+
+            <!-- Instructions for Android -->
+            <div>
+                <h4 class="font-semibold text-lg mb-2">For Android (Chrome)</h4>
+                <ol class="list-decimal list-inside space-y-2 text-gray-300">
+                    <li>Tap the three vertical dots  in the top-right corner of the browser.</li>
+                    <li>Select **Add to Home screen** from the menu.</li>
+                    <li>A pop-up will appear. You can edit the name before tapping **Add**.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const closeMenuBtn = document.getElementById('close-menu-btn');
+            
+            // Add event listeners for the new buttons
+            const downloadHeroBtn = document.getElementById('download-hero-btn');
+            const downloadNavbarBtn = document.getElementById('download-navbar-btn');
+            const downloadMobileBtn = document.getElementById('download-mobile-btn');
+
+            let deferredPrompt;
+
+            window.addEventListener('beforeinstallprompt', (e) => {
+                // Prevent the mini-infobar from appearing on mobile
+                e.preventDefault();
+                // Stash the event so it can be triggered later.
+                deferredPrompt = e;
+                // Update UI notify the user they can add to home screen
+                // Note: The buttons are hidden by default and will be shown by this event
+                if (downloadHeroBtn) downloadHeroBtn.style.display = 'block';
+                if (downloadNavbarBtn) downloadNavbarBtn.style.display = 'block';
+                if (downloadMobileBtn) downloadMobileBtn.style.display = 'block';
+            });
+
+            // Function to show the manual installation instructions modal
+            const showInstructionsModal = () => {
+                const modal = document.getElementById('install-instructions-modal');
+                if (modal) {
+                    modal.classList.add('open');
+                    document.body.style.overflow = 'hidden'; // Prevents scrolling on the main page
+                }
+            };
+
+            // Function to close the manual installation instructions modal
+            const closeInstructionsModal = () => {
+                const modal = document.getElementById('install-instructions-modal');
+                if (modal) {
+                    modal.classList.remove('open');
+                    document.body.style.overflow = 'auto'; // Re-enables scrolling
+                }
+            };
+
+            // Function to handle the install prompt
+            const handleInstallPrompt = (e) => {
+                // Check if the device is a mobile device
+                const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+                
+                if (deferredPrompt && isMobile) {
+                    deferredPrompt.prompt();
+                    // Wait for the user to respond to the prompt
+                    deferredPrompt.userChoice.then((choiceResult) => {
+                        if (choiceResult.outcome === 'accepted') {
+                            console.log('User accepted the A2HS prompt');
+                        } else {
+                            console.log('User dismissed the A2HS prompt');
+                        }
+                        deferredPrompt = null;
+                    });
+                } else if (isMobile) {
+                    // Fallback for mobile browsers that don't support beforeinstallprompt
+                    // or if the event has already been used.
+                    showInstructionsModal();
+                } else {
+                    console.log('Not a mobile device or the prompt is not available.');
+                }
+            };
+
+            // Add click listeners to all download buttons
+            if (downloadHeroBtn) {
+                downloadHeroBtn.addEventListener('click', handleInstallPrompt);
+            }
+            if (downloadNavbarBtn) {
+                downloadNavbarBtn.addEventListener('click', handleInstallPrompt);
+            }
+            if (downloadMobileBtn) {
+                downloadMobileBtn.addEventListener('click', handleInstallPrompt);
+            }
+
+            // Close modal button listener
+            const closeInstructionsBtn = document.getElementById('close-instructions-btn');
+            if (closeInstructionsBtn) {
+                closeInstructionsBtn.addEventListener('click', closeInstructionsModal);
+            }
+            
+            // Close modal by clicking on the overlay
+            const installModal = document.getElementById('install-instructions-modal');
+            if (installModal) {
+                installModal.addEventListener('click', (e) => {
+                    if (e.target === e.currentTarget) {
+                        closeInstructionsModal();
+                    }
+                });
+            }
+
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            });
+
+            closeMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            });
+
+            // Close menu on resize to desktop
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 768) {
+                    mobileMenu.classList.add('hidden');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
