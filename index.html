@@ -3,415 +3,278 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StadiaStudios - Official Website</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>StadiaStudios | App Store</title>
     <link rel="manifest" href="manifest.json">
-    <link rel="icon" type="image/x-icon" href="assets/websitefavicon.png"> 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.png">
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #121212;
-            color: #e0e0e0;
+        /* Custom styles for aesthetic enhancements */
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
         }
-        .text-epic-green {
-            color: #0078f2;
+        .text-shadow {
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
         }
-        .bg-epic-dark {
-            background-color: #121212;
-        }
-        .bg-epic-card {
-            background-color: #202020;
-        }
-        .hover\:scale-105:hover {
-            transform: scale(1.05);
+        /* Style for the 'Use Link' button to ensure it's visually distinct */
+        .app-get-button {
+             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
         }
 
-        /* Custom Scrollbar */
+        /* Custom Scrollbar Styles */
         ::-webkit-scrollbar {
-            width: 8px;
+            width: 10px;
         }
 
         ::-webkit-scrollbar-track {
-            background: #121212;
+            background: #1f1f1f; /* card-dark */
+            border-radius: 5px;
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #444;
-            border-radius: 4px;
+            background: #4B4B4B; /* Darker gray for thumb */
+            border-radius: 5px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: #555;
-        }
-
-        /* Modal styles */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.75);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 50;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-        .modal-overlay.open {
-            opacity: 1;
-            visibility: visible;
-        }
-        .modal-container {
-            background-color: #202020;
-            border-radius: 12px;
-            padding: 1.5rem;
-            max-width: 90%;
-            max-height: 90%;
-            overflow-y: auto;
-            position: relative;
-            transform: scale(0.95);
-            transition: transform 0.3s ease;
-        }
-        .modal-overlay.open .modal-container {
-            transform: scale(1);
+            background: orange; /* accent-red on hover */
         }
     </style>
-</head>
-<body class="bg-epic-dark">
-
-    <!-- Header -->
-    <header class="bg-epic-dark py-4 px-6 md:px-12 flex justify-between items-center fixed w-full z-10 top-0 left-0">
-        <div class="flex items-center space-x-8">
-            <a href="#" class="text-3xl font-bold text-white">Stadia<span class="text-[red]">Studios</span></a>
-            <nav class="hidden md:flex space-x-6 text-gray-400">
-                <a href="store.html" class="hover:text-white transition duration-300">Store</a>
-                <a href="favorites.html" class="hover:text-white transition duration-300">Favorites</a>
-                <a href="#" class="hover:text-white transition duration-300">Help</a>
-            </nav>
-        </div>
-        <div class="flex items-center space-x-4">
-            <a href="signup.html" class="text-gray-400 hover:text-white transition duration-300 hidden md:block">Sign In</a>
-            <!-- Updated 'Download' button in the navbar -->
-            <a href="#" id="download-navbar-btn" class="bg-epic-green text-white font-semibold py-2 px-4 rounded-lg hover:opacity-80 transition duration-300 hidden md:block">Download</a>
-        </div>
-        <!-- Mobile Menu Button -->
-        <button id="mobile-menu-btn" class="md:hidden text-white focus:outline-none">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-            </svg>
-        </button>
-    </header>
-
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="fixed inset-0 bg-epic-dark bg-opacity-95 z-50 flex flex-col items-center justify-center space-y-8 hidden">
-        <button id="close-menu-btn" class="absolute top-6 right-6 text-white text-2xl">&times;</button>
-        <a href="store.html" class="w-full text-center text-2xl text-white hover:text-epic-green transition duration-300">Store</a>
-        <a href="favorites.html" class="w-full text-center text-2xl text-white hover:text-epic-green transition duration-300">Favorites</a>
-        <a href="#" class="w-full text-center text-2xl text-white hover:text-epic-green transition duration-300">Help</a>
-        <a href="signup.html" class="w-full text-center text-2xl text-white hover:text-epic-green transition duration-300">Sign In</a>
-        <!-- Updated 'Download' button in the mobile menu -->
-        <a href="#" id="download-mobile-btn" class="w-full text-center bg-epic-green text-white text-2xl font-semibold py-3 px-6 rounded-lg hover:opacity-80 transition duration-300">Download</a>
-    </div>
-
-    <!-- The 'pt-20' class was removed from the main tag to eliminate the extra space at the top. The hero section now starts just below the fixed header. -->
-    <main>
-        <!-- Hero Section -->
-        <section class="relative h-[60vh] md:h-[80vh] bg-cover bg-center pt-20" style="background-image: url('assets/banner.png');">
-            <div class="absolute inset-0 bg-black bg-opacity-50 flex items-end p-6 md:p-16">
-                <div class="max-w-xl">
-                    <h1 class="text-4xl md:text-6xl font-extrabold text-white leading-tight">Stadia Launcher</h1>
-                    <p class="mt-4 text-xl text-gray-200">Use all your favorite apps within the StadiaLauncher Just add this app to homescreen!</p>
-                    <div class="mt-6 flex space-x-4">
-                        <!-- Updated 'Download Now' button in the hero section -->
-                        <button id="download-hero-btn" class="bg-white text-black font-semibold py-3 px-6 rounded-lg hover:bg-gray-200 transition duration-300">Download Now</button>
-                        <a href="tos.html"><button class="border border-white text-white font-semibold py-3 px-6 rounded-lg hover:bg-white hover:text-black transition duration-300">Learn More</button></a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Games Section -->
-        <section class="py-16 px-6 md:px-12">
-            <h2 class="text-3xl md:text-4xl font-bold text-white mb-8">Discover StadiaStudios Games</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                <!-- Game Card 1 -->
-                <div class="bg-epic-card rounded-xl overflow-hidden shadow-lg transition duration-300 hover:scale-105 cursor-pointer">
-                    <img src="assets/apps/lumbertycoon.png" alt="Lumber Tycoon" class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <h3 class="text-xl font-semibold text-white">Lumber Tycoon</h3>
-                        <p class="text-gray-400 mt-2">Build your lumber empire, chop trees, and become a tycoon!</p>
-                        <span class="mt-3 inline-block bg-epic-green text-white text-sm font-bold py-1 px-3 rounded-full">New Release</span>
-                    </div>
-                </div>
-                <!-- Game Card 2 -->
-                <div class="bg-epic-card rounded-xl overflow-hidden shadow-lg transition duration-300 hover:scale-105 cursor-pointer">
-                    <img src="assets/apps/JetSurfers.png" alt="Jet Surfers" class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <h3 class="text-xl font-semibold text-white">Jet Surfers</h3>
-                        <p class="text-gray-400 mt-2">Float through space, Dodge Obstacles, Upgrade, Buy Jets.</p>
-                        <span class="mt-3 inline-block bg-epic-green text-white text-sm font-bold py-1 px-3 rounded-full">New Release</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Apps Section -->
-        <section class="py-16 px-6 md:px-12">
-            <h2 class="text-3xl md:text-4xl font-bold text-white mb-8">Discover StadiaStudios Apps</h2>
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                <!-- App Icon 1 -->
-                 <div class="group bg-epic-card rounded-xl shadow-lg transition duration-300 hover:scale-105 relative aspect-square flex items-center justify-center overflow-hidden"
-                    data-title="IMG Extracter"
-                    data-description="An app to easily extract images from various file types."
-                >
-                    <img src="assets/apps/ourjourney.png" alt="Our Journey" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <a href="https://stadiastudios.github.io/ourjourney/splash"><button class="bg-epic-green text-white font-semibold py-2 px-4 rounded-lg hover:opacity-80 transition duration-300">OPEN</button></a>
-                    </div>
-                    <div class="absolute bottom-0 left-0 right-0 p-2 bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center pointer-events-none">
-                        <h4 class="text-sm font-bold text-white leading-tight">Our Journey</h4>
-                        <p class="text-xs text-gray-300 mt-1">A app to track your relationship date.</p>
-                    </div>
-                </div>
-                <div class="group bg-epic-card rounded-xl shadow-lg transition duration-300 hover:scale-105 relative aspect-square flex items-center justify-center overflow-hidden"
-                    data-title="IMG Extracter"
-                    data-description="An app to easily extract images from various file types."
-                >
-                    <img src="assets/apps/imgextracter.png" alt="IMG Extracter" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <a href="webapp/imgextracter/index.html"><button class="bg-epic-green text-white font-semibold py-2 px-4 rounded-lg hover:opacity-80 transition duration-300">OPEN</button></a>
-                    </div>
-                    <div class="absolute bottom-0 left-0 right-0 p-2 bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center pointer-events-none">
-                        <h4 class="text-sm font-bold text-white leading-tight">IMG Extracter</h4>
-                        <p class="text-xs text-gray-300 mt-1">Quickly Download images by URL in a PNG or JPG Format.</p>
-                    </div>
-                </div>
-                <!-- App Icon 2 -->
-                <div class="group bg-epic-card rounded-xl shadow-lg transition duration-300 hover:scale-105 relative aspect-square flex items-center justify-center overflow-hidden"
-                    data-title="File Converter"
-                    data-description="Convert files between different formats quickly and easily."
-                >
-                    <img src="assets/apps/pp.png" alt="PassPro" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <a href="https://stadiastudios.github.io/passpro/"><button class="bg-epic-green text-white font-semibold py-2 px-4 rounded-lg hover:opacity-80 transition duration-300">OPEN</button></a>
-                    </div>
-                    <div class="absolute bottom-0 left-0 right-0 p-2 bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center pointer-events-none">
-                        <h4 class="text-sm font-bold text-white leading-tight">PassPro</h4>
-                        <p class="text-xs text-gray-300 mt-1">This app is a Free Password manager app that saves your data. To install it just add it to your homescreen. Make sure to backup data as well, Set a PIN Lock.</p>
-                    </div>
-                </div>
-                <!-- App Icon 3 -->
-                <div class="group bg-epic-card rounded-xl shadow-lg transition duration-300 hover:scale-105 relative aspect-square flex items-center justify-center overflow-hidden"
-                    data-title="Chat App"
-                    data-description="Real-time chat application to connect with friends and family."
-                >
-                    <img src="assets/apps/stadiapad.png" alt="StadiaPad+" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <a href="https://stadiastudios.github.io/stadiapadplus/"><button class="bg-epic-green text-white font-semibold py-2 px-4 rounded-lg hover:opacity-80 transition duration-300">OPEN</button></a>
-                    </div>
-                    <div class="absolute bottom-0 left-0 right-0 p-2 bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center pointer-events-none">
-                        <h4 class="text-sm font-bold text-white leading-tight">StadiaPad+</h4>
-                        <p class="text-xs text-gray-300 mt-1">A simple, Notes/Code Editor App.</p>
-                    </div>
-                </div>
-                <!-- App Icon 4 -->
-                <div class="group bg-epic-card rounded-xl shadow-lg transition duration-300 hover:scale-105 relative aspect-square flex items-center justify-center overflow-hidden"
-                    data-title="Weather App"
-                    data-description="Get accurate and real-time weather forecasts for your location."
-                >
-                    <img src="assets/apps/ytlinkgenerator.png" alt="YT Sub Link Generator" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <a href="webapp/ytsubgen/gen.html"><button class="bg-epic-green text-white font-semibold py-2 px-4 rounded-lg hover:opacity-80 transition duration-300">OPEN</button></a>
-                    </div>
-                    <div class="absolute bottom-0 left-0 right-0 p-2 bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center pointer-events-none">
-                        <h4 class="text-sm font-bold text-white leading-tight">YT Sub Link Generator</h4>
-                        <p class="text-xs text-gray-300 mt-1">Generate direct YouTube channel subscription links.</p>
-                    </div>
-                </div>
-                <!-- App Icon 5 -->
-                <div class="group bg-epic-card rounded-xl shadow-lg transition duration-300 hover:scale-105 relative aspect-square flex items-center justify-center overflow-hidden"
-                    data-title="Notes App"
-                    data-description="A simple and elegant notes application for all your ideas."
-                >
-                    <img src="assets/apps/gdrive.png" alt="GDrive Generate" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <a href="webapp/gdrivegen/run.html"><button class="bg-epic-green text-white font-semibold py-2 px-4 rounded-lg hover:opacity-80 transition duration-300">OPEN</button></a>
-                    </div>
-                    <div class="absolute bottom-0 left-0 right-0 p-2 bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center pointer-events-none">
-                        <h4 class="text-sm font-bold text-white leading-tight">Gdrive Generator</h4>
-                        <p class="text-xs text-gray-300 mt-1">Generate direct download links for Google Drive files.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    <!-- Footer -->
-    <footer class="bg-black py-12 px-6 md:px-12 text-gray-400">
-        <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div>
-                <h3 class="text-xl font-bold text-white mb-4">StadiaStudios</h3>
-                <p>
-                    2025 StadiaStudios, Inc. All rights reserved.
-                </p>
-            </div>
-            <div>
-                <h3 class="text-lg font-semibold text-white mb-4">Resources</h3>
-                <ul class="space-y-2">
-                    <li><a href="tos.html" class="hover:text-white transition duration-300">Terms of Service</a></li>
-                    <li><a href="webapp/imgextracter/index.html" class="hover:text-white transition duration-300">IMG Extracter By URL</a></li>
-                    <li><a href="https://stadiastudios.github.io/passpro/" class="hover:text-white transition duration-300">PassPro - Password Manager</a></li>
-                </ul>
-            </div>
-            <div>
-                <h3 class="text-lg font-semibold text-white mb-4">Quick Navigation</h3>
-                <ul class="space-y-2">
-                    <li><a href="favorites.html" class="hover:text-white transition duration-300">Favorites</a></li>
-                    <li><a href="store.html" class="hover:text-white transition duration-300">Store</a></li>
-                </ul>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Instruction Modal for PWA Installation -->
-    <div id="install-instructions-modal" class="modal-overlay">
-        <div class="modal-container text-white w-full md:w-1/2">
-            <div class="flex justify-between items-center mb-4">
-                <h3 class="text-2xl font-bold">Add to Homescreen</h3>
-                <button id="close-instructions-btn" class="text-2xl leading-none">&times;</button>
-            </div>
-            <p class="mb-4">
-                If the automatic prompt didn't show up, you can manually add this app to your homescreen.
-            </p>
-
-            <!-- Instructions for iOS -->
-            <div class="mb-6">
-                <h4 class="font-semibold text-lg mb-2">For iOS (iPhone & iPad)</h4>
-                <ol class="list-decimal list-inside space-y-2 text-gray-300">
-                    <li>Tap the Share button . It's usually at the bottom of the screen in Safari.</li>
-                    <li>Scroll down and select **Add to Home Screen** .</li>
-                    <li>Tap **Add** in the top-right corner.</li>
-                </ol>
-            </div>
-
-            <!-- Instructions for Android -->
-            <div>
-                <h4 class="font-semibold text-lg mb-2">For Android (Chrome)</h4>
-                <ol class="list-decimal list-inside space-y-2 text-gray-300">
-                    <li>Tap the three vertical dots  in the top-right corner of the browser.</li>
-                    <li>Select **Add to Home screen** from the menu.</li>
-                    <li>A pop-up will appear. You can edit the name before tapping **Add**.</li>
-                </ol>
-            </div>
-        </div>
-    </div>
-    
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const closeMenuBtn = document.getElementById('close-menu-btn');
+        // --- Tailwind Configuration ---
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'primary-dark': '#121212',
+                        'card-dark': '#1f1f1f',
+                        'text-light': '#ffffff',
+                        'accent-red': 'orange', /* Using a bright orange as the main accent */
+                        'button-red': '#cc0000',
+                        'button-blue': '#1e90ff', /* NEW: Blue color for the button */
+                    }
+                }
+            }
+        }
+        
+        // --- Global Application State & Constants ---
+        let isMenuOpen = false;
+
+        /**
+         * Toggles the mobile hamburger menu state and visibility.
+         */
+        const toggleMenu = () => {
+            isMenuOpen = !isMenuOpen;
+            const menu = document.getElementById('mobileMenu');
+            const menuButton = document.getElementById('menuButton');
+
+            if (menu) {
+                // Toggles the 'hidden' class based on the state of isMenuOpen
+                menu.classList.toggle('hidden', !isMenuOpen);
+            }
+            if (menuButton) {
+                 // Change the icon to 'X' when open
+                menuButton.innerHTML = isMenuOpen
+                    ? '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>'
+                    : '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>';
+            }
+        };
+
+        // --- App Store Data & Rendering Logic ---
+
+        // Mock data for the app listings - ADDED 'url' property to enable link redirection
+        const apps = [
+            { id: 1, title: "ID Finder Tool", subtitle: "Paste YouTube URLs to instantly get its Video ID.", category: "Utility", rating: 1.2, icon: "assets/app/none.jpg", url: "webapp/idfinder.html" },
+            { id: 2, title: "PassPro", subtitle: "This app is a Free Password manager app.", category: "Security", rating: 4.5, icon: "assets/app/passpro.png", url: "https://stadiastudios.github.io/passpro/" },
+            { id: 3, title: "YT Sub Link Generator", subtitle: "Generate YouTube subscription links with ease.", category: "Developer Tools", rating: 1.3, icon: "assets/app/ytslg.png", url: "webapp/ytsubgen/gen.html" },
+            { id: 4, title: "IMG Extracter", subtitle: "Extract images from URLs quickly and easily.", category: "Developer Tools", rating: 3.5, icon: "assets/app/imgextracter.png", url: "webapp/imgextracter/index.html" },
+            { id: 5, title: "Gdrive Generator", subtitle: "Generate direct download links for Google Drive files.", category: "Developer Tools", rating: 4.7, icon: "assets/app/gdrive.png", url: "webapp/gdrivegen/run.html" },
+            { id: 6, title: "Our Journey", subtitle: "A app to track your relationship date.", category: "Social", rating: 4.0, icon: "assets/app/ourjourney.png", url: "https://stadiastudios.github.io/ourjourney/splash" },
+            { id: 7, title: "GameDrive", subtitle: "Backup Game files to a Save Local Drive", "category": "Storage", "rating": 2.3, "icon": "assets/app/gamedrive.png", "url": "webapp/gamedrive/index.html" },
+        ];
+
+        /**
+         * Generates the HTML for a single App Card.
+         */
+        const renderAppCard = (app) => {
+            return `
+                <div class="card-hover bg-card-dark p-4 rounded-xl shadow-lg flex items-center space-x-4 transition duration-300 transform border border-gray-700 hover:border-accent-red">
+                    <!-- Icon (Now an image) -->
+                    <div class="w-14 h-14 shrink-0 rounded-2xl overflow-hidden">
+                        <img src="${app.icon}" alt="${app.title} Icon" class="w-full h-full object-cover"/>
+                    </div>
+                    <!-- Details -->
+                    <div class="flex-grow min-w-0">
+                        <h3 class="text-text-light font-bold truncate">${app.title}</h3>
+                        <p class="text-gray-400 text-xs truncate">${app.subtitle || app.category}</p>
+                        <div class="flex items-center space-x-1 text-sm text-gray-400 mt-1">
+                            <span class="text-yellow-400">★</span>
+                            <span>${app.rating.toFixed(1)}</span>
+                            <span class="text-gray-600">|</span>
+                            <span>${app.size || 'Free'}</span>
+                        </div>
+                    </div>
+                    <!-- Use Button: Text changed to 'Use' and added data-url/app-link-button for JS listener -->
+                    <button data-url="${app.url}" class="app-link-button app-get-button bg-button-blue hover:bg-blue-700 text-white font-semibold py-1 px-4 rounded-full text-sm transition duration-150 shrink-0">
+                        Use
+                    </button>
+                </div>
+            `;
+        };
+
+        /**
+         * Renders the list of apps in the main grid container.
+         * @param {Array} appsToDisplay - The list of apps to render.
+         * @param {string} title - The section title.
+         */
+        const renderAppsList = (appsToDisplay, title = "Recommended Apps") => {
+            const appListContainer = document.getElementById('recommended-apps-list-container');
+            if (!appListContainer) return;
+
+            const listHtml = `
+                <h2 class="text-2xl md:text-3xl font-bold text-text-light mb-6 text-left border-b border-gray-700 pb-2">${title} (${appsToDisplay.length})</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    ${appsToDisplay.map(renderAppCard).join('')}
+                </div>
+            `;
+            appListContainer.innerHTML = listHtml;
+        };
+
+        /**
+         * Filters the app list based on a query and re-renders the list.
+         */
+        const filterApps = (query) => {
+            const lowerCaseQuery = query.toLowerCase().trim();
             
-            // Add event listeners for the new buttons
-            const downloadHeroBtn = document.getElementById('download-hero-btn');
-            const downloadNavbarBtn = document.getElementById('download-navbar-btn');
-            const downloadMobileBtn = document.getElementById('download-mobile-btn');
+            let filteredList = apps;
+            let title = "Recommended Apps";
 
-            let deferredPrompt;
-
-            window.addEventListener('beforeinstallprompt', (e) => {
-                // Prevent the mini-infobar from appearing on mobile
-                e.preventDefault();
-                // Stash the event so it can be triggered later.
-                deferredPrompt = e;
-                // Update UI notify the user they can add to home screen
-                // Note: The buttons are hidden by default and will be shown by this event
-                downloadHeroBtn.style.display = 'block';
-                downloadNavbarBtn.style.display = 'block';
-                downloadMobileBtn.style.display = 'block';
-            });
-
-            // Function to show the manual installation instructions modal
-            const showInstructionsModal = () => {
-                const modal = document.getElementById('install-instructions-modal');
-                modal.classList.add('open');
-                document.body.style.overflow = 'hidden'; // Prevents scrolling on the main page
-            };
-
-            // Function to close the manual installation instructions modal
-            const closeInstructionsModal = () => {
-                const modal = document.getElementById('install-instructions-modal');
-                modal.classList.remove('open');
-                document.body.style.overflow = 'auto'; // Re-enables scrolling
-            };
-
-            // Function to handle the install prompt
-            const handleInstallPrompt = (e) => {
-                // Check if the device is a mobile device
-                const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-                
-                if (deferredPrompt && isMobile) {
-                    deferredPrompt.prompt();
-                    // Wait for the user to respond to the prompt
-                    deferredPrompt.userChoice.then((choiceResult) => {
-                        if (choiceResult.outcome === 'accepted') {
-                            console.log('User accepted the A2HS prompt');
-                        } else {
-                            console.log('User dismissed the A2HS prompt');
-                        }
-                        deferredPrompt = null;
-                    });
-                } else if (isMobile) {
-                    // Fallback for mobile browsers that don't support beforeinstallprompt
-                    // or if the event has already been used.
-                    showInstructionsModal();
-                } else {
-                    console.log('Not a mobile device or the prompt is not available.');
-                }
-            };
-
-            // Add click listeners to all download buttons
-            if (downloadHeroBtn) {
-                downloadHeroBtn.addEventListener('click', handleInstallPrompt);
+            if (lowerCaseQuery.length > 0) {
+                filteredList = apps.filter(app => 
+                    app.title.toLowerCase().includes(lowerCaseQuery) ||
+                    app.subtitle.toLowerCase().includes(lowerCaseQuery) ||
+                    app.category.toLowerCase().includes(lowerCaseQuery)
+                );
+                title = "Search Results";
             }
-            if (downloadNavbarBtn) {
-                downloadNavbarBtn.addEventListener('click', handleInstallPrompt);
-            }
-            if (downloadMobileBtn) {
-                downloadMobileBtn.addEventListener('click', handleInstallPrompt);
-            }
-
-            // Close modal button listener
-            document.getElementById('close-instructions-btn').addEventListener('click', closeInstructionsModal);
             
-            // Close modal by clicking on the overlay
-            document.getElementById('install-instructions-modal').addEventListener('click', (e) => {
-                if (e.target === e.currentTarget) {
-                    closeInstructionsModal();
+            // Render only the list section with the filtered apps
+            renderAppsList(filteredList, title);
+        };
+        
+        /**
+         * Renders the static structure of the App Store (Called only once on load).
+         */
+        const renderAppStore = () => {
+            const mainContent = document.getElementById('main-app-store-content');
+            if (!mainContent) return;
+
+            // Placeholder for the Recommended/Search Results list
+            const recommendedContainerHtml = '<section class="mb-12" id="recommended-apps-list-container"></section>';
+
+            mainContent.innerHTML = recommendedContainerHtml;
+
+            // Initial render of the Recommended Apps list (calls filterApps with empty query)
+            filterApps(''); 
+        };
+
+        // Initialize mobile menu toggle listener AND render content
+        window.onload = () => {
+            document.getElementById('menuButton').addEventListener('click', toggleMenu);
+            renderAppStore();
+
+            // Add search listener
+            const searchInput = document.getElementById('appSearchInput');
+            if (searchInput) {
+                // Use the 'input' event for real-time filtering as the user types
+                searchInput.addEventListener('input', (e) => {
+                    filterApps(e.target.value);
+                });
+            }
+
+            // --- NEW: Global Listener for App Link Buttons ---
+            // Attaches a single listener to the document to handle clicks on dynamically generated buttons
+            document.addEventListener('click', (e) => {
+                // Find the closest button element with the class 'app-link-button'
+                const button = e.target.closest('.app-link-button');
+                if (button) {
+                    const url = button.getAttribute('data-url');
+                    if (url) {
+                        window.location.href = url;
+                    }
                 }
             });
-
-            mobileMenuBtn.addEventListener('click', () => {
-                mobileMenu.classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
-            });
-
-            closeMenuBtn.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-                document.body.style.overflow = 'auto';
-            });
-
-            // Close menu on resize to desktop
-            window.addEventListener('resize', () => {
-                if (window.innerWidth >= 768) {
-                    mobileMenu.classList.add('hidden');
-                    document.body.style.overflow = 'auto';
-                }
-            });
-        });
+            // --------------------------------------------------
+        };
     </script>
+</head>
+<body class="bg-primary-dark text-text-light font-sans min-h-screen">
+
+    <!-- Top Navigation Bar (Reverted to original StadiaStudios style + Search Bar) -->
+    <nav class="bg-card-dark shadow-md sticky top-0 z-10">
+        <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo/Title (Original StadiaStudios Logo) -->
+                <h1 class="text-3xl font-extrabold text-[orange] tracking-wider">StadiaStudios <span class="text-white text-xl font-light"></span></h1>
+
+                <!-- Desktop Navigation Links (Original links + Search Bar) -->
+                <div class="hidden lg:flex items-center space-x-6">
+                    <a href="index.html" class="text-accent-red font-bold transition duration-150 text-sm font-medium border-b-2 border-accent-red">Home</a>
+                    <a href="tos.pdf" target="_blank" class="text-gray-300 hover:text-accent-red transition duration-150 text-sm font-medium">Terms of Service</a>
+                    
+                    <!-- Tools Dropdown (Desktop - Original Structure) -->
+                    <div class="relative group pt-2 pb-2">
+                        <button class="flex items-center text-gray-300 group-hover:text-accent-red transition duration-150 text-sm font-medium">
+                            <span>Tools</span>
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <!-- Dropdown Menu -->
+                        <div class="absolute right-0 top-full w-48 bg-card-dark border border-gray-700 rounded-md shadow-lg py-1 z-10
+                                    opacity-0 pointer-events-none transform scale-95 group-hover:opacity-100 group-hover:scale-100 group-hover:pointer-events-auto
+                                    transition-all duration-200 ease-in-out origin-top-right">
+                            <a href="webapp/idfinder.html" class="block px-4 py-2 text-sm text-gray-300 hover:bg-[orange] hover:text-black">ID Finder</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-[orange] hover:text-black">Analytics</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-[orange] hover:text-black">Settings</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Search Bar (KEPT) -->
+                    <div class="relative ml-6">
+                        <input type="text" id="appSearchInput" placeholder="Search Apps, Games..." class="bg-[#333] text-gray-200 text-sm rounded-full py-1 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-accent-red transition duration-150 w-48">
+                        <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button (Hidden on desktop) -->
+                <button id="menuButton" class="lg:hidden p-2 rounded-lg text-gray-300 hover:text-accent-red hover:bg-orange-800 transition duration-150" aria-label="Toggle menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu Panel (Original links) -->
+        <div id="mobileMenu" class="hidden lg:hidden bg-[#222] border-t border-gray-700">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="index.html" class="block px-3 py-2 rounded-md text-base font-medium text-accent-red bg-[#222]">Home</a>
+                <a href="tos.pdf" target="_blank" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-{#111} hover:text-white">TOS</a>
+                <!-- Tools are simplified into mobile links -->
+                <a href="webapp/idfinder.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-{#111} hover:text-white">ID Finder</a>
+                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-{#111} hover:text-white">Analytics</a>
+                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-{#111} hover:text-white">Settings</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main App Store Content Area -->
+    <div id="main-app-store-content" class="max-w-screen-xl mx-auto p-4 md:p-8 pt-6 md:pt-12">
+        <!-- Content will be injected by JavaScript's renderAppStore() function -->
+    </div>
+
+<footer class="text-center text-gray-500 py-8">Welcome to the Website Overhaul! New Things coming soon stick around or add app to homescreen in the meantime!</footer>
+
 </body>
 </html>

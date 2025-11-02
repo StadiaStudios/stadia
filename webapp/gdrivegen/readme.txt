@@ -1,0 +1,1 @@
+To launch the app within the folder open "Run.html"

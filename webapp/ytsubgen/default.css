@@ -1,0 +1,115 @@
+body {
+  font-family: sans-serif;
+  margin: 0px;
+  background-color:#111;
+}
+
+.padding {
+    padding-left: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="text"], input[type="url"] {
+  width: 350px;
+  padding: 8px;
+  margin-bottom: 10px;
+  background-color: #333;
+  border: 1px solid red;
+  border-radius: 4px;
+  color: gray;
+}
+
+/* Fix for the focus border */
+input[type="text"]:focus, input[type="url"]:focus {
+  outline: none; /* Removes the default blue outline */
+  border: 1px solid #ff6347; /* Changes the border color on focus */
+  box-shadow: 0 0 5px #ff6347; /* Adds a subtle glow effect */
+}
+
+button {
+  background-color: #111;
+  color: white;
+  padding: 10px 15px;
+  border: 2px solid red;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #333;
+  border: 2px solid red;
+}
+
+#generatedLink {
+  margin-top: 20px;
+  font-size: 16px;
+}
+
+a {
+    color: red;
+    text-decoration:none;
+    font-size:20px;
+    transition-duration: 0.2s;
+}
+
+ a:hover {
+    color:rgb(255, 63, 63);
+    transition-duration: 0.2s;
+}
+
+p {
+  color:white;
+}
+
+h2 {
+  color:white;
+}
+
+h1 {
+  color:white;
+}
+
+/* Navbar styles */
+#navbar {
+  background-color: #222;
+  overflow: hidden;
+  text-align: left;
+}
+
+#navbar a {
+  display: inline-block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+#navbar a:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: rgb(91, 156, 255);
+  transform-origin: bottom left;
+  transition: transform 0.3s ease-out;
+}
+
+#navbar a:hover:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+#navbar a.active {
+  background-color: #e100ff00;
+  color: white;
+}
