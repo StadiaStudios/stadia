@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StadiaStudios | App Store</title>
+    <title>StadiaStudios | Official App Store</title>
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/x-icon" href="assets/favicon.png">
     <!-- Load Tailwind CSS -->
@@ -88,13 +88,16 @@
 
         // Mock data for the app listings - ADDED 'url' property to enable link redirection
         const apps = [
-            { id: 1, title: "ID Finder Tool", subtitle: "Paste YouTube URLs to instantly get its Video ID.", category: "Utility", rating: 1.2, icon: "assets/app/none.jpg", url: "webapp/idfinder.html" },
+            { id: 1, title: "ID Finder Tool", subtitle: "Paste YouTube URLs to instantly get its Video ID.", category: "Utility", rating: 1.2, icon: "assets/app/none.jpg", url: "webapp/imgextracter/idfinder.html" },
             { id: 2, title: "PassPro", subtitle: "This app is a Free Password manager app.", category: "Security", rating: 4.5, icon: "assets/app/passpro.png", url: "https://stadiastudios.github.io/passpro/" },
             { id: 3, title: "YT Sub Link Generator", subtitle: "Generate YouTube subscription links with ease.", category: "Developer Tools", rating: 1.3, icon: "assets/app/ytslg.png", url: "webapp/ytsubgen/gen.html" },
             { id: 4, title: "IMG Extracter", subtitle: "Extract images from URLs quickly and easily.", category: "Developer Tools", rating: 3.5, icon: "assets/app/imgextracter.png", url: "webapp/imgextracter/index.html" },
-            { id: 5, title: "Gdrive Generator", subtitle: "Generate direct download links for Google Drive files.", category: "Developer Tools", rating: 4.7, icon: "assets/app/gdrive.png", url: "webapp/gdrivegen/run.html" },
+            { id: 5, title: "Gdrive Generator", subtitle: "Generate direct download links for Google Drive files.", category: "Developer Tools", rating: 4.7, icon: "assets/app/gdrive.png", url: "webapp/imgextracter/gdrivedl.html" },
             { id: 6, title: "Our Journey", subtitle: "A app to track your relationship date.", category: "Social", rating: 4.0, icon: "assets/app/ourjourney.png", url: "https://stadiastudios.github.io/ourjourney/splash" },
             { id: 7, title: "GameDrive", subtitle: "Backup Game files to a Save Local Drive", "category": "Storage", "rating": 2.3, "icon": "assets/app/gamedrive.png", "url": "webapp/gamedrive/index.html" },
+            { id: 8, title: "JetSurfers 2", subtitle: "Jet Surfers 2 is official here!", "category": "games", "rating": 5.0, "icon": "assets/app/jetsurfers2.jpg", "url": "https://stadiastudios.github.io/JetSurfers2/" },
+            { id: 9, title: "StadiaWallet", subtitle: "Track your full cash balance including paper money and cash app", "category": "financial", "rating": 3.4, "icon": "assets/app/stadiawallet.png", "url": "https://stadiastudios.github.io/stadiawallet/" },
+
         ];
 
         /**
@@ -236,8 +239,8 @@
                         <div class="absolute right-0 top-full w-48 bg-card-dark border border-gray-700 rounded-md shadow-lg py-1 z-10
                                     opacity-0 pointer-events-none transform scale-95 group-hover:opacity-100 group-hover:scale-100 group-hover:pointer-events-auto
                                     transition-all duration-200 ease-in-out origin-top-right">
-                            <a href="webapp/idfinder.html" class="block px-4 py-2 text-sm text-gray-300 hover:bg-[orange] hover:text-black">ID Finder</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-[orange] hover:text-black">Analytics</a>
+                            <a href="webapp/imgextracter/idfinder.html" class="block px-4 py-2 text-sm text-gray-300 hover:bg-[orange] hover:text-black">YT Video ID Finder</a>
+                            <a href="webapp/imgextracter/index.html" class="block px-4 py-2 text-sm text-gray-300 hover:bg-[orange] hover:text-black">IMG Extracter By URL</a>
                             <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-[orange] hover:text-black">Settings</a>
                         </div>
                     </div>
@@ -262,8 +265,8 @@
                 <a href="index.html" class="block px-3 py-2 rounded-md text-base font-medium text-accent-red bg-[#222]">Home</a>
                 <a href="tos.pdf" target="_blank" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-{#111} hover:text-white">TOS</a>
                 <!-- Tools are simplified into mobile links -->
-                <a href="webapp/idfinder.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-{#111} hover:text-white">ID Finder</a>
-                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-{#111} hover:text-white">Analytics</a>
+                <a href="webapp/imgextracter/idfinder.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-{#111} hover:text-white">YT Video ID Finder</a>
+                <a href="webapp/imgextracter/index.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-{#111} hover:text-white">IMG Extracter By URL</a>
                 <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-{#111} hover:text-white">Settings</a>
             </div>
         </div>
