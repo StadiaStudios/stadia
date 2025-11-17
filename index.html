@@ -38,7 +38,15 @@
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: orange; /* accent-red on hover */
+            background: red; /* accent-red on hover */
+        }
+
+        /* Styles for Modal */
+        #appModal.hidden {
+            display: none;
+        }
+        body.modal-open {
+            overflow: hidden;
         }
     </style>
     <script>
@@ -53,9 +61,10 @@
                         'primary-dark': '#121212',
                         'card-dark': '#1f1f1f',
                         'text-light': '#ffffff',
-                        'accent-red': 'orange', /* Using a bright orange as the main accent */
+                        'accent-red': 'white', /* Using a bright orange as the main accent */
                         'button-red': '#cc0000',
                         'button-blue': '#1e90ff', /* NEW: Blue color for the button */
+                        'button-green': '#16a34a', /* NEW: Green color for download button */
                     }
                 }
             }
@@ -86,10 +95,10 @@
 
         // --- App Store Data & Rendering Logic ---
 
-        // Mock data for the app listings - ADDED 'url' property to enable link redirection
+        // Mock data for the web app listings
         const apps = [
-            { id: 1, title: "ID Finder Tool", subtitle: "Paste YouTube URLs to instantly get its Video ID.", category: "Utility", rating: 1.2, icon: "assets/app/none.jpg", url: "webapp/imgextracter/idfinder.html" },
-            { id: 2, title: "PassPro", subtitle: "This app is a Free Password manager app.", category: "Security", rating: 4.5, icon: "assets/app/passpro.png", url: "https://stadiastudios.github.io/passpro/" },
+            { id: 1, title: "PassPro", subtitle: "This app is a Free Password manager app.", category: "Security", rating: 4.5, icon: "assets/app/passpro.png", url: "https://stadiastudios.github.io/passpro/" },
+            { id: 2, title: "YT ID Finder Tool", subtitle: "Paste YouTube URLs to instantly get its Video ID.", category: "Utility", rating: 1.2, icon: "assets/app/none.jpg", url: "webapp/imgextracter/idfinder.html" },
             { id: 3, title: "YT Sub Link Generator", subtitle: "Generate YouTube subscription links with ease.", category: "Developer Tools", rating: 1.3, icon: "assets/app/ytslg.png", url: "webapp/ytsubgen/gen.html" },
             { id: 4, title: "IMG Extracter", subtitle: "Extract images from URLs quickly and easily.", category: "Developer Tools", rating: 3.5, icon: "assets/app/imgextracter.png", url: "webapp/imgextracter/index.html" },
             { id: 5, title: "Gdrive Generator", subtitle: "Generate direct download links for Google Drive files.", category: "Developer Tools", rating: 4.7, icon: "assets/app/gdrive.png", url: "webapp/imgextracter/gdrivedl.html" },
@@ -97,16 +106,41 @@
             { id: 7, title: "GameDrive", subtitle: "Backup Game files to a Save Local Drive", "category": "Storage", "rating": 2.3, "icon": "assets/app/gamedrive.png", "url": "webapp/gamedrive/index.html" },
             { id: 8, title: "JetSurfers 2", subtitle: "Jet Surfers 2 is official here!", "category": "games", "rating": 5.0, "icon": "assets/app/jetsurfers2.jpg", "url": "https://stadiastudios.github.io/JetSurfers2/" },
             { id: 9, title: "StadiaWallet", subtitle: "Track your full cash balance including paper money and cash app", "category": "financial", "rating": 3.4, "icon": "assets/app/stadiawallet.png", "url": "https://stadiastudios.github.io/stadiawallet/" },
+        ];
 
+        // NEW: Mock data for the PC app listings
+        const pcApps = [
+            { id: 101, title: "JetSurfers (Original)", subtitle: "The True Original Version.", category: "Games", icon: "assets/app/jetsurfers2.jpg", downloadUrl: "https://drive.google.com/uc?export=download&id=14gJk2N3nFoSUFlROreiqdDq7NsEqcGUF" },
+            { id: 102, title: "LumberTycoon2D", subtitle: "StadiaStudios Original Project.", category: "Games", icon: "assets/app/lumbertycoon.png", downloadUrl: "https://drive.google.com/uc?export=download&id=1mj8yHtBDRuv9PZLUzQ4ecu0VLUVl6Ybj" },
+            { id: 103, title: "SquareFlapper", subtitle: "Flappy Bird Square Bird..", category: "Games", icon: "assets/app/sf.png", downloadUrl: "https://drive.google.com/uc?export=download&id=16Xf2gHxZqpxp0V8H0sLPaNSrnKQyB4js" },
         ];
 
         /**
-         * Generates the HTML for a single App Card.
+         * Generates the HTML for a single Web App Card (opens modal).
          */
         const renderAppCard = (app) => {
             return `
-                <div class="card-hover bg-card-dark p-4 rounded-xl shadow-lg flex items-center space-x-4 transition duration-300 transform border border-gray-700 hover:border-accent-red">
+                <div class="app-card card-hover bg-card-dark p-4 rounded-xl shadow-lg flex items-center space-x-4 transition duration-300 transform border border-gray-700 hover:border-accent-red cursor-pointer" data-app-id="${app.id}">
                     <!-- Icon (Now an image) -->
+                    <div class="w-14 h-14 shrink-0 rounded-2xl overflow-hidden">
+                        <img src="${app.icon}" alt="${app.title} Icon" class="w-full h-full object-cover"/>
+                    </div>
+                    <!-- Details -->
+                    <div class="flex-grow min-w-0 pointer-events-none">
+                        <h3 class="text-text-light font-bold truncate">${app.title}</h3>
+                        <p class="text-gray-400 text-xs truncate">${app.subtitle || app.category}</p>
+                    </div>
+                </div>
+            `;
+        };
+
+        /**
+         * NEW: Generates the HTML for a single PC App Card (with download button).
+         */
+        const renderPCAppCard = (app) => {
+            return `
+                <div class="card-hover bg-card-dark p-4 rounded-xl shadow-lg flex items-center space-x-4 transition duration-300 transform border border-gray-700 hover:border-accent-red">
+                    <!-- Icon -->
                     <div class="w-14 h-14 shrink-0 rounded-2xl overflow-hidden">
                         <img src="${app.icon}" alt="${app.title} Icon" class="w-full h-full object-cover"/>
                     </div>
@@ -114,23 +148,19 @@
                     <div class="flex-grow min-w-0">
                         <h3 class="text-text-light font-bold truncate">${app.title}</h3>
                         <p class="text-gray-400 text-xs truncate">${app.subtitle || app.category}</p>
-                        <div class="flex items-center space-x-1 text-sm text-gray-400 mt-1">
-                            <span class="text-yellow-400">★</span>
-                            <span>${app.rating.toFixed(1)}</span>
-                            <span class="text-gray-600">|</span>
-                            <span>${app.size || 'Free'}</span>
-                        </div>
                     </div>
-                    <!-- Use Button: Text changed to 'Use' and added data-url/app-link-button for JS listener -->
-                    <button data-url="${app.url}" class="app-link-button app-get-button bg-button-blue hover:bg-blue-700 text-white font-semibold py-1 px-4 rounded-full text-sm transition duration-150 shrink-0">
-                        Use
-                    </button>
+                    <!-- Download Button -->
+                    <div class="shrink-0">
+                        <a href="${app.downloadUrl}" target="_blank" rel="noopener noreferrer" class="app-get-button bg-button-blue hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-full text-sm transition duration-150 inline-block">
+                            Download
+                        </a>
+                    </div>
                 </div>
             `;
         };
 
         /**
-         * Renders the list of apps in the main grid container.
+         * Renders the list of web apps in the main grid container.
          * @param {Array} appsToDisplay - The list of apps to render.
          * @param {string} title - The section title.
          */
@@ -148,29 +178,60 @@
         };
 
         /**
-         * Filters the app list based on a query and re-renders the list.
+         * NEW: Renders the list of PC apps in their grid container.
+         * @param {Array} appsToDisplay - The list of apps to render.
+         * @param {string} title - The section title.
+         */
+        const renderPCAppsList = (appsToDisplay, title = "Downloadable For PC") => {
+            const appListContainer = document.getElementById('pc-apps-list-container');
+            if (!appListContainer) return;
+
+            const listHtml = `
+                <h2 class="text-2xl md:text-3xl font-bold text-text-light mb-6 text-left border-b border-gray-700 pb-2">${title} (${appsToDisplay.length})</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    ${appsToDisplay.map(renderPCAppCard).join('')}
+                </div>
+            `;
+            appListContainer.innerHTML = listHtml;
+        };
+
+
+        /**
+         * UPDATED: Filters both app lists based on a query and re-renders them.
          */
         const filterApps = (query) => {
             const lowerCaseQuery = query.toLowerCase().trim();
             
-            let filteredList = apps;
-            let title = "Recommended Apps";
+            let filteredWebList = apps;
+            let webTitle = "All Apps";
+            let filteredPCList = pcApps;
+            let pcTitle = "Downloadable For PC";
 
             if (lowerCaseQuery.length > 0) {
-                filteredList = apps.filter(app => 
+                // Filter Web Apps
+                filteredWebList = apps.filter(app => 
                     app.title.toLowerCase().includes(lowerCaseQuery) ||
                     app.subtitle.toLowerCase().includes(lowerCaseQuery) ||
                     app.category.toLowerCase().includes(lowerCaseQuery)
                 );
-                title = "Search Results";
+                webTitle = "Search Results (Web)";
+
+                // Filter PC Apps
+                filteredPCList = pcApps.filter(app => 
+                    app.title.toLowerCase().includes(lowerCaseQuery) ||
+                    app.subtitle.toLowerCase().includes(lowerCaseQuery) ||
+                    app.category.toLowerCase().includes(lowerCaseQuery)
+                );
+                pcTitle = "Search Results (PC)";
             }
             
-            // Render only the list section with the filtered apps
-            renderAppsList(filteredList, title);
+            // Render both lists
+            renderAppsList(filteredWebList, webTitle);
+            renderPCAppsList(filteredPCList, pcTitle);
         };
         
         /**
-         * Renders the static structure of the App Store (Called only once on load).
+         * UPDATED: Renders the static structure of the App Store (Called only once on load).
          */
         const renderAppStore = () => {
             const mainContent = document.getElementById('main-app-store-content');
@@ -178,11 +239,70 @@
 
             // Placeholder for the Recommended/Search Results list
             const recommendedContainerHtml = '<section class="mb-12" id="recommended-apps-list-container"></section>';
+            // NEW: Placeholder for the PC Apps list
+            const pcContainerHtml = '<section class="mb-12" id="pc-apps-list-container"></section>';
 
-            mainContent.innerHTML = recommendedContainerHtml;
+            // Add both containers to the main content area
+            mainContent.innerHTML = recommendedContainerHtml + pcContainerHtml;
 
-            // Initial render of the Recommended Apps list (calls filterApps with empty query)
+            // Initial render (calls filterApps, which will now render both lists)
             filterApps(''); 
+        };
+
+        /**
+         * Opens the modal with details for the selected web app.
+         * @param {object} app - The app object to display.
+         */
+        const openModal = (app) => {
+            const modal = document.getElementById('appModal');
+            const modalContent = document.getElementById('modalContent');
+            if (!modal || !modalContent) return;
+
+            modalContent.innerHTML = `
+                <button id="closeModalButton" class="absolute top-3 right-4 text-gray-400 hover:text-white transition-colors">&times;</button>
+                <div class="flex items-start space-x-5">
+                    <div class="w-20 h-20 shrink-0 rounded-3xl overflow-hidden">
+                        <img src="${app.icon}" alt="${app.title} Icon" class="w-full h-full object-cover"/>
+                    </div>
+                    <div class="flex-grow min-w-0">
+                        <h3 class="text-2xl font-bold text-text-light">${app.title}</h3>
+                        <p class="text-sm text-gray-400">${app.category}</p>
+                        <div class="flex items-center space-x-2 text-sm text-gray-400 mt-2">
+                            <span class="text-yellow-400">★ ${app.rating.toFixed(1)}</span>
+                            <span class="text-gray-600">|</span>
+                            <span>${app.size || 'Free'}</span>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-gray-300 mt-4">${app.subtitle}</p>
+                <div class="mt-6 text-center">
+                    <a href="${app.url}" target="_blank" class="app-get-button bg-button-blue hover:bg-blue-700 text-white font-semibold py-2 px-8 rounded-full text-base transition duration-150 inline-block">
+                        Use App
+                    </a>
+                </div>
+            `;
+
+            modal.classList.remove('hidden');
+            document.body.classList.add('modal-open');
+
+            // Add event listeners to close the modal
+            document.getElementById('closeModalButton').addEventListener('click', closeModal);
+            document.getElementById('modalBackdrop').addEventListener('click', closeModal);
+        };
+
+        /**
+         * Closes the app detail modal.
+         */
+        const closeModal = () => {
+            const modal = document.getElementById('appModal');
+            if (modal) {
+                modal.classList.add('hidden');
+            }
+            document.body.classList.remove('modal-open');
+
+            // Clean up event listeners to prevent memory leaks
+            const backdrop = document.getElementById('modalBackdrop');
+            if (backdrop) backdrop.removeEventListener('click', closeModal);
         };
 
         // Initialize mobile menu toggle listener AND render content
@@ -199,19 +319,18 @@
                 });
             }
 
-            // --- NEW: Global Listener for App Link Buttons ---
-            // Attaches a single listener to the document to handle clicks on dynamically generated buttons
+            // --- Global Listener for App Card Clicks to open Modal ---
+            // This will only trigger for elements with the "app-card" class
             document.addEventListener('click', (e) => {
-                // Find the closest button element with the class 'app-link-button'
-                const button = e.target.closest('.app-link-button');
-                if (button) {
-                    const url = button.getAttribute('data-url');
-                    if (url) {
-                        window.location.href = url;
+                const card = e.target.closest('.app-card');
+                if (card) {
+                    const appId = parseInt(card.getAttribute('data-app-id'), 10);
+                    const app = apps.find(a => a.id === appId);
+                    if (app) {
+                        openModal(app);
                     }
                 }
             });
-            // --------------------------------------------------
         };
     </script>
 </head>
@@ -222,7 +341,7 @@
         <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <!-- Logo/Title (Original StadiaStudios Logo) -->
-                <h1 class="text-3xl font-extrabold text-[orange] tracking-wider">StadiaStudios <span class="text-white text-xl font-light"></span></h1>
+                <h1 class="text-3xl font-extrabold text-[white] tracking-wider">StadiaStudios <span class="text-white text-xl font-light"></span></h1>
 
                 <!-- Desktop Navigation Links (Original links + Search Bar) -->
                 <div class="hidden lg:flex items-center space-x-6">
@@ -235,31 +354,28 @@
                             <span>Tools</span>
                             <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
-                        <!-- Dropdown Menu -->
+                        
                         <div class="absolute right-0 top-full w-48 bg-card-dark border border-gray-700 rounded-md shadow-lg py-1 z-10
                                     opacity-0 pointer-events-none transform scale-95 group-hover:opacity-100 group-hover:scale-100 group-hover:pointer-events-auto
                                     transition-all duration-200 ease-in-out origin-top-right">
-                            <a href="webapp/imgextracter/idfinder.html" class="block px-4 py-2 text-sm text-gray-300 hover:bg-[orange] hover:text-black">YT Video ID Finder</a>
-                            <a href="webapp/imgextracter/index.html" class="block px-4 py-2 text-sm text-gray-300 hover:bg-[orange] hover:text-black">IMG Extracter By URL</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-[orange] hover:text-black">Settings</a>
+                            <a href="webapp/imgextracter/idfinder.html" class="block px-4 py-2 text-sm text-gray-300 hover:bg-[#222] hover:text-white">YT Video ID Finder</a>
+                            <a href="webapp/imgextracter/index.html" class="block px-4 py-2 text-sm text-gray-300 hover:bg-[#222] hover:text-white">IMG Extracter By URL</a>
+                            <a href="mailto:stadiastudios746@gmail.com?subject=I%20Have%20a%20Request%20To%20make%20for%20%5BInput%5D&body=Hi%20i%20would%20like%20to%20request..." class="block px-4 py-2 text-sm text-gray-300 hover:bg-[#222] hover:text-white">Contact Support</a>
                         </div>
                     </div>
                     
-                    <!-- Search Bar (KEPT) -->
                     <div class="relative ml-6">
                         <input type="text" id="appSearchInput" placeholder="Search Apps, Games..." class="bg-[#333] text-gray-200 text-sm rounded-full py-1 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-accent-red transition duration-150 w-48">
                         <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                     </div>
                 </div>
 
-                <!-- Mobile Menu Button (Hidden on desktop) -->
                 <button id="menuButton" class="lg:hidden p-2 rounded-lg text-gray-300 hover:text-accent-red hover:bg-orange-800 transition duration-150" aria-label="Toggle menu">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
                 </button>
             </div>
         </div>
         
-        <!-- Mobile Menu Panel (Original links) -->
         <div id="mobileMenu" class="hidden lg:hidden bg-[#222] border-t border-gray-700">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 <a href="index.html" class="block px-3 py-2 rounded-md text-base font-medium text-accent-red bg-[#222]">Home</a>
@@ -267,17 +383,25 @@
                 <!-- Tools are simplified into mobile links -->
                 <a href="webapp/imgextracter/idfinder.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-{#111} hover:text-white">YT Video ID Finder</a>
                 <a href="webapp/imgextracter/index.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-{#111} hover:text-white">IMG Extracter By URL</a>
-                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-{#111} hover:text-white">Settings</a>
+                <a href="mailto:stadiastudios746@gmail.com?subject=I%20Have%20a%20Request%20To%20make%20for%20%5BInput%5D&body=Hi%20i%20would%20like%20to%20request..." class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-{#111} hover:text-white">Support</a>
             </div>
         </div>
     </nav>
     
-    <!-- Main App Store Content Area -->
+    <!-- UPDATED: Main content area now loads both app sections via JS -->
     <div id="main-app-store-content" class="max-w-screen-xl mx-auto p-4 md:p-8 pt-6 md:pt-12">
-        <!-- Content will be injected by JavaScript's renderAppStore() function -->
+        <!-- App sections are now dynamically rendered here by renderAppStore() -->
     </div>
 
-<footer class="text-center text-gray-500 py-8">Welcome to the Website Overhaul! New Things coming soon stick around or add app to homescreen in the meantime!</footer>
-
+    <!-- Modal Container (for web apps) -->
+    <div id="appModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+        <!-- Backdrop -->
+        <div id="modalBackdrop" class="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm"></div>
+        
+        <!-- Modal Content -->
+        <div id="modalContent" class="relative bg-card-dark rounded-2xl shadow-2xl w-full max-w-md mx-auto p-6 border border-gray-700">
+            <!-- Modal content will be dynamically inserted here -->
+        </div>
+    </div>
 </body>
 </html>
