@@ -316,7 +316,7 @@ const renderSaves = async () => {
         // Sort by upload date, newest first
         saves.sort((a, b) => b.uploadDate - a.uploadDate).forEach(save => {
             const item = document.createElement('div');
-            item.className = 'file-list-item flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 bg-[#333] rounded-md transition border border-gray-600 hover:border-blue-500 hover:bg-[#444]';
+            item.className = 'file-list-item flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 bg-[#111] rounded-md transition border border-gray-600 hover:border-blue-500 hover:bg-[#222]';
             item.innerHTML = `
                 <div class="flex-1 w-full sm:w-auto mb-2 sm:mb-0">
                     <h3 class="text-lg font-bold text-teal-300 truncate">${save.gameName}</h3>
@@ -327,8 +327,8 @@ const renderSaves = async () => {
                     </p>
                 </div>
                 <div class="actions flex space-x-2 opacity-100 sm:opacity-70 transition-opacity">
-                    <button data-id="${save.id}" class="download-btn px-3 py-1 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-500 transition">Download</button>
-                    <button data-id="${save.id}" class="delete-btn px-3 py-1 bg-red-600 text-white text-sm rounded-md hover:bg-red-500 transition">Delete Local</button>
+                    <button data-id="${save.id}" class="download-btn px-3 py-1 bg-[none] text-white text-sm rounded-md hover:bg-[blue] hover:text-white transition">Download</button>
+                    <button data-id="${save.id}" class="delete-btn px-3 py-1 bg-bg-[none] text-white text-sm rounded-md hover:bg-[red] transition">Delete Local</button>
                 </div>
             `;
             saveListContainer.appendChild(item);
