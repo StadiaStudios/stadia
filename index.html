@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StadiaStudios | Official App Store</title>
+     <link rel="manifest" href="manifest.json">
     <link rel="icon" href="assets/favicon.png" type="image/x-icon">
     <meta name="description" content="The official hub for StadiaStudios apps, games, and developer tools.">
     
@@ -52,7 +53,7 @@
                         },
                         slideUp: {
                             '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                            '100%': { opacity: '1' },
                         },
                         modalPop: {
                             '0%': { opacity: '0', transform: 'scale(0.95)' },
@@ -124,94 +125,13 @@
 <body class="antialiased selection:bg-brand selection:text-white flex flex-col min-h-screen">
 
     <!-- Toast Notification Container -->
-    <div id="toast-container" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] pointer-events-none">
-        <!-- Toasts injected here -->
-    </div>
+    <div id="toast-container" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] pointer-events-none"></div>
 
-    <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 glass transition-all duration-300" id="navbar">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <!-- Logo -->
-                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
-                    <div class="w-10 h-10  rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-lg mr-3">
-                        <img style="border-radius:20px;" src="assets/favicon.png" onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\'fa-solid fa-gamepad\'></i>'">
-                    </div>
-                    <span class="text-2xl font-bold tracking-tight text-white">
-                        Stadia<span class="text-red-500">Studios</span>
-                    </span>
-                </div>
-
-                <!-- Desktop Menu -->
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="index.html" class="text-sm font-medium text-white hover:text-red-500 transition-colors">Home</a>
-                    <a href="tos.pdf" target="_blank" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Terms Of Service</a>
-                    
-                    <!-- Dropdown -->
-                    <div class="relative group">
-                        <button class="flex items-center space-x-1 text-sm font-medium text-gray-400 group-hover:text-white transition-colors focus:outline-none">
-                            <span>Tools</span>
-                            <i class="fa-solid fa-chevron-down text-xs transition-transform group-hover:rotate-180"></i>
-                        </button>
-                        <!-- Dropdown Menu -->
-                        <div class="absolute right-0 top-full mt-2 w-48 bg-dark-900 border border-dark-800 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-right scale-95 group-hover:scale-100 overflow-hidden z-50">
-                            <a href="webapp/imgextracter/idfinder.html" class="block px-4 py-3 text-sm text-gray-300 hover:bg-dark-800 hover:text-white transition-colors">
-                                <i class="fa-brands fa-youtube mr-2 text-red-500"></i> YT ID Finder
-                            </a>
-                            <a href="webapp/imgextracter/index.html" class="block px-4 py-3 text-sm text-gray-300 hover:bg-dark-800 hover:text-white transition-colors">
-                                <i class="fa-solid fa-image mr-2 text-blue-500"></i> IMG Extractor
-                            </a>
-                            <a href="https://discord.gg/UGBFVrcKKx" target="_blank" class="block px-4 py-3 text-sm text-gray-300 hover:bg-dark-800 hover:text-white transition-colors">
-                                <i class="fa-brands fa-discord mr-2 text-indigo-500"></i> Contact Support
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Search Bar -->
-                    <div class="relative group">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <i class="fa-solid fa-search text-gray-500 group-focus-within:text-brand transition-colors"></i>
-                        </div>
-                        <input type="text" id="desktopSearch" placeholder="Search apps..." 
-                            class="bg-dark-900 border border-dark-800 text-gray-200 text-sm rounded-full focus:ring-2 focus:ring-brand focus:border-transparent block w-48 pl-10 p-2.5 transition-all duration-300 focus:w-64 outline-none placeholder-gray-600">
-                    </div>
-                </div>
-
-                <!-- Mobile Menu Button -->
-                <div class="md:hidden">
-                    <button id="mobileMenuBtn" class="text-gray-300 hover:text-white focus:outline-none p-2 rounded-lg hover:bg-dark-800 transition-colors">
-                        <i class="fa-solid fa-bars text-xl"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Mobile Menu Overlay -->
-        <div id="mobileMenu" class="hidden md:hidden bg-dark-950 border-t border-dark-800 absolute w-full shadow-2xl">
-            <div class="px-4 py-4 space-y-3">
-                <input type="text" id="mobileSearch" placeholder="Search apps..." class="w-full bg-dark-900 border border-dark-800 text-white rounded-lg px-4 py-3 focus:ring-2 focus:ring-brand outline-none mb-4">
-                
-                <a href="index.html" class="block px-3 py-2 rounded-lg text-base font-medium text-white bg-dark-900 border-l-4 border-brand">Home</a>
-                <a href="tos.pdf" class="block px-3 py-2 rounded-lg text-base font-medium text-gray-400 hover:text-white hover:bg-dark-900 transition-colors">Terms of Service</a>
-                
-                <div class="border-t border-dark-800 my-2 pt-2">
-                    <p class="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Tools</p>
-                    <a href="webapp/imgextracter/idfinder.html" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-dark-900">
-                        YT ID Finder
-                    </a>
-                    <a href="webapp/imgextracter/index.html" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-dark-900">
-                        Image Extractor
-                    </a>
-                    <a href="https://discord.gg/UGBFVrcKKx" class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-dark-900">
-                        Contact Support
-                    </a>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <!-- NEW: Navbar Container -->
+    <div id="navbar-root"></div>
 
     <!-- Main Content Wrapper -->
-    <div class="flex-grow pt-24 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+    <div class="flex-grow pt-8 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
         
         <!-- Hero Section -->
         <header class="text-center py-16 lg:py-24 relative overflow-hidden rounded-3xl bg-dark-900 border border-dark-800 mb-16 animate-fade-in">
@@ -309,6 +229,9 @@
         </div>
     </div>
 
+    <!-- Import Navbar JS -->
+    <script src="navbar.js"></script>
+
     <!-- Application Logic -->
     <script>
         // --- Data Source ---
@@ -319,7 +242,8 @@
             { id: 4, title: "Our Journey", subtitle: "Relationship milestone tracker", category: "Social", rating: 3.5, icon: "assets/app/ourjourney.png", url: "https://stadiastudios.github.io/ourjourney/splash", type: "web" },
             { id: 5, title: "GameDrive", subtitle: "Backup saves to local storage", category: "Storage", rating: 5.0, icon: "assets/app/gamedrive.png", url: "webapp/gamedrive/index.html", type: "web" },
             { id: 6, title: "JetSurfers 2", subtitle: "The official endless runner", category: "Games", rating: 3.5, icon: "assets/app/jetsurfers2.jpg", url: "https://stadiastudios.github.io/JetSurfers2/", type: "web" },
-            { id: 7, title: "Themegram", subtitle: "ThemeGram provides a distribution platform and cloud-based interface that allows users to discover, download, and install custom app icons and themepacks for their mobile devices as well as wallpapers.", category: "Customization", rating: 5.0, icon: "https://stadiastudios.github.io/themegram/assets/favicon.png", url: "https://stadiastudios.github.io/themegram/", type: "web" },
+            { id: 7, title: "Armory Legends BETA", subtitle: "In the world of high-stakes trading, the weapon is your currency. Start with basic pistols and work your way up to assault rifles. Customize your stock to meet consumer demands, upgrade your workers hut, and keep an eye on special Holiday events bring rare, high-value loot that only the fastest dealers can snag. <br><br><b>Your empire starts with a single trigger. Start selling today!</b><br><br>Game in Early Development!", category: "Games", rating: 4.5, icon: "assets/app/armory-legends.png", url: "https://stadiastudios.github.io/armory-legends/splash.html", type: "web" },
+            { id: 8, title: "Themegram", subtitle: "ThemeGram provides a distribution platform and cloud-based interface that allows users to discover, download, and install custom app icons and themepacks for their mobile devices as well as wallpapers.", category: "Customization", rating: 5.0, icon: "https://stadiastudios.github.io/themegram/assets/favicon.png", url: "https://stadiastudios.github.io/themegram/", type: "web" },
         ];
 
         const pcApps = [
@@ -376,7 +300,6 @@
             if(e) e.stopPropagation(); // Prevent modal logic if triggered from card
             
             // Construct deep link URL
-            // We use standard splitting to ensure query params are reset
             const baseUrl = window.location.href.split('?')[0]; 
             const shareUrl = `${baseUrl}?app=${id}`;
 
@@ -565,16 +488,21 @@
 
         // --- Event Listeners ---
         document.addEventListener('DOMContentLoaded', () => {
-            // Initial Render
+            // 1. Initialize Navbar
+            Navbar.init({
+                containerId: 'navbar-root',
+                onSearch: (query) => render(query) // Pass the render function from index.html
+            });
+
+            // 2. Initial Render
             render();
             document.getElementById('year').textContent = new Date().getFullYear();
 
-            // Check for Deep Link (e.g. ?app=1)
+            // 3. Check for Deep Link (e.g. ?app=1)
             const urlParams = new URLSearchParams(window.location.search);
             const appId = urlParams.get('app');
             if(appId) {
                 const id = parseInt(appId);
-                // Tiny delay to ensure smooth loading animation isn't jarring
                 setTimeout(() => {
                     if(apps.find(a => a.id === id)) {
                         openModal(id);
@@ -582,27 +510,7 @@
                 }, 300);
             }
 
-            // Search Handlers
-            const handleSearch = (e) => render(e.target.value);
-            document.getElementById('desktopSearch').addEventListener('input', handleSearch);
-            document.getElementById('mobileSearch').addEventListener('input', handleSearch);
-
-            // Mobile Menu Toggle
-            const menuBtn = document.getElementById('mobileMenuBtn');
-            const mobileMenu = document.getElementById('mobileMenu');
-            let isMenuOpen = false;
-
-            menuBtn.addEventListener('click', () => {
-                isMenuOpen = !isMenuOpen;
-                mobileMenu.classList.toggle('hidden', !isMenuOpen);
-                
-                // Icon toggle
-                menuBtn.innerHTML = isMenuOpen 
-                    ? '<i class="fa-solid fa-xmark text-xl"></i>' 
-                    : '<i class="fa-solid fa-bars text-xl"></i>';
-            });
-
-            // Modal Closes
+            // 4. Modal Closes
             modalBackdrop.addEventListener('click', closeModal);
             document.getElementById('closeModalBtn').addEventListener('click', closeModal);
             
