@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>More Tools</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.png"> 
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0e0e0e;
+            color: #d1d5db;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .card {
+            background-color: #222;
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .message-box {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+        }
+        .message-box.success {
+            background-color: #047857;
+            color: #d1fae5;
+        }
+        .message-box.error {
+            background-color: #b91c1c;
+            color: #fee2e2;
+        }
+        .backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 40;
+            transition: opacity 0.3s ease-in-out;
+            opacity: 0;
+            visibility: hidden;
+        }
+        .backdrop.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+<body class="flex min-h-screen">
+    <script src="navbar.js"></script>
+
+    <!-- More Tools Content -->
+    <div id="more-tools-content" class="flex-grow flex items-center justify-center p-4 transition-all duration-300 ease-in-out sm:ml-64">
+        <div class="container">
+            <div class="card">
+                <h1 class="text-3xl font-bold text-center text-gray-200">More Tools</h1>
+                <p class="text-center text-gray-400">
+                    Explore other useful tools we've created.
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- Tool 1: Placeholder Link -->
+                    <a href="index.html" class="p-4 bg-[#333] rounded-lg flex flex-col items-center justify-center text-center hover:bg-gray-700 transition-colors duration-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-indigo-500 mb-2" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
+                        </svg>
+                        <span class="font-semibold text-gray-300">IMG Extracter By URL</span>
+                    </a>
+
+                    <a href="gdrivedl.html" class="p-4 bg-[#333] rounded-lg flex flex-col items-center justify-center text-center hover:bg-gray-700 transition-colors duration-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-indigo-500 mb-2" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
+                        </svg>
+                        <span class="font-semibold text-gray-300">GDrive Direct Download Link Generator</span>
+                    </a>
+                    
+                    <!-- Tool 2: Placeholder Link -->
+                    <a href="yttd.html" class="p-4 bg-[#333] rounded-lg flex flex-col items-center justify-center text-center hover:bg-red-700 transition-colors duration-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-green-500 mb-2" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M10 19l-7-7 7-7 1.41 1.41L6.83 11H21v2H6.83l4.58 4.59L10 19z" />
+                        </svg>
+                        <span class="font-semibold text-gray-300">YTTD - YouTube Thumbnail Downloader</span>
+                    </a>
+
+                    <a href="ytslg.html" class="p-4 bg-[#333] rounded-lg flex flex-col items-center justify-center text-center hover:bg-red-700 transition-colors duration-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-green-500 mb-2" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M10 19l-7-7 7-7 1.41 1.41L6.83 11H21v2H6.83l4.58 4.59L10 19z" />
+                        </svg>
+                        <span class="font-semibold text-gray-300">YT Subscribe Link Generator</span>
+                    </a>
+
+                    <!-- Tool 3: Placeholder Link -->
+                    <a href="idfinder.html" class="p-4 bg-[#333] rounded-lg flex flex-col items-center justify-center text-center hover:bg-red-700 transition-colors duration-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-yellow-500 mb-2" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
+                        </svg>
+                        <span class="font-semibold text-gray-300">YT Video ID Finder by URL</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile menu backdrop -->
+    <div id="backdrop" class="backdrop"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuButton = document.getElementById('menu-button');
+            const closeMenuButton = document.getElementById('close-menu-button');
+            const sideNavbar = document.getElementById('side-navbar');
+            const backdrop = document.getElementById('backdrop');
+
+            const toggleMenu = (open) => {
+                if (open) {
+                    sideNavbar.classList.remove('-translate-x-full');
+                    backdrop.classList.add('visible');
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    sideNavbar.classList.add('-translate-x-full');
+                    backdrop.classList.remove('visible');
+                    document.body.style.overflow = '';
+                }
+            };
+            
+            menuButton.addEventListener('click', () => toggleMenu(true));
+            closeMenuButton.addEventListener('click', () => toggleMenu(false));
+            backdrop.addEventListener('click', () => toggleMenu(false));
+        });
+    </script>
+</body>
+</html>

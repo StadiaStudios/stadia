@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.png"> 
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0e0e0e;
+            color: #d1d5db;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .card {
+            background-color: #222;
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .message-box {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+        }
+        .message-box.success {
+            background-color: #047857;
+            color: #d1fae5;
+        }
+        .message-box.error {
+            background-color: #b91c1c;
+            color: #fee2e2;
+        }
+        .backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 40;
+            transition: opacity 0.3s ease-in-out;
+            opacity: 0;
+            visibility: hidden;
+        }
+        .backdrop.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+<body class="flex min-h-screen">
+    <script src="navbar.js"></script>
+
+    <!-- Settings Content -->
+    <div id="settings-content" class="flex-grow flex items-center justify-center p-4 transition-all duration-300 ease-in-out sm:ml-64">
+        <div class="container">
+            <div class="card">
+                <h1 class="text-3xl font-bold text-center text-gray-200">Settings</h1>
+                
+                <div class="flex flex-col gap-4">
+                    <!-- App Version -->
+                    <div class="bg-[#333] p-4 rounded-lg">
+                        <p class="font-semibold text-gray-300">App Version: <span id="app-version" class="font-normal text-gray-400">1.2.0</span></p>
+                    </div>
+
+                    <!-- StadiaStudios Website Link -->
+                    <div class="bg-[#333] p-4 rounded-lg">
+                        <p class="font-semibold text-gray-300">
+                            Visit our website: 
+                            <a href="https://stadiastudios.github.io/stadia/store.html?appId=imgextracter" target="_blank" rel="noopener noreferrer" class="text-red-400 hover:text-red-300 transition-colors duration-200">
+                                https://stadiastudios.github.io/stadia
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile menu backdrop -->
+    <div id="backdrop" class="backdrop"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuButton = document.getElementById('menu-button');
+            const closeMenuButton = document.getElementById('close-menu-button');
+            const sideNavbar = document.getElementById('side-navbar');
+            const backdrop = document.getElementById('backdrop');
+
+            const toggleMenu = (open) => {
+                if (open) {
+                    sideNavbar.classList.remove('-translate-x-full');
+                    backdrop.classList.add('visible');
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    sideNavbar.classList.add('-translate-x-full');
+                    backdrop.classList.remove('visible');
+                    document.body.style.overflow = '';
+                }
+            };
+            
+            menuButton.addEventListener('click', () => toggleMenu(true));
+            closeMenuButton.addEventListener('click', () => toggleMenu(false));
+            backdrop.addEventListener('click', () => toggleMenu(false));
+        });
+    </script>
+</body>
+</html>
