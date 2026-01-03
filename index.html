@@ -1,68 +1,33 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StadiaStudios | Official App Store</title>
-     <link rel="manifest" href="manifest.json">
-    <link rel="icon" href="assets/favicon.png" type="image/x-icon">
-    <meta name="description" content="The official hub for StadiaStudios apps, games, and developer tools.">
+    <title>StadiaStudios | Official Website</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon.png">
+    <link rel="manifest" href="manifest.json">
     
-    <!-- Fonts: Inter for a clean, professional look -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;800&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     
-    <!-- Icons: FontAwesome for reliable UI icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Tailwind Config -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
                     colors: {
-                        brand: {
-                            DEFAULT: '#DC2626', // Red-600
-                            hover: '#B91C1C',   // Red-700
-                            light: '#FECACA',   // Red-200
-                        },
-                        dark: {
-                            950: '#09090b', // Deep background
-                            900: '#18181b', // Card background
-                            800: '#27272a', // Border/Hover
-                        }
+                        'stadia-black': '#0b0b0b',
+                        'stadia-dark': '#151515',
+                        'stadia-accent': '#ff470a',
                     },
-                    animation: {
-                        'fade-in': 'fadeIn 0.3s ease-out',
-                        'slide-up': 'slideUp 0.4s ease-out',
-                        'modal-pop': 'modalPop 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
-                        'toast-slide': 'toastSlide 0.3s ease-out forwards',
-                    },
-                    keyframes: {
-                        fadeIn: {
-                            '0%': { opacity: '0' },
-                            '100%': { opacity: '1' },
-                        },
-                        slideUp: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1' },
-                        },
-                        modalPop: {
-                            '0%': { opacity: '0', transform: 'scale(0.95)' },
-                            '100%': { opacity: '1', transform: 'scale(1)' },
-                        },
-                        toastSlide: {
-                            '0%': { opacity: '0', transform: 'translate(-50%, 20px)' },
-                            '100%': { opacity: '1', transform: 'translate(-50%, 0)' },
-                        }
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'display': ['Barlow', 'sans-serif'],
                     }
                 }
             }
@@ -70,455 +35,144 @@
     </script>
 
     <style>
-        /* --- Custom Utilities --- */
-        body {
-            background-color: #09090b; /* dark-950 */
-            color: #f4f4f5; /* zinc-100 */
-        }
-
-        /* Glassmorphism Effect */
-        .glass {
-            background: rgba(24, 24, 27, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .glass-card {
-            background: linear-gradient(145deg, #18181b, #121214);
-            border: 1px solid #27272a;
-        }
-
+        body { background-color: #0b0b0b; color: white; overflow-x: hidden; }
+        
         /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #0b0b0b; }
+        ::-webkit-scrollbar-thumb { 
+            background: #333; 
+            border: 2px solid #0b0b0b; 
         }
-        ::-webkit-scrollbar-track {
-            background: #09090b; 
+        ::-webkit-scrollbar-thumb:hover { background: #ff470a; }
+
+        .nav-item { position: relative; }
+        .nav-item::after {
+            content: ''; position: absolute; width: 0; height: 2px;
+            bottom: -4px; left: 0; background-color: white; transition: width 0.3s ease;
         }
-        ::-webkit-scrollbar-thumb {
-            background: #3f3f46; 
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #52525b; 
+        .nav-item:hover::after { width: 100%; }
+
+        .btn-primary {
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+            transition: all 0.2s ease;
         }
 
-        /* Image Fallback Pattern */
-        .img-placeholder {
-            background: linear-gradient(135deg, #3f3f46 0%, #18181b 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: #71717a;
-            font-size: 1.5rem;
+        .fade-in-section {
+            opacity: 0; transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
-
-        /* Hide scrollbar when modal is open */
-        body.modal-open {
-            overflow: hidden;
-            padding-right: 8px; /* Prevent layout shift */
-        }
+        .fade-in-section.is-visible { opacity: 1; transform: none; }
     </style>
 </head>
-<body class="antialiased selection:bg-brand selection:text-white flex flex-col min-h-screen">
+<body class="font-sans antialiased selection:bg-stadia-accent selection:text-white">
 
-    <!-- Toast Notification Container -->
-    <div id="toast-container" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] pointer-events-none"></div>
+    <!-- Placeholders for JS injection -->
+    <div id="navbar-placeholder"></div>
 
-    <!-- NEW: Navbar Container -->
-    <div id="navbar-root"></div>
-
-    <!-- Main Content Wrapper -->
-    <div class="flex-grow pt-8 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
-        
-        <!-- Hero Section -->
-        <header class="text-center py-16 lg:py-24 relative overflow-hidden rounded-3xl bg-dark-900 border border-dark-800 mb-16 animate-fade-in">
-            <!-- Decorative Elements -->
-            <div class="absolute top-0 left-0 w-full h-full overflow-hidden opacity-20 pointer-events-none">
-                <div class="absolute -top-24 -left-24 w-96 h-96 bg-red-600 rounded-full blur-3xl mix-blend-screen"></div>
-                <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-orange-600 rounded-full blur-3xl mix-blend-screen"></div>
-            </div>
-
-            <div class="relative z-10 px-4">
-                <span class="inline-block py-1 px-3 rounded-full bg-dark-800 border border-dark-700 text-red-400 text-xs font-semibold uppercase tracking-wide mb-4">
-                    Welcome to StadiaStudios
-                </span>
-                <h1 class="text-4xl md:text-6xl font-extrabold text-white tracking-tight mb-6">
-                    Discover Amazing <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500">Apps & Tools</span>
-                </h1>
-                <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-400">
-                    Your one-stop destination for developer utilities, fun games, and essential productivity tools.
-                </p>
-            </div>
-        </header>
-
-        <!-- Dynamic Content Containers -->
-        <main id="app-container" class="space-y-16 animate-slide-up">
-            <!-- Sections will be injected here by JS -->
-        </main>
-
-        <!-- No Results State (Hidden by default) -->
-        <div id="no-results" class="hidden text-center py-20">
-            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-dark-900 mb-4">
-                <i class="fa-solid fa-magnifying-glass text-2xl text-gray-600"></i>
-            </div>
-            <h3 class="text-xl font-semibold text-white">No apps found</h3>
-            <p class="text-gray-500 mt-2">Try adjusting your search terms.</p>
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden fade-in-section">
+        <div class="absolute inset-0 z-0">
+            <img src="assets/banner.png" alt="Hero" class="w-full h-full object-cover opacity-60">
+            <div class="absolute inset-0 bg-gradient-to-t from-stadia-black via-stadia-black/50 to-transparent"></div>
         </div>
 
-    </div>
-
-    <!-- Footer -->
-    <footer class="border-t border-dark-800 bg-dark-900/50 mt-auto">
-        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Brand -->
-                <div class="col-span-1">
-                    <span class="text-xl font-bold text-white tracking-tight">
-                        Stadia<span class="text-red-600">Studios</span>
-                    </span>
-                    <p class="mt-4 text-sm text-gray-400 leading-relaxed">
-                        Building useful tools and fun experiences for the web and desktop.
-                    </p>
-                </div>
-                
-                <!-- Links -->
-                <div class="col-span-1">
-                    <h3 class="text-sm font-semibold text-gray-200 tracking-wider uppercase mb-4">Resources</h3>
-                    <ul class="space-y-3">
-                        <li><a href="tos.pdf" class="text-sm text-gray-400 hover:text-brand transition-colors">Terms of Service</a></li>
-                        <li><a href="https://stadiastudios.github.io/passpro" class="text-sm text-gray-400 hover:text-brand transition-colors">Password Manager</a></li>
-                        <li><a href="https://discord.gg/UGBFVrcKKx" class="text-sm text-gray-400 hover:text-brand transition-colors">Join Discord</a></li>
-                    </ul>
-                </div>
-
-                <!-- Copyright -->
-                <div class="col-span-1 md:text-right">
-                    <p class="text-sm text-gray-500">
-                        &copy; <span id="year"></span> StadiaStudios. All rights reserved.
-                    </p>
-                </div>
-            </div>
+        <div class="relative z-10 text-center px-4 max-w-5xl mx-auto mt-16">
+            <span class="inline-block py-1 px-3 border border-stadia-accent text-stadia-accent text-xs font-bold uppercase mb-4">Available Now</span>
+            <h1 class="text-5xl md:text-7xl lg:text-9xl font-display font-black text-white mb-6 uppercase tracking-tighter">
+                Armory<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">Legends</span>
+            </h1>
+            <a href="https://stadiastudios.github.io/armory-legends/splash.html" <button class="btn-primary bg-stadia-accent text-white px-8 py-4 font-bold uppercase tracking-wider hover:bg-stadia-accent-hover">
+                Play Now
+            </button>
+            <a href="details-armory-legends.html" <button class="btn-primary bg-[#222] text-white px-8 py-4 font-bold uppercase tracking-wider hover:bg-[#333]">
+                LEARN MORE
+            </button></a>
         </div>
-    </footer>
+    </section>
 
-    <!-- Modal (Detail View) -->
-    <div id="appModal" class="fixed inset-0 z-[60] hidden" role="dialog" aria-modal="true">
-        <!-- Backdrop -->
-        <div id="modalBackdrop" class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity opacity-0"></div>
-        
-        <!-- Content Wrapper -->
-        <div class="fixed inset-0 overflow-y-auto">
-            <div class="flex min-h-full items-center justify-center p-4 text-center">
-                
-                <div id="modalPanel" class="w-full max-w-lg transform overflow-hidden rounded-2xl bg-dark-900 border border-dark-800 p-6 text-left align-middle shadow-2xl transition-all opacity-0 scale-95 relative">
-                    
-                    <!-- Close Button -->
-                    <button id="closeModalBtn" class="absolute top-4 right-4 p-2 text-gray-400 hover:text-white hover:bg-dark-800 rounded-full transition-all focus:outline-none z-10">
-                        <i class="fa-solid fa-xmark text-lg"></i>
-                    </button>
-
-                    <!-- Modal Dynamic Content -->
-                    <div id="modalBody">
-                        <!-- Content Injected via JS -->
+    <!-- Games Section (Square Images Only) -->
+    <section id="games" class="py-20 bg-stadia-black fade-in-section">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-5xl font-display font-bold uppercase mb-12 border-b border-gray-800 pb-4">Our Games</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Game 1 -->
+                <div class="group relative aspect-square overflow-hidden bg-stadia-dark cursor-pointer">
+                    <a href="details-armory-legends.html">
+                    <img src="assets/app/armory-legends.png" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                    <div class="absolute bottom-0 p-6">
+                        <h3 class="text-2xl font-display font-bold uppercase">Armory Legends Beta</h3>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Import Navbar JS -->
-    <script src="navbar.js"></script>
-
-    <!-- Application Logic -->
-    <script>
-        // --- Data Source ---
-        const apps = [
-            { id: 1, title: "PassPro", subtitle: "Secure & Free Password Manager", category: "Security", rating: 3.5, icon: "assets/app/passpro.png", url: "https://stadiastudios.github.io/passpro/", type: "web" },
-            { id: 2, title: "YT Sub Link Gen", subtitle: "Create auto-subscribe links", category: "Developer Tools", rating: 2.5, icon: "assets/app/ytslg.png", url: "webapp/ytsubgen/gen.html", type: "web" },
-            { id: 3, title: "IMG Extracter", subtitle: "Scrape images from any URL", category: "Developer Tools", rating: 3.5, icon: "assets/app/imgextracter.png", url: "webapp/imgextracter/index.html", type: "web" },
-            { id: 4, title: "Our Journey", subtitle: "Relationship milestone tracker", category: "Social", rating: 3.5, icon: "assets/app/ourjourney.png", url: "https://stadiastudios.github.io/ourjourney/splash", type: "web" },
-            { id: 5, title: "GameDrive", subtitle: "Backup saves to local storage", category: "Storage", rating: 5.0, icon: "assets/app/gamedrive.png", url: "webapp/gamedrive/index.html", type: "web" },
-            { id: 6, title: "JetSurfers 2", subtitle: "The official endless runner", category: "Games", rating: 3.5, icon: "assets/app/jetsurfers2.jpg", url: "https://stadiastudios.github.io/JetSurfers2/", type: "web" },
-            { id: 7, title: "Armory Legends BETA", subtitle: "In the world of high-stakes trading, the weapon is your currency. Start with basic pistols and work your way up to assault rifles. Customize your stock to meet consumer demands, upgrade your workers hut, and keep an eye on special Holiday events bring rare, high-value loot that only the fastest dealers can snag. <br><br><b>Your empire starts with a single trigger. Start selling today!</b><br><br>Game in Early Development!", category: "Games", rating: 4.5, icon: "assets/app/armory-legends.png", url: "https://stadiastudios.github.io/armory-legends/splash.html", type: "web" },
-            { id: 8, title: "Themegram", subtitle: "ThemeGram provides a distribution platform and cloud-based interface that allows users to discover, download, and install custom app icons and themepacks for their mobile devices as well as wallpapers.", category: "Customization", rating: 5.0, icon: "https://stadiastudios.github.io/themegram/assets/favicon.png", url: "https://stadiastudios.github.io/themegram/", type: "web" },
-        ];
-
-        const pcApps = [
-            { id: 101, title: "JetSurfers Classic", subtitle: "The original PC experience", category: "Games", icon: "assets/app/jetsurfers2.jpg", downloadUrl: "https://drive.google.com/uc?export=download&id=14gJk2N3nFoSUFlROreiqdDq7NsEqcGUF", type: "pc" },
-            { id: 102, title: "LumberTycoon2D", subtitle: "Original StadiaStudios Project", category: "Games", icon: "assets/app/lumbertycoon.png", downloadUrl: "https://drive.google.com/uc?export=download&id=1mj8yHtBDRuv9PZLUzQ4ecu0VLUVl6Ybj", type: "pc" },
-        ];
-
-        // --- Core Functions ---
-
-        /**
-         * Fallback for broken images. Returns a generated placeholder with initials.
-         */
-        const handleImageError = (img, title) => {
-            const initials = title.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
-            const parent = img.parentElement;
-            parent.innerHTML = `<div class="img-placeholder w-full h-full text-gray-500 text-xl font-bold flex items-center justify-center bg-dark-800">${initials}</div>`;
-        };
-
-        /**
-         * Renders a star rating string
-         */
-        const getStarRating = (rating) => {
-            const fullStars = Math.floor(rating || 0);
-            const hasHalf = (rating % 1) >= 0.5;
-            let html = '';
-            for(let i=0; i<5; i++) {
-                if(i < fullStars) html += '<i class="fa-solid fa-star text-yellow-500 text-xs"></i>';
-                else if(i === fullStars && hasHalf) html += '<i class="fa-solid fa-star-half-stroke text-yellow-500 text-xs"></i>';
-                else html += '<i class="fa-regular fa-star text-gray-600 text-xs"></i>';
-            }
-            return html;
-        };
-
-        /**
-         * Share Functionality
-         */
-        const showToast = (message) => {
-            const container = document.getElementById('toast-container');
-            const toast = document.createElement('div');
-            toast.className = 'bg-dark-800 text-white px-4 py-2 rounded-lg shadow-xl border border-dark-700 flex items-center gap-2 animate-toast-slide pointer-events-auto';
-            toast.innerHTML = `<i class="fa-solid fa-check-circle text-green-500"></i> <span class="text-sm font-medium">${message}</span>`;
-            
-            container.appendChild(toast);
-
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transform = 'translate(-50%, 20px)';
-                toast.style.transition = 'all 0.3s ease-in';
-                setTimeout(() => toast.remove(), 300);
-            }, 3000);
-        };
-
-        const shareApp = (e, id) => {
-            if(e) e.stopPropagation(); // Prevent modal logic if triggered from card
-            
-            // Construct deep link URL
-            const baseUrl = window.location.href.split('?')[0]; 
-            const shareUrl = `${baseUrl}?app=${id}`;
-
-            navigator.clipboard.writeText(shareUrl).then(() => {
-                showToast("Store link copied to clipboard!");
-            }).catch(err => {
-                console.error('Failed to copy: ', err);
-                showToast("Failed to copy link.");
-            });
-        };
-
-        /**
-         * Component: Web App Card
-         */
-        const createWebCard = (app) => `
-            <div class="group glass-card rounded-xl p-4 hover:border-brand/50 transition-all duration-300 hover:-translate-y-1 cursor-pointer flex items-center gap-4 relative overflow-hidden" onclick="openModal(${app.id})">
-                <div class="absolute inset-0 bg-brand/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                
-                <!-- Share Button (Top Right) -->
-                <button onclick="shareApp(event, ${app.id})" class="absolute top-2 right-2 z-20 w-8 h-8 rounded-full bg-dark-800/80 hover:bg-brand text-gray-400 hover:text-white flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0" title="Share App Link">
-                    <i class="fa-solid fa-link text-xs"></i>
-                </button>
-
-                <div class="w-16 h-16 shrink-0 rounded-xl overflow-hidden bg-dark-800 relative shadow-inner">
-                    <img src="${app.icon}" alt="${app.title}" class="w-full h-full object-cover" onerror="handleImageError(this, '${app.title}')">
-                </div>
-                
-                <div class="flex-grow min-w-0 z-10">
-                    <div class="flex justify-between items-start">
-                        <h3 class="font-bold text-white text-lg truncate pr-6 group-hover:text-brand-light transition-colors">${app.title}</h3>
-                    </div>
-                    <p class="text-xs text-gray-400 truncate mb-1.5">${app.subtitle}</p>
-                    <div class="flex items-center gap-2">
-                        <span class="bg-dark-800 text-gray-300 text-[10px] px-2 py-0.5 rounded border border-dark-700 uppercase tracking-wide font-semibold">${app.category}</span>
-                        <div class="flex gap-0.5 ml-auto">${getStarRating(app.rating)}</div>
-                    </div>
-                </div>
-                <div class="z-10 text-dark-800 group-hover:text-brand transition-colors">
-                    <i class="fa-solid fa-chevron-right"></i>
-                </div>
-            </div>
-        `;
-
-        /**
-         * Component: PC App Card
-         */
-        const createPCCard = (app) => `
-            <div class="group glass-card rounded-xl p-4 border border-dark-800 hover:border-blue-500/50 transition-all duration-300 flex items-center gap-4 relative overflow-hidden">
-                <div class="absolute inset-0 bg-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                
-                <div class="w-16 h-16 shrink-0 rounded-xl overflow-hidden bg-dark-800 shadow-inner">
-                    <img src="${app.icon}" alt="${app.title}" class="w-full h-full object-cover" onerror="handleImageError(this, '${app.title}')">
-                </div>
-                
-                <div class="flex-grow min-w-0 z-10">
-                    <h3 class="font-bold text-white text-lg truncate group-hover:text-blue-300 transition-colors">${app.title}</h3>
-                    <p class="text-xs text-gray-400 truncate mb-2">${app.subtitle}</p>
-                    <span class="bg-dark-800 text-blue-400 text-[10px] px-2 py-0.5 rounded border border-dark-700 uppercase tracking-wide font-semibold">PC / Windows</span>
-                </div>
-                
-                <a href="${app.downloadUrl}" target="_blank" class="z-10 bg-blue-600 hover:bg-blue-500 text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg shadow-blue-900/20 transition-transform active:scale-95" title="Download">
-                    <i class="fa-solid fa-download text-sm"></i>
                 </a>
-            </div>
-        `;
-
-        /**
-         * Render Lists
-         */
-        const render = (search = "") => {
-            const container = document.getElementById('app-container');
-            const noResults = document.getElementById('no-results');
-            const q = search.toLowerCase().trim();
-
-            const filteredWeb = apps.filter(a => a.title.toLowerCase().includes(q) || a.category.toLowerCase().includes(q));
-            const filteredPC = pcApps.filter(a => a.title.toLowerCase().includes(q) || a.category.toLowerCase().includes(q));
-
-            if (filteredWeb.length === 0 && filteredPC.length === 0) {
-                container.innerHTML = '';
-                noResults.classList.remove('hidden');
-                return;
-            }
-
-            noResults.classList.add('hidden');
-            let html = '';
-
-            // Web Apps Section
-            if (filteredWeb.length > 0) {
-                html += `
-                    <section>
-                        <div class="flex items-center gap-3 mb-6 border-b border-dark-800 pb-2">
-                            <i class="fa-solid fa-earth-americas text-brand text-xl"></i>
-                            <h2 class="text-2xl font-bold text-white">Web Apps <span class="text-sm font-normal text-gray-500 ml-2">(${filteredWeb.length})</span></h2>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                            ${filteredWeb.map(createWebCard).join('')}
-                        </div>
-                    </section>
-                `;
-            }
-
-            // PC Apps Section
-            if (filteredPC.length > 0) {
-                html += `
-                    <section>
-                        <div class="flex items-center gap-3 mb-6 border-b border-dark-800 pb-2">
-                            <i class="fa-brands fa-windows text-blue-500 text-xl"></i>
-                            <h2 class="text-2xl font-bold text-white">PC Downloads <span class="text-sm font-normal text-gray-500 ml-2">(${filteredPC.length})</span></h2>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                            ${filteredPC.map(createPCCard).join('')}
-                        </div>
-                    </section>
-                `;
-            }
-
-            container.innerHTML = html;
-        };
-
-        // --- Modal Logic ---
-        const modal = document.getElementById('appModal');
-        const modalBackdrop = document.getElementById('modalBackdrop');
-        const modalPanel = document.getElementById('modalPanel');
-        const modalBody = document.getElementById('modalBody');
-
-        const openModal = (id) => {
-            const app = apps.find(a => a.id === id);
-            if (!app) return;
-
-            // Generate Modal Content
-            modalBody.innerHTML = `
-                <div class="flex flex-col sm:flex-row gap-6">
-                    <div class="w-24 h-24 shrink-0 rounded-2xl overflow-hidden bg-dark-800 shadow-xl mx-auto sm:mx-0">
-                        <img src="${app.icon}" class="w-full h-full object-cover" onerror="handleImageError(this, '${app.title}')">
-                    </div>
-                    <div class="flex-grow text-center sm:text-left">
-                        <h2 class="text-2xl font-bold text-white mb-1">${app.title}</h2>
-                        <div class="flex items-center justify-center sm:justify-start gap-2 text-sm mb-3">
-                            <span class="text-brand font-medium">${app.category}</span>
-                            <span class="text-dark-700">•</span>
-                            <div class="flex gap-0.5">${getStarRating(app.rating)}</div>
-                            <span class="text-gray-500">(${app.rating})</span>
-                        </div>
-                        <p class="text-gray-300 text-sm leading-relaxed mb-6">${app.subtitle}</p>
-                        
-                        <div class="flex flex-col gap-3">
-                            <a href="${app.url}" target="_blank" class="w-full bg-brand hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-lg transition-all shadow-lg shadow-red-900/30 text-center flex items-center justify-center gap-2">
-                                Launch App <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-                            </a>
-                            
-                            <div class="grid grid-cols-2 gap-3">
-                                <button onclick="shareApp(null, ${app.id})" class="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-dark-700 text-gray-300 hover:text-white hover:bg-dark-800 transition-colors font-medium">
-                                    <i class="fa-solid fa-share-nodes"></i> Share
-                                </button>
-                                <button onclick="closeModal()" class="px-4 py-2.5 rounded-lg border border-dark-700 text-gray-300 hover:text-white hover:bg-dark-800 transition-colors font-medium">
-                                    Close
-                                </button>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-            `;
+                <!-- Game 2 -->
+                <div class="group relative aspect-square overflow-hidden bg-stadia-dark cursor-pointer">
+                    <a href="details-jetsurfers2.html">
+                    <img src="assets/app/jetsurfers2.jpg" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                    <div class="absolute bottom-0 p-6">
+                        <h3 class="text-2xl font-display font-bold uppercase">Jet Surfers 2</h3>
+                    </div>
+                </a>
+                </div>
+                <!-- Game 3 -->
+                <div class="group relative aspect-square overflow-hidden bg-stadia-dark cursor-pointer">
+                    <a href="details-lumbertycoon.html">
+                    <img src="assets/app/lumbertycoon.png" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                    <div class="absolute bottom-0 p-6">
+                        <h3 class="text-2xl font-display font-bold uppercase">LumberTycoon</h3>
+                    </div>
+                    </a>
+                </div>
+                <!-- Game 2 -->
+                <div class="group relative aspect-square overflow-hidden bg-stadia-dark cursor-pointer">
+                    <a href="https://stadiastudios.github.io/passpro/">
+                    <img src="assets/app/passpro.png" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                    <div class="absolute bottom-0 p-6">
+                        <h3 class="text-2xl font-display font-bold uppercase">PassPro</h3>
+                    </div>
+                    </a>
+                </div>
+                <!-- Game 2 -->
+                <div class="group relative aspect-square overflow-hidden bg-stadia-dark cursor-pointer">
+                    <a href="webapp/gamedrive/index.html">
+                    <img src="assets/app/gamedrive.png" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                    <div class="absolute bottom-0 p-6">
+                        <h3 class="text-2xl font-display font-bold uppercase">GameDrive</h3>
+                    </div>
+                    </a>
+                </div>
+                <!-- Game 2 -->
+                <div class="group relative aspect-square overflow-hidden bg-stadia-dark cursor-pointer">
+                    <a href="webapp/imgextracter/index.html">
+                    <img src="assets/app/imgextracter.png" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                    <div class="absolute bottom-0 p-6">
+                        <h3 class="text-2xl font-display font-bold uppercase">IMG Extracter</h3>
+                    </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-            // Show & Animate
-            modal.classList.remove('hidden');
-            document.body.classList.add('modal-open');
-            
-            // Allow browser reflow
-            requestAnimationFrame(() => {
-                modalBackdrop.classList.remove('opacity-0');
-                modalPanel.classList.remove('opacity-0', 'scale-95');
-                modalPanel.classList.add('scale-100');
+    <div id="footer-placeholder"></div>
+
+    <!-- Scripts -->
+    <script src="componets.js"></script>
+    <script>
+        // Local animation script
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('is-visible');
             });
-        };
+        }, { threshold: 0.1 });
 
-        const closeModal = () => {
-            modalBackdrop.classList.add('opacity-0');
-            modalPanel.classList.remove('scale-100');
-            modalPanel.classList.add('opacity-0', 'scale-95');
-
-            setTimeout(() => {
-                modal.classList.add('hidden');
-                document.body.classList.remove('modal-open');
-            }, 200); // Match CSS transition duration
-        };
-
-        // --- Event Listeners ---
-        document.addEventListener('DOMContentLoaded', () => {
-            // 1. Initialize Navbar
-            Navbar.init({
-                containerId: 'navbar-root',
-                onSearch: (query) => render(query) // Pass the render function from index.html
-            });
-
-            // 2. Initial Render
-            render();
-            document.getElementById('year').textContent = new Date().getFullYear();
-
-            // 3. Check for Deep Link (e.g. ?app=1)
-            const urlParams = new URLSearchParams(window.location.search);
-            const appId = urlParams.get('app');
-            if(appId) {
-                const id = parseInt(appId);
-                setTimeout(() => {
-                    if(apps.find(a => a.id === id)) {
-                        openModal(id);
-                    }
-                }, 300);
-            }
-
-            // 4. Modal Closes
-            modalBackdrop.addEventListener('click', closeModal);
-            document.getElementById('closeModalBtn').addEventListener('click', closeModal);
-            
-            // Escape key close
-            document.addEventListener('keydown', (e) => {
-                if(e.key === "Escape" && !modal.classList.contains('hidden')) closeModal();
-            });
-        });
+        document.querySelectorAll('.fade-in-section').forEach(s => observer.observe(s));
     </script>
 </body>
 </html>
