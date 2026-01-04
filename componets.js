@@ -46,7 +46,7 @@ const components = {
         </button>
         <a href="index.html" class="mobile-nav-link text-2xl font-display font-bold text-white hover:text-stadia-accent">HOME</a>
         <a href="index.html#games" class="mobile-nav-link text-2xl font-display font-bold text-white hover:text-stadia-accent">GAMES</a>
-        <a href="#" class="mobile-nav-link text-2xl font-display font-bold text-white hover:text-stadia-accent">STORE</a>
+        <a href="store.html" class="mobile-nav-link text-2xl font-display font-bold text-white hover:text-stadia-accent">STORE</a>
         <div class="border-t border-gray-800 pt-6 mt-auto mb-10 flex flex-col space-y-4">
             <a href="https://discord.gg/UGBFVrcKKx" class="w-full text-center py-3 border border-white text-white font-bold uppercase hover:bg-white hover:text-black transition-colors">JOIN STADIA</a>
         </div>
@@ -155,4 +155,5 @@ function setupEvents() {
 }
 
 // Run on load
+
 window.addEventListener('DOMContentLoaded', initLayout);
