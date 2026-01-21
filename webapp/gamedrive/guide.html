@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GameDrive - Tutorial & Data Safety</title>
+    <title>Archive+ - Tutorial & Data Safety</title>
     <link rel="icon" type="image/png" href="resources/icons/favicon.png">
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -31,9 +31,49 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #047871; /* Teal-700 */
         }
-        .section-header {
-            color: #14b8a6; /* Teal-500 */
-            border-bottom: 2px solid #374151; /* Gray-700 */
+        .btn-gaming {
+            transform: skewX(-10deg);
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid transparent;
+        }
+        
+        /* Unskew text inside buttons so it's readable */
+        .btn-gaming > * {
+            transform: skewX(10deg);
+            display: inline-block;
+        }
+
+        .btn-gaming:hover {
+            transform: skewX(-10deg) scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+            /* Fortnite yellow/white selection flash feel, or just bright red */
+            background-color: #FF0033;
+            border-color: #ffffff;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .btn-gaming:active {
+            transform: skewX(-10deg) scale(0.95);
+        }
+
+        /* Secondary gaming button (Ghost style) */
+        .btn-gaming-ghost {
+            background: transparent;
+            border: 1px solid #333;
+            transform: skewX(-10deg);
+            transition: all 0.2s ease;
+        }
+        .btn-gaming-ghost > * {
+            transform: skewX(10deg);
+        }
+        .btn-gaming-ghost:hover {
+            border-color: #FF0033;
+            background: rgba(255, 0, 51, 0.1);
+            transform: skewX(-10deg) translateX(5px); /* Slide effect */
+            color: white;
         }
         .card {
             background-color: #11111; /* Dark Gray Card */
@@ -45,29 +85,18 @@
         }
     </style>
 </head>
-<body class="min-h-screen">
 
-    <!-- Header / Navigation Bar -->
-    <header class="bg-[#222] shadow-lg sticky top-0 z-10">
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <h1 class="text-2xl font-extrabold text-teal-400 tracking-wider">
-                GameDrive <span class="text-gray-400 text-sm font-normal">App Guide & Safety</span>
-            </h1>
-            <!-- Replaced Nav Links with a single Back button -->
-            <a href="index.html" class="px-4 py-2 bg-[#111] text-white font-semibold rounded-lg hover:bg-[#333] transition shadow-md">
-                ← BACK
-            </a>
-        </div>
-    </header>
+
+<body class="min-h-screen">
+    
+
+    <script src="navbar.js"></script>
 
     <!-- Main Content Area: Tutorial -->
     <main class="container mx-auto p-4 md:p-8">
-        <h2 class="text-3xl md:text-4xl font-bold mb-8 text-teal-300 border-b border-gray-700 pb-3">
-            Welcome to GameDrive: Your Local Save Manager
-        </h2>
-
+<br><br><br>
         <p class="text-gray-300 mb-8 leading-relaxed">
-            GameDrive is designed to provide a secure and simple way to manage your game saves across devices. This guide will walk you through the core features and, most importantly, explain how we protect your data and what steps you can take for ultimate peace of mind.
+            Archive+ is designed to provide a secure and simple way to manage your game saves across devices. This guide will walk you through the core features and, most importantly, explain how we protect your data and what steps you can take for ultimate peace of mind.
         </p>
 
         <!-- Section 1: Getting Started -->
@@ -150,7 +179,7 @@
                 
                 <ul class="list-disc list-outside text-gray-400 space-y-3 pl-6">
                     <li>
-                        <strong class="text-teal-300">Cross-Device Access:</strong> Since GameDrive is a StadiaWebapp, your backups are accessible anywhere you import them, even if you dont have the files installed on that device. Importing a backup will let you download them
+                        <strong class="text-teal-300">Cross-Device Access:</strong> Since Archive+ is a StadiaWebapp, your backups are accessible anywhere you import them, even if you dont have the files installed on that device. Importing a backup will let you download them
                     </li>
                 </ul>
                 <p class="text-sm text-gray-500 mt-4 italic">
@@ -172,7 +201,7 @@
                 </div>
                 <div>
                     <dt class="font-semibold text-teal-400">What if my game's save data is a folder, not a single file?</dt>
-                    <dd class="ml-4 text-gray-400">You must compress the folder into a single <code class="bg-gray-700 p-1 rounded text-sm text-teal-300">.zip</code> file before uploading to GameDrive. When restoring, simply unzip the file to your game's save location.</dd>
+                    <dd class="ml-4 text-gray-400">You must compress the folder into a single <code class="bg-gray-700 p-1 rounded text-sm text-teal-300">.zip</code> file before uploading to Archive+. When restoring, simply unzip the file to your game's save location.</dd>
                 </div>
                 <div>
                     <dt class="font-semibold text-teal-400">Is my data secure?</dt>
@@ -195,7 +224,7 @@
 
     <!-- Footer (Optional) -->
     <footer class="container mx-auto p-4 text-center text-gray-500 mt-10 border-t border-gray-800">
-        &copy; 2025 GameDrive | StadiaStudios | All rights reserved.
+        &copy; 2025 - 2026 Archive+ | StadiaStudios | All rights reserved.
     </footer>
 
 </body>

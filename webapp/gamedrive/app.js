@@ -263,13 +263,13 @@ const filterGameOptions = (searchTerm = '') => {
     const filteredGames = allGameNames.filter(name => name.toLowerCase().includes(normalizedTerm));
 
     if (filteredGames.length === 0) {
-        gameDropdownList.innerHTML = `<div class="p-3 text-gray-400">No matching games found.</div>`;
+        gameDropdownList.innerHTML = `<div class="p-3 text-gray-500 italic">No matching games found.</div>`;
         return;
     }
 
     filteredGames.forEach(gameName => {
         const option = document.createElement('div');
-        option.className = 'p-3 cursor-pointer text-white hover:bg-teal-600 transition duration-100 truncate';
+        option.className = 'p-4 cursor-pointer text-white hover:bg-brand hover:text-white transition duration-100 uppercase tracking-wide font-bold border-b border-[#333] last:border-0';
         
         // Highlight matching text
         const index = gameName.toLowerCase().indexOf(normalizedTerm);
@@ -277,10 +277,20 @@ const filterGameOptions = (searchTerm = '') => {
             const before = gameName.substring(0, index);
             const match = gameName.substring(index, index + normalizedTerm.length);
             const after = gameName.substring(index + normalizedTerm.length);
-            option.innerHTML = `${before}<span class="font-bold text-teal-300">${match}</span>${after}`;
+            option.innerHTML = `${before}<span class="text-brand-light">${match}</span>${after}`;
         } else {
             option.textContent = gameName;
         }
+
+        // Fix hover color override on inner span via CSS in index.html or simple inline style
+        option.addEventListener('mouseenter', () => {
+            const span = option.querySelector('span');
+            if(span) span.style.color = 'white';
+        });
+        option.addEventListener('mouseleave', () => {
+            const span = option.querySelector('span');
+            if(span) span.style.color = ''; // Reset to class style
+        });
 
         option.addEventListener('click', () => handleGameSelection(gameName));
         gameDropdownList.appendChild(option);
@@ -316,19 +326,22 @@ const renderSaves = async () => {
         // Sort by upload date, newest first
         saves.sort((a, b) => b.uploadDate - a.uploadDate).forEach(save => {
             const item = document.createElement('div');
-            item.className = 'file-list-item flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 bg-[#111] rounded-md transition border border-gray-600 hover:border-green-500 hover:bg-[#222]';
+            // Red Theme: Dark background, slight red border on hover
+            item.className = 'tile file-list-item flex flex-col sm:flex-row items-start sm:items-center justify-between p-5 bg-[#1a0505] rounded-sm transition border border-[#330f0f] hover:border-brand relative overflow-hidden group';
+            
             item.innerHTML = `
-                <div class="flex-1 w-full sm:w-auto mb-2 sm:mb-0">
-                    <h3 class="text-lg font-bold text-teal-300 truncate">${save.gameName}</h3>
-                    <p class="text-sm text-gray-400 truncate">${save.fileName}</p>
-                    <p class="text-xs text-gray-500 mt-1">
-                        Size: <span class="font-mono text-gray-300">${formatBytes(save.size)}</span> | 
-                        Uploaded: ${new Date(save.uploadDate).toLocaleDateString()}
+                <div class="absolute left-0 top-0 bottom-0 w-1 bg-brand opacity-50 group-hover:opacity-100 transition-opacity"></div>
+                <div class="flex-1 w-full sm:w-auto mb-4 sm:mb-0 pl-3">
+                    <h3 class="text-xl font-display font-bold text-white truncate uppercase italic tracking-wide">${save.gameName}</h3>
+                    <p class="text-sm text-brand-light truncate font-mono">${save.fileName}</p>
+                    <p class="text-xs text-gray-500 mt-2 font-bold uppercase tracking-wider">
+                        SIZE: <span class="text-gray-300">${formatBytes(save.size)}</span> // 
+                        DATE: ${new Date(save.uploadDate).toLocaleDateString()}
                     </p>
                 </div>
-                <div class="actions flex space-x-2 opacity-100 sm:opacity-70 transition-opacity">
-                    <button data-id="${save.id}" class="download-btn px-3 py-1 bg-[#333] text-white text-sm rounded-md hover:bg-[#444] hover:text-white transition">Download</button>
-                    <button data-id="${save.id}" class="delete-btn px-3 py-1 bg-[#333] text-white text-sm rounded-md hover:bg-[#444] transition">Delete Save</button>
+                <div class="actions flex space-x-3 opacity-100 sm:opacity-80 transition-opacity z-10">
+                    <button data-id="${save.id}" class="download-btn btn-gaming-ghost px-4 py-2 bg-black text-white text-xs font-bold uppercase tracking-wider hover:bg-white hover:text-black transition"><span>Download</span></button>
+                    <button data-id="${save.id}" class="delete-btn btn-gaming-ghost px-4 py-2 bg-black text-red-500 text-xs font-bold uppercase tracking-wider hover:bg-brand hover:text-white transition border-red-900/50"><span>Delete</span></button>
                 </div>
             `;
             saveListContainer.appendChild(item);
@@ -352,10 +365,13 @@ const renderSaves = async () => {
  * @param {Event} event - The click event.
  */
 const handleDownload = async (event) => {
-    const id = event.target.dataset.id;
-    const originalText = event.target.textContent;
-    event.target.textContent = 'Preparing...';
-    event.target.disabled = true;
+    // Traverse up to find button in case span is clicked
+    const btn = event.target.closest('button');
+    const id = btn.dataset.id;
+    const originalText = btn.innerHTML;
+    
+    btn.innerHTML = '<span>SYNCING...</span>';
+    btn.disabled = true;
 
     try {
         const save = await DB.getSave(id);
@@ -376,8 +392,8 @@ const handleDownload = async (event) => {
         console.error("Download failed:", e);
         showMessage('Download Failed', 'Could not retrieve file.');
     } finally {
-        event.target.textContent = originalText;
-        event.target.disabled = false;
+        btn.innerHTML = originalText;
+        btn.disabled = false;
     }
 };
 
@@ -386,8 +402,9 @@ const handleDownload = async (event) => {
  * @param {Event} event - The click event.
  */
 const handleDelete = async (event) => {
-    const id = event.target.dataset.id;
-    const confirmed = await window.customConfirm("Are you sure you want to permanently delete this save file? This action cannot be undone.");
+    const btn = event.target.closest('button');
+    const id = btn.dataset.id;
+    const confirmed = await window.customConfirm("WARNING: PERMANENT DELETION.\n\nAre you sure you want to scrub this save file from the drive?");
 
     if (!confirmed) return;
 
@@ -454,7 +471,7 @@ const handleExport = async () => {
         
         const a = document.createElement('a');
         a.href = url;
-        a.download = `gamedrive${new Date().toISOString().split('T')[0]}.json`;
+        a.download = `archiveplus_backup_${new Date().toISOString().split('T')[0]}.json`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
@@ -479,7 +496,7 @@ const handleImport = async () => {
         return;
     }
 
-    const confirmed = await window.customConfirm("Are you absolutely sure you want to import this file? **This will erase all current local data.**");
+    const confirmed = await window.customConfirm("CRITICAL WARNING: OVERWRITE IMMINENT.\n\nProceeding will ERASE ALL current local data. Confirm overwrite?");
     if (!confirmed) return;
 
     settingsModal.classList.add('hidden');
@@ -574,7 +591,7 @@ const handleUpload = async () => {
     // Warning for large files during upload
     if (selectedFile.size > 1024 * 1024 * 500) { // 500MB limit
         const confirmed = await window.customConfirm(
-            `The selected file is **${formatBytes(selectedFile.size)}**. Very large files can cause memory issues on export/import. Proceed with upload?`
+            `The selected file is **${formatBytes(selectedFile.size)}**. Large files may cause performance issues. Proceed?`
         );
         if (!confirmed) return;
     }
@@ -584,7 +601,7 @@ const handleUpload = async () => {
     }
 
 
-    uploadButton.textContent = 'Uploading...';
+    uploadButton.innerHTML = '<span>Uploading...</span>';
     uploadButton.disabled = true;
 
     try {
@@ -623,7 +640,7 @@ const handleUpload = async () => {
         console.error("Upload failed:", error);
         showMessage('Upload Failed', 'An error occurred during upload. Check console for details.');
     } finally {
-        uploadButton.textContent = 'Upload Save to Local Directory';
+        uploadButton.innerHTML = '<span>Install to Drive</span>';
     }
 };
 
@@ -638,14 +655,15 @@ const handleUpload = async () => {
 window.customConfirm = (message) => {
     return new Promise((resolve) => {
         const tempModal = document.createElement('div');
-        tempModal.className = 'fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 z-50';
+        // Red Theme Modal
+        tempModal.className = 'fixed inset-0 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 z-[70]';
         tempModal.innerHTML = `
-            <div class="bg-gray-800 p-6 rounded-lg shadow-2xl w-full max-w-sm border-t-4 border-red-500">
-                <h3 class="text-xl font-bold mb-3 text-red-400">Confirmation Required</h3>
-                <p class="text-gray-300 mb-6">${message}</p>
+            <div class="bg-[#1a0505] p-8 rounded-none shadow-[0_0_40px_rgba(255,0,51,0.15)] w-full max-w-sm border-t-4 border-brand relative">
+                <h3 class="text-2xl font-display font-bold mb-4 text-brand uppercase italic">Confirm Action</h3>
+                <p class="text-gray-300 mb-8 font-medium">${message.replace(/\n/g, '<br>')}</p>
                 <div class="flex justify-end space-x-3">
-                    <button id="cancelBtn" class="px-4 py-2 bg-gray-600 text-white font-semibold rounded-md hover:bg-gray-500 transition">Cancel</button>
-                    <button id="okBtn" class="px-4 py-2 bg-red-600 text-white font-semibold rounded-md hover:bg-red-500 transition">Confirm Action</button>
+                    <button id="cancelBtn" class="px-6 py-3 bg-transparent border border-[#333] text-gray-400 font-bold uppercase hover:bg-[#333] hover:text-white transition text-sm">Cancel</button>
+                    <button id="okBtn" class="px-6 py-3 bg-brand text-white font-bold uppercase hover:bg-white hover:text-black transition shadow-glow text-sm">Confirm</button>
                 </div>
             </div>
         `;
@@ -724,9 +742,9 @@ const attachEventListeners = () => {
                 handleGameSelection(newGameName); 
                 newGameNameInput.value = ''; 
                 addNewGameButton.disabled = true;
-                showMessage('Game Added', `"${newGameName}" is now available and selected.`);
+                showMessage('System Update', `Game database updated: "${newGameName}" added.`);
             } catch (e) {
-                showMessage('Error', 'Could not add game.');
+                showMessage('Error', 'Could not add game to database.');
             }
         }
     });
