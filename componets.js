@@ -65,9 +65,8 @@ const components = {
                     <ul class="space-y-3">
                         <li><a href="webapp/imgextracter/index.html" class="hover:underline hover:text-white">IMG EXTRACTER</a></li>
                         <li><a href="https://stadiastudios.github.io/passpro" class="hover:underline hover:text-white">PassPro</a></li>
-                        <li><a href="webapp/gamedrive/index.html" class="hover:underline hover:text-white">GameDrive</a></li>
+                        <li><a href="webapp/archiveplus/index.html" class="hover:underline hover:text-white">ArchivePlus</a></li>
                         <li><a href="https://stadiastudios.github.io/ourjourney/splash" class="hover:underline hover:text-white">Our Journey</a></li>
-                        <li><a href="https://stadiastudios.github.io/themegram/" class="hover:underline hover:text-white">ThemeGram</a></li>
                     </ul>
                 </div>
                 <div>

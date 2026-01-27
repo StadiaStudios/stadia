@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Details | PassPro</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/app/passpro.png">
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;800&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'stadia-black': '#0b0b0b',
+                        'stadia-dark': '#151515',
+                        'stadia-accent': '#ff470a',
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'display': ['Barlow', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #0b0b0b; color: white; }
+        .btn-primary {
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #0b0b0b; }
+        ::-webkit-scrollbar-thumb { 
+            background: #333; 
+            border: 2px solid #0b0b0b; 
+        }
+        ::-webkit-scrollbar-thumb:hover { background: #ff470a; }
+
+        .nav-item { position: relative; }
+        .nav-item::after {
+            content: ''; position: absolute; width: 0; height: 2px;
+            bottom: -4px; left: 0; background-color: white; transition: width 0.3s ease;
+        }
+        .nav-item:hover::after { width: 100%; }
+    </style>
+</head>
+<body class="font-sans antialiased">
+
+    <div id="navbar-placeholder"></div>
+
+    <!-- Main Content -->
+    <main class="pt-24 pb-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Breadcrumbs -->
+            <nav class="flex mb-8 text-sm text-gray-500 font-bold uppercase tracking-widest">
+                <a href="store.html" class="hover:text-stadia-accent transition-colors">Store</a>
+                <span class="mx-2">/</span>
+                <span class="text-white">App Details</span>
+            </nav>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                
+                <!-- Left Column: Media & Description -->
+                <div class="lg:col-span-2 space-y-10">
+                    <!-- Hero/Icon and Title -->
+                    <div class="flex flex-col md:flex-row items-center md:items-end space-y-4 md:space-y-0 md:space-x-8">
+                        <div class="w-48 h-48 bg-stadia-dark border border-gray-800 rounded-2xl overflow-hidden shadow-2xl">
+                            <img src="assets/app/passpro.png" alt="App Icon" class="w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1 text-center md:text-left">
+                            <h1 class="text-4xl md:text-6xl font-display font-black uppercase mb-2">PassPro</h1>
+                            <p class="text-stadia-accent font-bold uppercase tracking-widest text-sm">StadiaStudios • Security</p>
+                        </div>
+                    </div>
+
+                    <!-- Main Description -->
+                    <div class="prose prose-invert max-w-none border-t border-gray-800 pt-10">
+                        <h2 class="text-2xl font-display font-bold uppercase mb-4">About the App</h2>
+                        <p class="text-gray-400 leading-relaxed mb-6">
+                            Free Simple & secure Password manager by StadiaStudios <br>
+                            No Limits. <br>No Ads. <br>No Signup. <br>No Knowledge towards user Passwords, <br>Easy backups<br>Autofill extension support
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-stadia-dark p-4 border-l-4 border-stadia-accent">
+                                <h4 class="font-bold uppercase text-sm mb-1">Developer Links</h4>
+                                <a class="text-[#888] hover:text-white text-xs" href="https://github.com/StadiaStudios/passpro-autofill-extension">NEW AutoFill Extension</a><br>
+                                <a class="text-[#888] hover:text-white text-xs" href="https://stadiastudios.github.io/passpro/terms_of_service.html">Terms Of Service</a><br>
+                                <a class="text-[#888] hover:text-white text-xs" href="https://stadiastudios.github.io/passpro/changelog.txt">Changelog</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gallery -->
+                    <div class="space-y-6">
+                        <h2 class="text-2xl font-display font-bold uppercase">Screenshots</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="aspect-video bg-stadia-dark overflow-hidden border border-gray-800">
+                                <img src="assets/placeholder.jpeg" class="w-full h-full object-cover opacity-50">
+                            </div>
+                            <div class="aspect-video bg-stadia-dark overflow-hidden border border-gray-800">
+                                <img src="assets/placeholder.jpeg" class="w-full h-full object-cover opacity-50">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Stats & Download -->
+                <div class="space-y-8">
+                    <div class="bg-stadia-dark p-8 border border-gray-800">
+                        <div class="mb-8">
+                            <span class="text-gray-500 uppercase text-xs font-bold block mb-1">Current Status</span>
+                            <span class="text-2xl font-display font-black uppercase">Free</span>
+                        </div>
+                        
+                        <a href="https://drive.google.com/uc?export=download&id=1mj8yHtBDRuv9PZLUzQ4ecu0VLUVl6Ybj"><button class="w-full btn-primary bg-stadia-accent text-white py-4 font-bold uppercase tracking-widest hover:brightness-110 mb-4">
+                            <i class="fas fa-play mr-2"></i> OPEN APP
+                        </button></a>
+                        
+                        <div class="space-y-4 pt-6 border-t border-gray-800 mt-6">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-500 uppercase font-bold">Version</span>
+                                <span class="text-white">1.14.13</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-500 uppercase font-bold">Last Updated</span>
+                                <span class="text-white">Jan 27, 2026</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Requirements -->
+                    <div class="p-6 bg-[#0f0f0f] border border-gray-800">
+                        <h3 class="font-display font-bold uppercase mb-4 text-gray-400">System Requirements</h3>
+                        <ul class="space-y-3 text-xs">
+                            <li class="flex flex-col">
+                                <span class="text-gray-600 font-bold uppercase">OS</span>
+                                <span>Windows 10/11 64-bit. IOS or Android</span>
+                            </li>
+                            <li class="flex flex-col">
+                                <span class="text-gray-600 font-bold uppercase">Memory</span>
+                                <span>512 MB RAM</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="componets.js"></script>
+</body>
+</html>

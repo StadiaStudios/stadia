@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- PWA & Mobile App Manifest -->
+    <link rel="manifest" href="manifest.json">
+
+    <title>Archive+</title>
+    <link rel="icon" type="image/png" href="resources/icons/favicon.png">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts - Rajdhani for that "Gamer" header look, Inter for body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Rajdhani', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            DEFAULT: '#FF0033', /* Vibrant Red */
+                            hover: '#CC0029',
+                            light: '#FF335C',
+                            dark: '#99001F',
+                            glow: 'rgba(255, 0, 51, 0.5)',
+                        },
+                        surface: {
+                            DEFAULT: '#1a0505', /* Very dark red tint */
+                            hover: '#250a0a',
+                            active: '#330f0f',
+                            base: '#0a0000',
+                        }
+                    },
+                    boxShadow: {
+                        'glow': '0 0 15px rgba(255, 0, 51, 0.4)',
+                        'glow-hover': '0 0 25px rgba(255, 0, 51, 0.6)',
+                    },
+                    animation: {
+                        'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #050000;
+            color: #f3f3f3;
+            /* Deep red gradient background */
+            background-image: radial-gradient(circle at top right, #3d0000 0%, #050000 50%);
+            overflow-x: hidden; /* Prevent horizontal scroll from skewed elements */
+        }
+        
+        /* Custom Scrollbar - Red & Angry */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050000; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #660014; 
+            border-radius: 0px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FF0033; 
+        }
+
+        /* Focus rings */
+        *:focus-visible {
+            outline: 2px solid #FF0033;
+            outline-offset: 4px;
+        }
+
+        /* --- FORTNITE / GAMING STYLE BUTTONS --- */
+        .btn-gaming {
+            transform: skewX(-10deg);
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid transparent;
+        }
+        
+        /* Unskew text inside buttons so it's readable */
+        .btn-gaming > * {
+            transform: skewX(10deg);
+            display: inline-block;
+        }
+
+        .btn-gaming:hover {
+            transform: skewX(-10deg) scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+            /* Fortnite yellow/white selection flash feel, or just bright red */
+            background-color: #FF0033;
+            border-color: #ffffff;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .btn-gaming:active {
+            transform: skewX(-10deg) scale(0.95);
+        }
+
+        /* Secondary gaming button (Ghost style) */
+        .btn-gaming-ghost {
+            background: transparent;
+            border: 1px solid #333;
+            transform: skewX(-10deg);
+            transition: all 0.2s ease;
+        }
+        .btn-gaming-ghost > * {
+            transform: skewX(10deg);
+        }
+        .btn-gaming-ghost:hover {
+            border-color: #FF0033;
+            background: rgba(255, 0, 51, 0.1);
+            transform: skewX(-10deg) translateX(5px); /* Slide effect */
+            color: white;
+        }
+
+        /* Tile Hover Effect - Sharper */
+        .tile {
+            transition: all 0.2s ease-out;
+            border: 1px solid #330f0f;
+        }
+        .tile:hover {
+            transform: translateY(-2px);
+            background-color: #250a0a;
+            border-color: #FF0033;
+            box-shadow: 0 10px 30px -10px rgba(255, 0, 51, 0.2);
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col relative font-sans selection:bg-brand selection:text-white">
+
+    <!-- Loading Screen Overlay -->
+    <div id="loading-overlay" class="fixed inset-0 bg-[#050000] z-[100] flex flex-col items-center justify-center transition-opacity duration-500 ease-out">
+        <div class="flex flex-col items-center">
+            <!-- Red Pulse Spinner -->
+            <div class="h-16 w-16 border-4 border-brand border-t-transparent rounded-full animate-spin mb-8 shadow-glow"></div>
+            
+            <h2 class="text-3xl font-display font-bold text-white tracking-widest italic">GAME<span class="text-brand">DRIVE</span></h2>
+            <p class="text-brand-light mt-2 text-xs font-bold tracking-[0.3em] uppercase animate-pulse">System Boot</p>
+        </div>
+    </div>
+
+    <!-- SHARED NAVIGATION LOADED VIA JS -->
+    <script src="navbar.js"></script>
+
+
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-12 max-w-5xl relative z-10">
+        
+        <!-- Header Section -->
+        <div class="mb-10 flex flex-col md:flex-row md:items-end justify-between border-b border-[#330f0f] pb-6">
+            <div>
+                <h1 class="text-4xl md:text-5xl font-display font-bold text-white mb-2 italic uppercase">My Library</h1>
+                <p class="text-brand-light font-medium tracking-wide">Manage local saves // Secure Vault</p>
+            </div>
+            <div class="mt-4 md:mt-0">
+                 <span class="inline-block px-3 py-1 bg-[#330f0f] border border-brand text-brand text-xs font-bold uppercase tracking-widest rounded-sm skew-x-[-10deg]">
+                    <span class="inline-block skew-x-[10deg]">Online</span>
+                </span>
+            </div>
+        </div>
+
+        <!-- Upload Tile -->
+        <section id="upload-form" class="bg-surface rounded-none md:rounded-lg mb-12 overflow-visible shadow-2xl shadow-black border border-[#330f0f] relative group">
+            <!-- Decorative corner accent -->
+            <div class="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-brand/20 to-transparent pointer-events-none"></div>
+
+            <div class="p-6 md:p-10">
+                <div class="flex items-center space-x-3 mb-8">
+                    <div class="w-1 h-8 bg-brand"></div>
+                    <h2 class="text-2xl font-display font-bold text-white uppercase italic">Initialize Upload</h2>
+                </div>
+                
+                <div class="grid gap-6 md:grid-cols-2">
+                    <!-- Game Selection -->
+                    <div class="md:col-span-2 space-y-2">
+                        <label for="gameSearchInput" class="block text-sm font-bold text-gray-400 uppercase tracking-wider">Game Title</label>
+                        <div class="relative">
+                            <input type="text" id="gameSearchInput" placeholder="SEARCH DATABASE..." class="w-full p-4 bg-[#0a0000] border border-[#333] focus:border-brand focus:ring-1 focus:ring-brand text-white placeholder-gray-700 transition-all duration-200 font-medium tracking-wide uppercase" autocomplete="off">
+                            <!-- Dropdown -->
+                            <div id="gameDropdownList" class="absolute hidden z-20 w-full mt-1 bg-[#1a0505] border border-brand rounded-none shadow-[0_10px_40px_rgba(0,0,0,0.8)] max-h-60 overflow-y-auto">
+                                <!-- Options populated by JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add New Game (Sub-section) -->
+                    <div class="md:col-span-2 flex space-x-2">
+                        <input type="text" id="newGameNameInput" placeholder="OR CREATE NEW ENTRY..." class="flex-1 p-3 bg-[#0a0000] border border-[#333] focus:border-brand focus:ring-1 focus:ring-brand text-sm text-white placeholder-gray-700 uppercase">
+                        <button id="addNewGameButton" disabled class="btn-gaming-ghost px-6 bg-[#1a0505] text-white text-sm font-bold uppercase disabled:opacity-30 disabled:border-transparent">
+                            <span>Add</span>
+                        </button>
+                    </div>
+
+                    <!-- File Selection -->
+                    <div class="md:col-span-2 space-y-2 mt-4">
+                        <label class="block text-sm font-bold text-gray-400 uppercase tracking-wider">Data Source</label>
+                        <input type="file" id="fileInput" class="hidden">
+                        <div class="flex items-center space-x-2">
+                            <button id="selectFileButton" class="btn-gaming-ghost px-8 py-4 text-white font-bold bg-[#1a0505] hover:bg-[#330f0f]">
+                                <span>BROWSE SYSTEM</span>
+                            </button>
+                            <span id="fileNameDisplay" class="truncate flex-1 text-gray-500 bg-[#0a0000] p-4 border border-[#333] select-none text-sm font-mono tracking-tight">No file selected</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="mt-10 pt-6 border-t border-[#330f0f]">
+                    <button id="uploadButton" disabled class="btn-gaming w-full py-5 bg-brand text-white font-display font-black text-xl uppercase tracking-[0.2em] hover:bg-white hover:text-black transition-all shadow-glow disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none disabled:bg-gray-800 disabled:text-gray-500">
+                        <span>Install to Drive</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Directory Section -->
+        <div class="flex items-center justify-between mb-6 mt-16" id="save-directory">
+             <div class="flex items-center space-x-4">
+                <h2 class="text-2xl font-display font-bold text-white uppercase italic">Installed Saves</h2>
+                <div class="h-px w-12 bg-gray-700"></div>
+                <span class="text-[10px] font-bold text-brand px-2 py-1 border border-brand bg-brand/10 rounded-sm uppercase tracking-widest">Local Storage</span>
+            </div>
+        </div>
+       
+       <section id="saveList" class="flex flex-col gap-4">
+            <!-- Saves rendered here by JS -->
+            
+            <div id="emptyState" class="md:col-span-2 flex flex-col items-center justify-center p-16 text-center bg-surface border border-dashed border-[#330f0f] rounded-lg">
+                <div class="h-16 w-16 bg-[#1a0505] rounded-full flex items-center justify-center mb-6 text-brand/30">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/></svg>
+                </div>
+                <p class="text-xl font-display font-bold text-gray-400 uppercase">Sector Empty</p>
+                <p class="mt-2 text-sm text-gray-600 font-mono">No save data found in local partition.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="fixed inset-0 bg-black/90 hidden items-center justify-center p-4 z-50 backdrop-blur-sm">
+        <div class="bg-[#1a0505] w-full max-w-lg rounded-none shadow-2xl ring-1 ring-brand transform scale-100 relative">
+            <!-- Decorative line -->
+            <div class="absolute top-0 left-0 w-full h-1 bg-brand"></div>
+            
+            <!-- Modal Header -->
+            <div class="px-8 py-6 border-b border-[#330f0f] flex justify-between items-center bg-[#0a0000]">
+                <h2 class="text-xl font-display font-bold text-white uppercase italic tracking-wider">System Settings</h2>
+                <button id="closeSettingsBtn" class="p-2 text-gray-500 hover:text-white hover:bg-brand transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <div class="p-8 space-y-8">
+                <!-- Mobile Navigation -->
+                <div class="md:hidden grid grid-cols-2 gap-3 pb-6 border-b border-[#330f0f]">
+                     <a href="guide.html" class="p-3 text-center bg-[#0a0000] hover:bg-[#330f0f] text-white text-sm font-bold uppercase tracking-wide border border-[#333]">Guide</a>
+                </div>
+
+                <!-- Storage Stats -->
+                <div>
+                    <h3 class="text-xs font-bold text-brand uppercase tracking-[0.2em] mb-4">Memory Usage</h3>
+                    <div class="flex justify-between items-center p-5 bg-[#0a0000] border border-[#333] border-l-4 border-l-brand relative overflow-hidden">
+                        <!-- Background stripe -->
+                        <div class="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-brand/10 to-transparent"></div>
+                        <span class="text-gray-400 text-sm font-medium uppercase relative z-10">Total Size</span>
+                        <span id="storageUsageDisplay" class="font-mono text-xl font-bold text-white relative z-10">0 KB</span>
+                    </div>
+                </div>
+
+                <!-- Backup/Restore -->
+                <div>
+                    <h3 class="text-xs font-bold text-brand uppercase tracking-[0.2em] mb-4">Data Management</h3>
+                    <div class="space-y-4">
+                        <button id="exportDataBtn" class="btn-gaming-ghost w-full flex items-center justify-center space-x-3 py-4 bg-[#0a0000] hover:bg-[#330f0f] text-white font-bold uppercase border border-[#333] transition-colors group">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-brand group-hover:text-white transition-colors skew-x-[10deg]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                            <span>Backup All Saves</span>
+                        </button>
+
+                        <div class="pt-4 relative">
+                            <div class="absolute inset-0 flex items-center" aria-hidden="true">
+                                <div class="w-full border-t border-[#330f0f]"></div>
+                            </div>
+                            <div class="relative flex justify-center">
+                                <span class="bg-[#1a0505] px-4 text-[10px] text-gray-500 uppercase tracking-widest font-bold">Or Restore</span>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col gap-3">
+                            <input type="file" id="importFileInput" class="hidden" accept=".json">
+                            <div class="flex space-x-0">
+                                <button id="selectImportFileBtn" class="btn-gaming-ghost px-6 py-3 bg-[#0a0000] text-white text-xs font-bold uppercase border border-[#333] hover:bg-brand hover:border-brand">
+                                    <span>Select</span>
+                                </button>
+                                <span id="importFileNameDisplay" class="flex-1 py-3 px-4 bg-[#050000] border-y border-r border-[#333] text-xs text-gray-500 truncate flex items-center font-mono">
+                                    No file selected
+                                </span>
+                            </div>
+                            <button id="importDataBtn" disabled class="btn-gaming w-full py-3 mt-2 bg-transparent text-brand hover:bg-brand hover:text-white border border-brand font-bold text-sm uppercase tracking-wider transition-all disabled:opacity-30 disabled:cursor-not-allowed">
+                                <span>Restore Data</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message Modal -->
+    <div id="messageModal" class="fixed inset-0 bg-black/95 hidden items-center justify-center p-4 z-[60] backdrop-blur-sm">
+        <div class="bg-[#1a0505] p-8 rounded-none shadow-[0_0_50px_rgba(255,0,51,0.2)] w-full max-w-md border border-brand/50 relative">
+            <div class="absolute top-0 left-0 w-2 h-full bg-brand"></div>
+            <h3 id="modalTitle" class="text-2xl font-display font-bold mb-4 text-white uppercase italic">System Message</h3>
+            <p id="modalMessage" class="text-gray-300 mb-8 text-sm leading-relaxed border-l-2 border-[#330f0f] pl-4"></p>
+            <div class="flex justify-end items-center space-x-4">
+                <div id="modalSpinner" class="hidden animate-spin h-6 w-6 border-4 border-t-transparent border-brand rounded-full"></div>
+                <button id="modalOkBtn" class="btn-gaming px-8 py-3 bg-brand hover:bg-white hover:text-black text-white text-sm font-bold uppercase tracking-wider transition shadow-glow"><span>ACKNOWLEDGE</span></button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Link to your main logic -->
+    <script src="app.js"></script>
+    
+    <!-- UI Visual Logic -->
+    <script>
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loading-overlay');
+            if(loader) {
+                setTimeout(() => {
+                    loader.style.opacity = '0';
+                    setTimeout(() => loader.style.display = 'none', 500);
+                }, 1000);
+            }
+        });
+    </script>
+</body>
+
+</html>
