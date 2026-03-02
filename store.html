@@ -10,7 +10,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;800&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -21,19 +21,18 @@
             theme: {
                 extend: {
                     colors: {
-                        'stadia-black': '#0b0b0b',
-                        'stadia-dark': '#151515',
-                        'stadia-card': '#1a1a1a',
                         'stadia-accent': '#ff470a',
                         'stadia-accent-hover': '#e63e00',
+                        'bg-main': '#f8fafc',
+                        'card-bg': '#ffffff',
                     },
                     fontFamily: {
                         'sans': ['Inter', 'sans-serif'],
                         'display': ['Barlow', 'sans-serif'],
                     },
-                    borderRadius: {
-                        'xl': '1rem',
-                        '2xl': '1.5rem',
+                    boxShadow: {
+                        'soft': '0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05)',
+                        'hover': '0 20px 40px -12px rgba(255, 71, 10, 0.12)',
                     }
                 }
             }
@@ -41,291 +40,264 @@
     </script>
 
     <style>
-        body { background-color: #0b0b0b; color: white; }
-        ::-webkit-scrollbar { width: 10px; }
-        ::-webkit-scrollbar-track { background: #0b0b0b; }
+        body { background-color: #f8fafc; color: #1e293b; }
+        
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
         ::-webkit-scrollbar-thumb { 
-            background: #333; 
-            border: 2px solid #0b0b0b; 
+            background: #cbd5e1; 
+            border-radius: 10px;
         }
         ::-webkit-scrollbar-thumb:hover { background: #ff470a; }
 
-        /* Modern Card Styling */
         .store-card {
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border-radius: 1.5rem;
-            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .store-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 20px rgba(255, 71, 10, 0.15);
+            transform: translateY(-4px);
         }
 
-        /* Fluid Gradient for Images */
-        .card-img-container::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 50%;
-            background: linear-gradient(to top, #1a1a1a, transparent);
-        }
-
-        .btn-action {
-            border-radius: 9999px;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        .nav-item { position: relative; }
-        .nav-item::after {
-            content: ''; position: absolute; width: 0; height: 2px;
-            bottom: -4px; left: 0; background-color: white; transition: width 0.3s ease;
-        }
-        .nav-item:hover::after { width: 100%; }
-
-        /* Search Bar Focus Style */
         .search-container:focus-within {
-            border-color: #ff470a;
-            box-shadow: 0 0 0 2px rgba(255, 71, 10, 0.2);
+            ring: 2px solid #ff470a;
+            background: white;
+        }
+
+        .featured-glass {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .badge-beta {
+            background: linear-gradient(135deg, #ff470a, #ff8c00);
+        }
+        
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;  
+            overflow: hidden;
         }
     </style>
 </head>
-<body class="font-sans antialiased">
+<body class="font-sans antialiased text-slate-800">
 
     <!-- Navbar Placeholder -->
     <div id="navbar-placeholder"></div>
 
-    <!-- Store Header -->
-    <header class="pt-32 pb-12 bg-gradient-to-b from-stadia-dark to-stadia-black">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 class="text-4xl md:text-6xl font-display font-black uppercase tracking-tighter mb-4">
-                Stadia <span class="text-stadia-accent">App Store</span>
-            </h1>
-            <p class="text-gray-400 max-w-2xl text-lg mb-8">Browse our curated collection of tools and games. Check official websites for the most up-to-date version notes.</p>
-            
-            <!-- Search Bar -->
-            <div class="relative max-w-xl group">
-                <div class="search-container flex items-center bg-stadia-card border border-white/10 rounded-2xl px-5 py-4 transition-all duration-300">
-                    <i class="fas fa-search text-gray-500 mr-4"></i>
-                    <input 
-                        type="text" 
-                        id="app-search" 
-                        placeholder="Search for apps or games..." 
-                        class="bg-transparent border-none outline-none w-full text-white placeholder-gray-500 font-medium"
-                    >
+    <!-- Enhanced Header -->
+    <header class="pt-28 pb-10 bg-white border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                <div>
+                    <h1 class="text-4xl md:text-5xl font-display font-black uppercase tracking-tight text-slate-900 leading-tight">
+                        Stadia <span class="text-stadia-accent">App Store</span>
+                    </h1>
+                    <p class="text-slate-500 max-w-xl text-base mt-2">Explore the ecosystem. Tools, games, and extensions designed for performance.</p>
+                </div>
+                
+                <!-- Refined Search Bar -->
+                <div class="relative w-full md:w-80 group">
+                    <div class="search-container flex items-center bg-slate-50 border border-slate-200 rounded-2xl px-4 py-3 transition-all">
+                        <i class="fas fa-search text-slate-400 mr-3 text-sm"></i>
+                        <input 
+                            type="text" 
+                            id="app-search" 
+                            placeholder="Find an app..." 
+                            class="bg-transparent border-none outline-none w-full text-slate-900 placeholder-slate-400 font-medium text-sm"
+                        >
+                    </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Featured Section -->
-    <section class="py-10" id="featured-section">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="relative w-full h-[450px] overflow-hidden rounded-3xl group cursor-pointer shadow-2xl">
-                <img src="assets/banner.png" alt="Featured App" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 opacity-70">
-                <div class="absolute inset-0 bg-gradient-to-r from-stadia-black via-black/40 to-transparent"></div>
-                <div class="absolute inset-y-0 left-0 flex flex-col justify-center p-8 md:p-16 max-w-xl">
-                    <div class="flex items-center gap-2 mb-4">
-                        <span class="bg-stadia-accent/20 text-stadia-accent px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest border border-stadia-accent/30">Featured Release</span>
-                    </div>
-                    <h2 class="text-5xl md:text-7xl font-display font-black uppercase mb-4 leading-none">Candy<br>Swap</h2>
-                    <p class="text-gray-300 mb-8 text-lg">Dive into the vibrant world of CandySwap, a fast-paced match-3 puzzle game designed for instant fun! Swap colorful candies to create massive combos,</p>
-                    <div class="flex gap-4">
-                        <a href="https://stadiastudios.github.io/candyswap/" class="btn-action bg-stadia-accent text-white px-8 py-3.5 font-bold uppercase tracking-wider hover:bg-stadia-accent-hover hover:scale-105 shadow-lg shadow-stadia-accent/20">
-                            Play Online <i class="fas fa-external-link-alt text-xs"></i>
+    <main class="max-w-7xl mx-auto px-6">
+        <!-- Featured Hero -->
+        <section class="py-10" id="featured-section">
+            <div class="relative w-full h-[400px] overflow-hidden rounded-3xl shadow-soft group">
+                <img src="assets/banner.png" alt="Featured App" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+                
+                <!-- Floating Info Panel -->
+                <div class="absolute bottom-6 left-6 right-6 md:left-10 md:bottom-10 md:right-auto">
+                    <div class="featured-glass p-6 md:p-8 rounded-2xl max-w-lg shadow-2xl">
+                        <span class="inline-block bg-stadia-accent/10 text-stadia-accent px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest mb-3 border border-stadia-accent/20">Featured Release</span>
+                        <h2 class="text-3xl md:text-4xl font-display font-extrabold text-slate-900 mb-2 uppercase italic">CandySwap</h2>
+                        <p class="text-slate-600 mb-6 text-sm leading-relaxed">Fast-paced match-3 action. Swap, combo, and collect gold to customize your island experience.</p>
+                        <a href="https://stadiastudios.github.io/candyswap/" class="inline-flex items-center gap-2 bg-stadia-accent text-white px-6 py-3 rounded-xl font-bold uppercase text-xs tracking-wider hover:bg-stadia-accent-hover transition-all shadow-lg shadow-stadia-accent/20">
+                            Play Now <i class="fas fa-play text-[10px]"></i>
                         </a>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Apps Grid -->
-    <section class="py-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between mb-12 border-b border-gray-800/50 pb-6">
-                <h3 class="text-3xl font-display font-bold uppercase tracking-tight" id="results-title">All Applications</h3>
-                <div class="text-sm text-gray-500 uppercase tracking-widest font-semibold" id="results-count">7 Apps</div>
+        <!-- Apps Grid Header -->
+        <section class="py-6">
+            <div class="flex items-center justify-between mb-8 border-b border-slate-100 pb-4">
+                <div class="flex items-center gap-4">
+                    <h3 class="text-xl font-bold text-slate-900" id="results-title">Discover All</h3>
+                    <span class="bg-slate-100 text-slate-500 px-2 py-0.5 rounded text-[10px] font-bold uppercase" id="results-count">7 Items</span>
+                </div>
+                <div class="flex gap-2">
+                    <button class="w-8 h-8 flex items-center justify-center rounded-lg bg-white border border-slate-200 text-slate-400 hover:text-stadia-accent"><i class="fas fa-th-large text-sm"></i></button>
+                    <button class="w-8 h-8 flex items-center justify-center rounded-lg bg-white border border-slate-200 text-slate-400"><i class="fas fa-list text-sm"></i></button>
+                </div>
             </div>
 
             <!-- Empty State -->
-            <div id="no-results" class="hidden text-center py-20">
-                <i class="fas fa-search text-5xl text-gray-700 mb-4"></i>
-                <p class="text-xl text-gray-400">No apps found matching your search.</p>
-                <button onclick="document.getElementById('app-search').value = ''; filterApps('');" class="mt-4 text-stadia-accent font-bold uppercase tracking-widest text-sm hover:underline">Clear Search</button>
+            <div id="no-results" class="hidden text-center py-24 bg-white rounded-3xl border border-dashed border-slate-200">
+                <div class="bg-slate-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-search text-2xl text-slate-300"></i>
+                </div>
+                <p class="text-lg text-slate-500 font-medium">We couldn't find that app.</p>
+                <button onclick="document.getElementById('app-search').value = ''; filterApps('');" class="mt-4 text-stadia-accent font-bold text-sm hover:underline">Show all apps</button>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8" id="apps-grid">
+            <!-- Grid Container -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="apps-grid">
                 
-                
-<!-- App Card 1 - Detail Page -->
-                <div class="store-card group bg-stadia-card border border-white/5" data-title="Armory Legends">
-                    <div class="relative aspect-[4/3] overflow-hidden card-img-container">
-                        <img src="assets/app/armory-legends.png" alt="Armory Legends" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                        <div class="absolute top-4 right-4 z-10">
-                            <span class="text-[10px] bg-stadia-accent text-white px-2 py-1 rounded font-black tracking-tighter">BETA</span>
+                <!-- App Card 1: Armory Legends -->
+                <div class="store-card group bg-white rounded-2xl border border-slate-100 shadow-soft hover:shadow-hover overflow-hidden flex flex-col" data-title="Armory Legends">
+                    <div class="relative h-48 overflow-hidden bg-slate-100">
+                        <img src="assets/app/armory-legends.png" alt="Armory Legends" class="w-full h-full object-cover">
+                        <div class="absolute top-3 right-3">
+                            <span class="badge-beta text-[9px] text-white px-2 py-1 rounded font-bold uppercase tracking-tighter shadow-sm">Beta</span>
                         </div>
                     </div>
-                    <div class="p-6">
-                        <h4 class="text-xl font-display font-bold uppercase mb-2 group-hover:text-stadia-accent transition-colors">Armory Legends</h4>
-                        <p class="text-gray-400 text-sm mb-6 line-clamp-2 h-10">Start with basic pistols and work your way up to assault rifles in this trading sim.</p>
-                        <a href="details-armory-legends.html" class="btn-action relative overflow-hidden w-full bg-white/5 text-zinc-300 hover:text-white py-3 font-bold uppercase text-xs border border-transparent hover:border-white/80 transition-all duration-300 group/btn">
-                            <span class="relative z-10 flex items-center justify-center gap-2">Learn More <i class="fas fa-chevron-right text-[10px]"></i></span>
-                            <div class="absolute top-0 -left-[100%] w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 group-hover/btn:left-[100%] transition-all duration-500 ease-out z-0"></div>
-                        </a>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h4 class="text-lg font-bold text-slate-900 group-hover:text-stadia-accent transition-colors mb-1">Armory Legends</h4>
+                        <p class="text-slate-500 text-xs leading-relaxed mb-6 line-clamp-2">Start with basic pistols and work your way up to assault rifles in this trading sim.</p>
+                        <div class="mt-auto">
+                            <a href="details-armory-legends.html" class="flex items-center justify-center w-full py-2.5 rounded-xl bg-slate-50 text-slate-600 hover:bg-slate-900 hover:text-white font-bold text-[11px] uppercase tracking-wide transition-all">
+                                View Details
+                            </a>
+                        </div>
                     </div>
                 </div>
 
-                <!-- App Card 2 - Detail Page -->
-                <div class="store-card group bg-stadia-card border border-white/5" data-title="Jet Surfers 2">
-                    <div class="relative aspect-[4/3] overflow-hidden card-img-container">
-                        <img src="assets/app/jetsurfers2.jpg" alt="Jet Surfers 2" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                        <div class="absolute top-4 right-4 z-10">
-                            <span class="text-[10px] bg-white/10 backdrop-blur-md text-gray-300 border border-white/20 px-2 py-1 rounded font-black tracking-tighter uppercase">Release</span>
-                        </div>
+                <!-- App Card 2: Jet Surfers 2 -->
+                <div class="store-card group bg-white rounded-2xl border border-slate-100 shadow-soft hover:shadow-hover overflow-hidden flex flex-col" data-title="Jet Surfers 2">
+                    <div class="relative h-48 overflow-hidden bg-slate-100">
+                        <img src="assets/app/jetsurfers2.jpg" alt="Jet Surfers 2" class="w-full h-full object-cover">
                     </div>
-                    <div class="p-6">
-                        <h4 class="text-xl font-display font-bold uppercase mb-2 group-hover:text-stadia-accent transition-colors">Jet Surfers 2</h4>
-                        <p class="text-gray-400 text-sm mb-6 line-clamp-2 h-10">New Animations, New Jets, New Upgrades, & Lots More!</p>
-                        <a href="details-jetsurfers2.html" class="btn-action relative overflow-hidden w-full bg-white/5 text-zinc-300 hover:text-white py-3 font-bold uppercase text-xs border border-transparent hover:border-white/80 transition-all duration-300 group/btn">
-                            <span class="relative z-10 flex items-center justify-center gap-2">Learn More <i class="fas fa-chevron-right text-[10px]"></i></span>
-                            <div class="absolute top-0 -left-[100%] w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 group-hover/btn:left-[100%] transition-all duration-500 ease-out z-0"></div>
-                        </a>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h4 class="text-lg font-bold text-slate-900 group-hover:text-stadia-accent transition-colors mb-1">Jet Surfers 2</h4>
+                        <p class="text-slate-500 text-xs leading-relaxed mb-6 line-clamp-2">New Animations, New Jets, New Upgrades, & Lots More!</p>
+                        <div class="mt-auto">
+                            <a href="details-jetsurfers2.html" class="flex items-center justify-center w-full py-2.5 rounded-xl bg-slate-50 text-slate-600 hover:bg-slate-900 hover:text-white font-bold text-[11px] uppercase tracking-wide transition-all">
+                                View Details
+                            </a>
+                        </div>
                     </div>
                 </div>
 
-                <div class="store-card group bg-stadia-card border border-white/5" data-title="Candy Swap">
-                    <div class="relative aspect-[4/3] overflow-hidden card-img-container">
-                        <img src="assets/app/candyswap.jpeg" alt="CandySwap" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                        <div class="absolute top-4 right-4 z-10">
-                            <span class="text-[10px] bg-stadia-accent text-white px-2 py-1 rounded font-black tracking-tighter">BETA</span>
+                <!-- App Card 3: CandySwap -->
+                <div class="store-card group bg-white rounded-2xl border border-slate-100 shadow-soft hover:shadow-hover overflow-hidden flex flex-col" data-title="Candy Swap">
+                    <div class="relative h-48 overflow-hidden bg-slate-100">
+                        <img src="assets/app/candyswap.jpeg" alt="CandySwap" class="w-full h-full object-cover">
+                        <div class="absolute top-3 right-3">
+                            <span class="badge-beta text-[9px] text-white px-2 py-1 rounded font-bold uppercase tracking-tighter">Beta</span>
                         </div>
                     </div>
-                    <div class="p-6">
-                        <h4 class="text-xl font-display font-bold uppercase mb-2 group-hover:text-stadia-accent transition-colors">CandySwap</h4>
-                        <p class="text-gray-400 text-sm mb-6 line-clamp-2 h-10">Dive into the vibrant world of CandySwap, a fast-paced match-3 puzzle game designed for instant fun! Swap colorful candies to create massive combos, rack up high scores, and collect gold. Use your hard-earned treasure in the Island Shop to unlock stunning new backgrounds and customize your gameplay experience. With explosive candy bombs and satisfying chain reactions, CandySwap is the ultimate "pick-up-and-play" experience for puzzle lovers everywhere.</p>
-                        <a href="https://stadiastudios.github.io/candyswap/" target="_blank" class="btn-action relative overflow-hidden w-full bg-white/5 text-zinc-300 hover:text-white py-3 font-bold uppercase text-xs border border-transparent hover:border-white/80 transition-all duration-300 group/btn">
-                            <span class="relative z-10 flex items-center justify-center gap-2">Open App <i class="fas fa-external-link-alt text-[10px]"></i></span>
-                            <div class="absolute top-0 -left-[100%] w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 group-hover/btn:left-[100%] transition-all duration-500 ease-out z-0"></div>
-                        </a>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h4 class="text-lg font-bold text-slate-900 group-hover:text-stadia-accent transition-colors mb-1">CandySwap</h4>
+                        <p class="text-slate-500 text-xs leading-relaxed mb-6 line-clamp-2">Vibrant match-3 puzzle game. Unlock stunning backgrounds and satisfy your candy cravings.</p>
+                        <div class="mt-auto">
+                            <a href="https://stadiastudios.github.io/candyswap/" target="_blank" class="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-stadia-accent/5 text-stadia-accent hover:bg-stadia-accent hover:text-white font-bold text-[11px] uppercase tracking-wide transition-all">
+                                Open App <i class="fas fa-external-link-alt text-[9px]"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
 
-                <!-- App Card 3 - Detail Page -->
-                <div class="store-card group bg-stadia-card border border-white/5" data-title="LumberTycoon">
-                    <div class="relative aspect-[4/3] overflow-hidden card-img-container">
-                        <img src="assets/app/lumbertycoon.png" alt="LumberTycoon" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                        <div class="absolute top-4 right-4 z-10">
-                            <span class="text-[10px] bg-white/10 backdrop-blur-md text-gray-300 border border-white/20 px-2 py-1 rounded font-black tracking-tighter uppercase">Release</span>
-                        </div>
+                <!-- App Card 4: LumberTycoon -->
+                <div class="store-card group bg-white rounded-2xl border border-slate-100 shadow-soft hover:shadow-hover overflow-hidden flex flex-col" data-title="LumberTycoon">
+                    <div class="relative h-48 overflow-hidden bg-slate-100">
+                        <img src="assets/app/lumbertycoon.png" alt="LumberTycoon" class="w-full h-full object-cover">
                     </div>
-                    <div class="p-6">
-                        <h4 class="text-xl font-display font-bold uppercase mb-2 group-hover:text-stadia-accent transition-colors">LumberTycoon</h4>
-                        <p class="text-gray-400 text-sm mb-6 line-clamp-2 h-10">Build your empire from a single tree in this tycoon sim.</p>
-                        <a href="details-lumbertycoon.html" class="btn-action relative overflow-hidden w-full bg-white/5 text-zinc-300 hover:text-white py-3 font-bold uppercase text-xs border border-transparent hover:border-white/80 transition-all duration-300 group/btn">
-                            <span class="relative z-10 flex items-center justify-center gap-2">Learn More <i class="fas fa-chevron-right text-[10px]"></i></span>
-                            <div class="absolute top-0 -left-[100%] w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 group-hover/btn:left-[100%] transition-all duration-500 ease-out z-0"></div>
-                        </a>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h4 class="text-lg font-bold text-slate-900 group-hover:text-stadia-accent transition-colors mb-1">LumberTycoon</h4>
+                        <p class="text-slate-500 text-xs leading-relaxed mb-6 line-clamp-2">Build your empire from a single tree in this immersive tycoon sim.</p>
+                        <div class="mt-auto">
+                            <a href="details-lumbertycoon.html" class="flex items-center justify-center w-full py-2.5 rounded-xl bg-slate-50 text-slate-600 hover:bg-slate-900 hover:text-white font-bold text-[11px] uppercase tracking-wide transition-all">
+                                View Details
+                            </a>
+                        </div>
                     </div>
                 </div>
 
-                <!-- App Card 4 - Detail Page -->
-                <div class="store-card group bg-stadia-card border border-white/5" data-title="PassPro">
-                    <div class="relative aspect-[4/3] overflow-hidden card-img-container">
-                        <img src="assets/app/passpro.png" alt="PassPro" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                        <div class="absolute top-4 right-4 z-10">
-                            <span class="text-[10px] bg-white/10 backdrop-blur-md text-gray-300 border border-white/20 px-2 py-1 rounded font-black tracking-tighter uppercase">Release</span>
-                        </div>
+                <!-- App Card 5: PassPro -->
+                <div class="store-card group bg-white rounded-2xl border border-slate-100 shadow-soft hover:shadow-hover overflow-hidden flex flex-col" data-title="PassPro">
+                    <div class="relative h-48 overflow-hidden bg-slate-100">
+                        <img src="assets/app/passpro.png" alt="PassPro" class="w-full h-full object-cover">
                     </div>
-                    <div class="p-6">
-                        <h4 class="text-xl font-display font-bold uppercase mb-2 group-hover:text-stadia-accent transition-colors">PassPro</h4>
-                        <p class="text-gray-400 text-sm mb-6 line-clamp-2 h-10">A simple and secure password manager for your credentials.</p>
-                        <a href="details-passpro.html" class="btn-action relative overflow-hidden w-full bg-white/5 text-zinc-300 hover:text-white py-3 font-bold uppercase text-xs border border-transparent hover:border-white/80 transition-all duration-300 group/btn">
-                            <span class="relative z-10 flex items-center justify-center gap-2">Learn More <i class="fas fa-chevron-right text-[10px]"></i></span>
-                            <div class="absolute top-0 -left-[100%] w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 group-hover/btn:left-[100%] transition-all duration-500 ease-out z-0"></div>
-                        </a>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h4 class="text-lg font-bold text-slate-900 group-hover:text-stadia-accent transition-colors mb-1">PassPro</h4>
+                        <p class="text-slate-500 text-xs leading-relaxed mb-6 line-clamp-2">A simple and secure password manager for all your sensitive credentials.</p>
+                        <div class="mt-auto">
+                            <a href="details-passpro.html" class="flex items-center justify-center w-full py-2.5 rounded-xl bg-slate-50 text-slate-600 hover:bg-slate-900 hover:text-white font-bold text-[11px] uppercase tracking-wide transition-all">
+                                View Details
+                            </a>
+                        </div>
                     </div>
                 </div>
 
-                <div class="store-card group bg-stadia-card border border-white/5" data-title="Recorder">
-                    <div class="relative aspect-[4/3] overflow-hidden card-img-container">
-                        <img src="assets/app/recorder.png" alt="Recorder" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                        <div class="absolute top-4 right-4 z-10">
-<span class="text-[10px] bg-stadia-accent text-white px-2 py-1 rounded font-black tracking-tighter">BETA</span>
+                <!-- App Card 6: StadiaRecorder Pro -->
+                <div class="store-card group bg-white rounded-2xl border border-slate-100 shadow-soft hover:shadow-hover overflow-hidden flex flex-col" data-title="Recorder">
+                    <div class="relative h-48 overflow-hidden bg-slate-100">
+                        <img src="assets/app/recorder.png" alt="Recorder" class="w-full h-full object-cover">
+                        <div class="absolute top-3 right-3">
+                            <span class="badge-beta text-[9px] text-white px-2 py-1 rounded font-bold uppercase tracking-tighter">Beta</span>
                         </div>
                     </div>
-                    <div class="p-6">
-                        <h4 class="text-xl font-display font-bold uppercase mb-2 group-hover:text-stadia-accent transition-colors">StadiaRecorder Pro</h4>
-                        <p class="text-gray-400 text-sm mb-6 line-clamp-2 h-10">A lightweight, high-performance extension for Chrome and Edge. Capture 1080p video with crystal clear system audio.</p>
-                        <a href="details-recorderpro.html" class="btn-action relative overflow-hidden w-full bg-white/5 text-zinc-300 hover:text-white py-3 font-bold uppercase text-xs border border-transparent hover:border-white/80 transition-all duration-300 group/btn">
-                            <span class="relative z-10 flex items-center justify-center gap-2">Learn More <i class="fas fa-chevron-right text-[10px]"></i></span>
-                            <div class="absolute top-0 -left-[100%] w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 group-hover/btn:left-[100%] transition-all duration-500 ease-out z-0"></div>
-                        </a>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h4 class="text-lg font-bold text-slate-900 group-hover:text-stadia-accent transition-colors mb-1">StadiaRecorder Pro</h4>
+                        <p class="text-slate-500 text-xs leading-relaxed mb-6 line-clamp-2">Capture 1080p video with crystal clear system audio directly in your browser.</p>
+                        <div class="mt-auto">
+                            <a href="details-recorderpro.html" class="flex items-center justify-center w-full py-2.5 rounded-xl bg-slate-50 text-slate-600 hover:bg-slate-900 hover:text-white font-bold text-[11px] uppercase tracking-wide transition-all">
+                                View Details
+                            </a>
+                        </div>
                     </div>
                 </div>
 
-                <!-- WebApp Card 5 - Open App -->
-                <div class="store-card group bg-stadia-card border border-white/5" data-title="Our Journey">
-                    <div class="relative aspect-[4/3] overflow-hidden card-img-container">
-                        <img src="assets/app/ourjourney.png" alt="Our Journey" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                        <div class="absolute top-4 right-4 z-10">
-                            <span class="text-[10px] bg-white/10 backdrop-blur-md text-gray-300 border border-white/20 px-2 py-1 rounded font-black tracking-tighter uppercase">Release</span>
-                        </div>
+                <!-- App Card 7: Our Journey -->
+                <div class="store-card group bg-white rounded-2xl border border-slate-100 shadow-soft hover:shadow-hover overflow-hidden flex flex-col" data-title="Our Journey">
+                    <div class="relative h-48 overflow-hidden bg-slate-100">
+                        <img src="assets/app/ourjourney.png" alt="Our Journey" class="w-full h-full object-cover">
                     </div>
-                    <div class="p-6">
-                        <h4 class="text-xl font-display font-bold uppercase mb-2 group-hover:text-stadia-accent transition-colors">Our Journey</h4>
-                        <p class="text-gray-400 text-sm mb-6 line-clamp-2 h-10">Track relationship milestones with dark mode and custom images.</p>
-                        <a href="https://stadiastudios.github.io/ourjourney/splash" target="_blank" class="btn-action relative overflow-hidden w-full bg-white/5 text-zinc-300 hover:text-white py-3 font-bold uppercase text-xs border border-transparent hover:border-white/80 transition-all duration-300 group/btn">
-                            <span class="relative z-10 flex items-center justify-center gap-2">Open App <i class="fas fa-external-link-alt text-[10px]"></i></span>
-                            <div class="absolute top-0 -left-[100%] w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 group-hover/btn:left-[100%] transition-all duration-500 ease-out z-0"></div>
-                        </a>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h4 class="text-lg font-bold text-slate-900 group-hover:text-stadia-accent transition-colors mb-1">Our Journey</h4>
+                        <p class="text-slate-500 text-xs leading-relaxed mb-6 line-clamp-2">Track relationship milestones with dark mode and custom shared images.</p>
+                        <div class="mt-auto">
+                            <a href="https://stadiastudios.github.io/ourjourney/splash" target="_blank" class="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-stadia-accent/5 text-stadia-accent hover:bg-stadia-accent hover:text-white font-bold text-[11px] uppercase tracking-wide transition-all">
+                                Open App <i class="fas fa-external-link-alt text-[9px]"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
 
-                <!-- WebApp Card 6 - Open App -->
-                <div class="store-card group bg-stadia-card border border-white/5" data-title="GameDrive">
-                    <div class="relative aspect-[4/3] overflow-hidden card-img-container">
-                        <img src="assets/app/gamedrive.png" alt="GameDrive" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                        <div class="absolute top-4 right-4 z-10">
-                            <span class="text-[10px] bg-white/10 backdrop-blur-md text-gray-300 border border-white/20 px-2 py-1 rounded font-black tracking-tighter uppercase">Release</span>
+                <!-- App Card 8: GameDrive -->
+                <div class="store-card group bg-white rounded-2xl border border-slate-100 shadow-soft hover:shadow-hover overflow-hidden flex flex-col" data-title="GameDrive">
+                    <div class="relative h-48 overflow-hidden bg-slate-100">
+                        <img src="assets/app/gamedrive.png" alt="GameDrive" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h4 class="text-lg font-bold text-slate-900 group-hover:text-stadia-accent transition-colors mb-1">GameDrive</h4>
+                        <p class="text-slate-500 text-xs leading-relaxed mb-6 line-clamp-2">Sync and backup your local game save files across all your devices securely.</p>
+                        <div class="mt-auto">
+                            <a href="https://stadiastudios.github.io/GameDrive/" class="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-stadia-accent/5 text-stadia-accent hover:bg-stadia-accent hover:text-white font-bold text-[11px] uppercase tracking-wide transition-all">
+                                Open App <i class="fas fa-external-link-alt text-[9px]"></i>
+                            </a>
                         </div>
-                    </div>
-                    <div class="p-6">
-                        <h4 class="text-xl font-display font-bold uppercase mb-2 group-hover:text-stadia-accent transition-colors">GameDrive</h4>
-                        <p class="text-gray-400 text-sm mb-6 line-clamp-2 h-10">Backup your local game save files across all your devices.</p>
-                        <a href="https://stadiastudios.github.io/GameDrive/" class="btn-action relative overflow-hidden w-full bg-white/5 text-zinc-300 hover:text-white py-3 font-bold uppercase text-xs border border-transparent hover:border-white/80 transition-all duration-300 group/btn">
-                            <span class="relative z-10 flex items-center justify-center gap-2">Open App <i class="fas fa-external-link-alt text-[10px]"></i></span>
-                            <div class="absolute top-0 -left-[100%] w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 group-hover/btn:left-[100%] transition-all duration-500 ease-out z-0"></div>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- WebApp Card 7 - Open App -->
-                <div class="store-card group bg-stadia-card border border-white/5" data-title="IMG Extracter">
-                    <div class="relative aspect-[4/3] overflow-hidden card-img-container">
-                        <img src="assets/app/imgextracter.png" alt="IMG Extracter" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                        <div class="absolute top-4 right-4 z-10">
-                            <span class="text-[10px] bg-white/10 backdrop-blur-md text-gray-300 border border-white/20 px-2 py-1 rounded font-black tracking-tighter uppercase">Release</span>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h4 class="text-xl font-display font-bold uppercase mb-2 group-hover:text-stadia-accent transition-colors">IMG Extracter</h4>
-                        <p class="text-gray-400 text-sm mb-6 line-clamp-2 h-10">Extract and optimize images quickly within your browser.</p>
-                        <a href="webapp/imgextracter/index.html" class="btn-action relative overflow-hidden w-full bg-white/5 text-zinc-300 hover:text-white py-3 font-bold uppercase text-xs border border-transparent hover:border-white/80 transition-all duration-300 group/btn">
-                            <span class="relative z-10 flex items-center justify-center gap-2">Open App <i class="fas fa-external-link-alt text-[10px]"></i></span>
-                            <div class="absolute top-0 -left-[100%] w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 group-hover/btn:left-[100%] transition-all duration-500 ease-out z-0"></div>
-                        </a>
                     </div>
                 </div>
 
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <div id="footer-placeholder"></div>
 
@@ -350,23 +322,25 @@
                 const description = card.querySelector('p').textContent.toLowerCase();
                 
                 if (title.includes(searchTerm) || description.includes(searchTerm)) {
-                    card.style.display = 'block';
+                    card.classList.remove('hidden');
+                    card.classList.add('flex');
                     visibleCount++;
                 } else {
-                    card.style.display = 'none';
+                    card.classList.remove('flex');
+                    card.classList.add('hidden');
                 }
             });
 
             // Update UI
             if (searchTerm === '') {
-                resultsTitle.textContent = 'All Applications';
+                resultsTitle.textContent = 'Discover All';
                 featuredSection.classList.remove('hidden');
             } else {
-                resultsTitle.textContent = 'Search Results';
+                resultsTitle.textContent = 'Results for "' + query + '"';
                 featuredSection.classList.add('hidden');
             }
 
-            resultsCount.textContent = `${visibleCount} ${visibleCount === 1 ? 'App' : 'Apps'}`;
+            resultsCount.textContent = `${visibleCount} ${visibleCount === 1 ? 'Item' : 'Items'}`;
             
             if (visibleCount === 0) {
                 noResults.classList.remove('hidden');
@@ -380,5 +354,4 @@
         });
     </script>
 </body>
-
 </html>

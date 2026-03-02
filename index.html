@@ -22,8 +22,9 @@
                 extend: {
                     colors: {
                         'stadia-black': '#0b0b0b',
-                        'stadia-dark': '#151515',
+                        'stadia-light': '#f8f9fa',
                         'stadia-accent': '#ff470a',
+                        'stadia-accent-hover': '#e63e00',
                     },
                     fontFamily: {
                         'sans': ['Inter', 'sans-serif'],
@@ -35,153 +36,250 @@
     </script>
 
     <style>
-        body { background-color: #0b0b0b; color: white; overflow-x: hidden; }
+        body { 
+            background-color: #ffffff; 
+            color: #1a1a1a; 
+            overflow-x: hidden; 
+        }
         
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 10px; }
-        ::-webkit-scrollbar-track { background: #0b0b0b; }
+        /* Custom Light Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
         ::-webkit-scrollbar-thumb { 
-            background: #333; 
-            border: 2px solid #0b0b0b; 
+            background: #d1d1d1; 
+            border-radius: 10px;
         }
         ::-webkit-scrollbar-thumb:hover { background: #ff470a; }
 
         .nav-item { position: relative; }
         .nav-item::after {
             content: ''; position: absolute; width: 0; height: 2px;
-            bottom: -4px; left: 0; background-color: white; transition: width 0.3s ease;
+            bottom: -4px; left: 0; background-color: #ff470a; transition: width 0.3s ease;
         }
         .nav-item:hover::after { width: 100%; }
 
-        .btn-primary {
-            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
-            transition: all 0.2s ease;
+        /* Modern Angled Button */
+        .btn-angled {
+            clip-path: polygon(8% 0, 100% 0, 100% 70%, 92% 100%, 0 100%, 0 30%);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-angled:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.1);
         }
 
+        /* Animation Classes */
         .fade-in-section {
-            opacity: 0; transform: translateY(20px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            opacity: 0; transform: translateY(30px);
+            transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1), transform 1s cubic-bezier(0.22, 1, 0.36, 1);
         }
         .fade-in-section.is-visible { opacity: 1; transform: none; }
+
+        /* Card Hover Effects */
+        .game-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .game-card img {
+            transition: transform 0.6s ease;
+        }
+        .game-card:hover img {
+            transform: scale(1.08);
+        }
     </style>
 </head>
 <body class="font-sans antialiased selection:bg-stadia-accent selection:text-white">
 
-    <!-- Placeholders for JS injection -->
+    <!-- Navbar Hook -->
     <div id="navbar-placeholder"></div>
 
-    <!-- Hero Section -->
-    <section class="relative h-screen flex items-center justify-center overflow-hidden fade-in-section">
-        <div class="absolute inset-0 z-0">
-            <img src="assets/banner.png" alt="Hero" class="w-full h-full object-cover opacity-60">
-            <div class="absolute inset-0 bg-gradient-to-t from-stadia-black via-stadia-black/50 to-transparent"></div>
-        </div>
+    <!-- Modern Hero Section -->
+    <section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-white">
+        <!-- Abstract Background Elements -->
+        <div class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-[500px] h-[500px] bg-stadia-accent/5 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-[600px] h-[600px] bg-blue-50 rounded-full blur-3xl"></div>
 
-        <div class="relative z-10 text-center px-4 max-w-5xl mx-auto mt-16">
-            <span class="inline-block py-1 px-3 border border-stadia-accent text-stadia-accent text-xs font-bold uppercase mb-4">Available Now</span>
-            <h1 class="text-5xl md:text-7xl lg:text-9xl font-display font-black text-white mb-6 uppercase tracking-tighter">
-                CANDY<span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">SWAP</span>
-            </h1>
-            <a href="https://stadiastudios.github.io/candyswap/" <button class="btn-primary bg-stadia-accent text-white px-8 py-4 font-bold uppercase tracking-wider hover:bg-stadia-accent-hover">
-                Play Now
-            </button>
-            <a href="store.html" <button class="btn-primary bg-[#222] text-white px-8 py-4 font-bold uppercase tracking-wider hover:bg-[#333]">
-                More Games
-            </button></a>
-        </div>
-    </section>
+        <div class="relative z-10 container mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
+            <div class="fade-in-section">
+                <div class="inline-flex items-center space-x-2 py-1 px-3 bg-stadia-accent/10 rounded-full text-stadia-accent text-xs font-bold uppercase tracking-wider mb-6">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-stadia-accent opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-stadia-accent"></span>
+                    </span>
+                    <span>Live Now: CandySwap</span>
+                </div>
+                
+                <h1 class="text-6xl md:text-8xl font-display font-black text-stadia-black mb-6 leading-[0.9] uppercase">
+                    Level Up<br/>
+                    <span class="text-stadia-accent">Your World</span>
+                </h1>
+                
+                <p class="text-lg text-gray-600 mb-10 max-w-lg font-medium leading-relaxed">
+                    StadiaStudios Presents CandySwap a match 3 puzzle game where you can progress and buy new islands. no ads, backup enabled as well.
+                </p>
 
-    <!-- Games Section (Square Images Only) -->
-    <section id="games" class="py-20 bg-stadia-black fade-in-section">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl md:text-5xl font-display font-bold uppercase mb-12 border-b border-gray-800 pb-4">Our Games</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Game 1 -->
-                <div class="group relative aspect-square overflow-hidden bg-stadia-dark cursor-pointer">
-                    <a href="details-armory-legends.html">
-                    <img src="assets/app/armory-legends.png" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
-                    <div class="absolute bottom-0 p-6">
-                        <h3 class="text-2xl font-display font-bold uppercase">Project Armory Legends Beta</h3>
-                    </div>
-                </a>
-                </div>
-                <!-- Game 2 -->
-                <div class="group relative aspect-square overflow-hidden bg-stadia-dark cursor-pointer">
-                    <a href="details-jetsurfers2.html">
-                    <img src="assets/app/jetsurfers2.jpg" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
-                    <div class="absolute bottom-0 p-6">
-                        <h3 class="text-2xl font-display font-bold uppercase">Jet Surfers 2</h3>
-                    </div>
-                </a>
-                </div>
-                <!-- Game 3 -->
-                <div class="group relative aspect-square overflow-hidden bg-stadia-dark cursor-pointer">
-                    <a href="details-lumbertycoon.html">
-                    <img src="assets/app/lumbertycoon.png" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
-                    <div class="absolute bottom-0 p-6">
-                        <h3 class="text-2xl font-display font-bold uppercase">LumberTycoon</h3>
-                    </div>
+                <div class="flex flex-wrap gap-4">
+                    <a href="https://stadiastudios.github.io/candyswap/" class="btn-angled bg-stadia-accent text-white px-10 py-5 font-bold uppercase tracking-widest text-sm shadow-lg shadow-stadia-accent/30">
+                        Play CandySwap
+                    </a>
+                    <a href="store.html" class="btn-angled bg-stadia-black text-white px-10 py-5 font-bold uppercase tracking-widest text-sm hover:bg-gray-800 shadow-lg shadow-black/10">
+                        Explore Store
                     </a>
                 </div>
-                <!-- Game 2 -->
-                <div class="group relative aspect-square overflow-hidden bg-stadia-dark cursor-pointer">
-                    <a href="https://stadiastudios.github.io/passpro/">
-                    <img src="assets/app/passpro.png" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
-                    <div class="absolute bottom-0 p-6">
-                        <h3 class="text-2xl font-display font-bold uppercase">PassPro</h3>
-                    </div>
-                    </a>
+            </div>
+
+            <div class="relative fade-in-section hidden lg:block">
+                <div class="relative z-20 rounded-2xl overflow-hidden shadow-2xl transform rotate-2 border-8 border-white">
+                    <img src="assets/banner.png" alt="Hero Featured" class="w-full h-auto object-cover">
                 </div>
-                <!-- Game 2 -->
-                <div class="group relative aspect-square overflow-hidden bg-stadia-dark cursor-pointer">
-                    <a href="https://stadiastudios.github.io/GameDrive">
-                    <img src="assets/app/gamedrive.png" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
-                    <div class="absolute bottom-0 p-6">
-                        <h3 class="text-2xl font-display font-bold uppercase">GameDrive</h3>
-                    </div>
-                    </a>
-                </div>
-                <div class="group relative aspect-square overflow-hidden bg-stadia-dark cursor-pointer">
-                    <a href="https://stadiastudios.github.io/candyswap/">
-                    <img src="assets/app/candyswap.jpeg" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
-                    <div class="absolute bottom-0 p-6">
-                        <h3 class="text-2xl font-display font-bold uppercase">CandySwap</h3>
-                    </div>
-                    </a>
-                </div>
-                <!-- Game 2 -->
-                <div class="group relative aspect-square overflow-hidden bg-stadia-dark cursor-pointer">
-                    <a href="webapp/imgextracter/index.html">
-                    <img src="assets/app/imgextracter.png" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
-                    <div class="absolute bottom-0 p-6">
-                        <h3 class="text-2xl font-display font-bold uppercase">IMG Extracter</h3>
-                    </div>
-                    </a>
-                </div>
+                <!-- Decorative Frame -->
+                <div class="absolute -inset-4 border-2 border-dashed border-gray-200 rounded-3xl -z-10 transform -rotate-2"></div>
             </div>
         </div>
     </section>
 
+    <!-- Content Divider -->
+    <div class="w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
+
+    <!-- Games Section -->
+    <section id="games" class="py-24 bg-stadia-light">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+                <div class="fade-in-section">
+                    <p class="text-stadia-accent font-bold uppercase tracking-[0.2em] text-sm mb-2">Portfolio</p>
+                    <h2 class="text-4xl md:text-6xl font-display font-black uppercase text-stadia-black">Featured Projects</h2>
+                </div>
+                <div class="fade-in-section">
+                    <a href="store.html" class="group flex items-center space-x-2 font-bold uppercase text-sm tracking-wider text-gray-500 hover:text-stadia-accent transition-colors">
+                        <span>View All Games</span>
+                        <i class="fa-solid fa-arrow-right transform group-hover:translate-x-2 transition-transform"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Game 1 -->
+                <a href="details-armory-legends.html" class="game-card group relative aspect-[4/5] overflow-hidden bg-white rounded-2xl border border-gray-100 fade-in-section">
+                    <img src="assets/app/armory-legends.png" class="w-full h-full object-cover grayscale-[0.3] group-hover:grayscale-0">
+                    <div class="absolute inset-0 bg-gradient-to-t from-white via-white/20 to-transparent opacity-90"></div>
+                    <div class="absolute bottom-0 p-6 w-full">
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-stadia-accent mb-1 block">RPG Adventure</span>
+                        <h3 class="text-xl font-display font-black uppercase text-stadia-black leading-tight">Project Armory Legends</h3>
+                    </div>
+                </a>
+
+                <!-- Game 2 -->
+                <a href="details-jetsurfers2.html" class="game-card group relative aspect-[4/5] overflow-hidden bg-white rounded-2xl border border-gray-100 fade-in-section">
+                    <img src="assets/app/jetsurfers2.jpg" class="w-full h-full object-cover grayscale-[0.3] group-hover:grayscale-0">
+                    <div class="absolute inset-0 bg-gradient-to-t from-white via-white/20 to-transparent opacity-90"></div>
+                    <div class="absolute bottom-0 p-6 w-full">
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-stadia-accent mb-1 block">Racing</span>
+                        <h3 class="text-xl font-display font-black uppercase text-stadia-black leading-tight">Jet Surfers 2</h3>
+                    </div>
+                </a>
+
+                <!-- Game 3 -->
+                <a href="details-lumbertycoon.html" class="game-card group relative aspect-[4/5] overflow-hidden bg-white rounded-2xl border border-gray-100 fade-in-section">
+                    <img src="assets/app/lumbertycoon.png" class="w-full h-full object-cover grayscale-[0.3] group-hover:grayscale-0">
+                    <div class="absolute inset-0 bg-gradient-to-t from-white via-white/20 to-transparent opacity-90"></div>
+                    <div class="absolute bottom-0 p-6 w-full">
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-stadia-accent mb-1 block">Simulation</span>
+                        <h3 class="text-xl font-display font-black uppercase text-stadia-black leading-tight">LumberTycoon</h3>
+                    </div>
+                </a>
+
+                <!-- Game 4 -->
+                <a href="https://stadiastudios.github.io/passpro/" class="game-card group relative aspect-[4/5] overflow-hidden bg-white rounded-2xl border border-gray-100 fade-in-section">
+                    <img src="assets/app/passpro.png" class="w-full h-full object-cover grayscale-[0.3] group-hover:grayscale-0">
+                    <div class="absolute inset-0 bg-gradient-to-t from-white via-white/20 to-transparent opacity-90"></div>
+                    <div class="absolute bottom-0 p-6 w-full">
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-stadia-accent mb-1 block">Utility</span>
+                        <h3 class="text-xl font-display font-black uppercase text-stadia-black leading-tight">PassPro</h3>
+                    </div>
+                </a>
+
+                <!-- Game 5 -->
+                <a href="https://stadiastudios.github.io/GameDrive" class="game-card group relative aspect-[4/5] overflow-hidden bg-white rounded-2xl border border-gray-100 fade-in-section">
+                    <img src="assets/app/gamedrive.png" class="w-full h-full object-cover grayscale-[0.3] group-hover:grayscale-0">
+                    <div class="absolute inset-0 bg-gradient-to-t from-white via-white/20 to-transparent opacity-90"></div>
+                    <div class="absolute bottom-0 p-6 w-full">
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-stadia-accent mb-1 block">Cloud</span>
+                        <h3 class="text-xl font-display font-black uppercase text-stadia-black leading-tight">GameDrive</h3>
+                    </div>
+                </a>
+
+                <!-- Game 6 -->
+                <a href="https://stadiastudios.github.io/candyswap/" class="game-card group relative aspect-[4/5] overflow-hidden bg-white rounded-2xl border border-gray-100 fade-in-section">
+                    <img src="assets/app/candyswap.jpeg" class="w-full h-full object-cover grayscale-[0.3] group-hover:grayscale-0">
+                    <div class="absolute inset-0 bg-gradient-to-t from-white via-white/20 to-transparent opacity-90"></div>
+                    <div class="absolute bottom-0 p-6 w-full">
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-stadia-accent mb-1 block">Puzzle</span>
+                        <h3 class="text-xl font-display font-black uppercase text-stadia-black leading-tight">CandySwap</h3>
+                    </div>
+                </a>
+
+                <!-- Game 7 -->
+                <a href="webapp/imgextracter/index.html" class="game-card group relative aspect-[4/5] overflow-hidden bg-white rounded-2xl border border-gray-100 fade-in-section">
+                    <img src="assets/app/imgextracter.png" class="w-full h-full object-cover grayscale-[0.3] group-hover:grayscale-0">
+                    <div class="absolute inset-0 bg-gradient-to-t from-white via-white/20 to-transparent opacity-90"></div>
+                    <div class="absolute bottom-0 p-6 w-full">
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-stadia-accent mb-1 block">Tool</span>
+                        <h3 class="text-xl font-display font-black uppercase text-stadia-black leading-tight">IMG Extracter</h3>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-stadia-black text-white relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none opacity-20">
+            <div class="absolute -top-1/2 -left-1/4 w-full h-full bg-stadia-accent rounded-full blur-[120px]"></div>
+        </div>
+        <div class="max-w-4xl mx-auto px-6 text-center relative z-10 fade-in-section">
+            <h2 class="text-4xl md:text-6xl font-display font-black uppercase mb-6">Want more?</h2>
+            <p class="text-gray-400 text-lg mb-10">Check out our full collection of web applications and experimental games.</p>
+            <a href="store.html" class="btn-angled bg-white text-stadia-black px-12 py-5 font-bold uppercase tracking-widest inline-block">
+                Visit the Studio Store
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer Hook -->
     <div id="footer-placeholder"></div>
 
     <!-- Scripts -->
     <script src="componets.js"></script>
     <script>
-        // Local animation script
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('is-visible');
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
             });
-        }, { threshold: 0.1 });
+        }, observerOptions);
 
-        document.querySelectorAll('.fade-in-section').forEach(s => observer.observe(s));
+        document.querySelectorAll('.fade-in-section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Small parallax effect for hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroText = document.querySelector('.lg\\:block img');
+            if(heroText) {
+                heroText.style.transform = `translateY(${scrolled * 0.1}px) rotate(2deg)`;
+            }
+        });
     </script>
 </body>
 </html>
