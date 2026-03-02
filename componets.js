@@ -76,6 +76,7 @@ const components = {
                         <li><a href="https://drive.google.com/file/d/14gJk2N3nFoSUFlROreiqdDq7NsEqcGUF/view?usp=sharing" class="hover:underline hover:text-white">Jet Surfers Classic</a></li>
                         <li><a href="https://stadiastudios.github.io/JetSurfers2/" class="hover:underline hover:text-white">Jet Surfers II</a></li>
                         <li><a href="https://stadiastudios.github.io/stadia/details-lumbertycoon.html" class="hover:underline hover:text-white">LumberTycoon</a></li>
+                        <li><a href="https://stadiastudios.github.io/candyswap" class="hover:underline hover:text-white">CandySwap</a></li>
                     </ul>
                 </div>
                 <div>
@@ -85,6 +86,7 @@ const components = {
                         <li><a href="https://stadiastudios.github.io/passpro/" class="hover:underline hover:text-white">PassPro</a></li>
                         <li><a href="https://stadiastudios.github.io/GameDrive/" class="hover:underline hover:text-white">GameDrive</a></li>
                         <li><a href="https://stadiastudios.github.io/ourjourney/splash" class="hover:underline hover:text-white">Our Journey</a></li>
+                        <li><a href="details-recorderpro.html" class="hover:underline hover:text-white">RecorderPRO</a></li>
                     </ul>
                 </div>
                 <div>
