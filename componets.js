@@ -60,7 +60,7 @@ const components = {
                 <div>
                     <h4 class="font-semibold text-white mb-4 text-[15px]">Applications</h4>
                     <ul class="space-y-3">
-                        <li><a href="webapp/imgextracter/index.html" class="hover:underline hover:text-white">IMG EXTRACTER</a></li>
+                        <li><a href="https://stadiabeta.github.io/tool-panel/" class="hover:underline hover:text-white">StadiaTool Panel</a></li>
                         <li><a href="https://stadiastudios.github.io/passpro/" class="hover:underline hover:text-white">PassPro</a></li>
                         <li><a href="https://stadiastudios.github.io/GameDrive/" class="hover:underline hover:text-white">GameDrive</a></li>
                         <li><a href="https://stadiastudios.github.io/ourjourney/splash" class="hover:underline hover:text-white">Our Journey</a></li>
