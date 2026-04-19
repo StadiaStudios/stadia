@@ -3,14 +3,12 @@ const components = {
     <nav class="fixed top-0 left-0 w-full z-[100] transition-all duration-300 bg-black/80 backdrop-blur-xl border-b border-white/[0.05]" id="main-nav">
         <div class="max-w-[1024px] mx-auto px-6 h-11 flex items-center justify-between">
             
-            <!-- Logo Section -->
             <div class="flex items-center cursor-pointer group" onclick="window.location.href='index.html'">
                 <span class="font-display font-bold text-[14px] tracking-tight text-white opacity-90 group-hover:opacity-100 transition-opacity">
                     STADIA<span class="font-light text-zinc-500">STUDIOS</span>
                 </span>
             </div>
 
-            <!-- Desktop Navigation (Apple Minimalist Style) -->
             <div class="hidden md:flex items-center gap-8">
                 <a href="index.html" class="text-[12px] font-normal text-zinc-400 hover:text-white transition-colors">Home</a>
                 <a href="index.html#games" class="text-[12px] font-normal text-zinc-400 hover:text-white transition-colors">Games</a>
@@ -18,7 +16,6 @@ const components = {
                 <a href="https://discord.gg/UGBFVrcKKx" class="text-[12px] font-normal text-zinc-400 hover:text-white transition-colors">Community</a>
             </div>
 
-            <!-- Mobile/Utility Icons -->
             <div class="flex items-center gap-5">
                 <button class="text-zinc-400 hover:text-white transition-colors">
                     <i class="fas fa-search text-[13px]"></i>
@@ -30,7 +27,6 @@ const components = {
         </div>
     </nav>
 
-    <!-- Mobile Menu Overlay -->
     <div id="mobile-menu" class="fixed inset-0 z-[110] invisible opacity-0 transition-all duration-300">
         <div id="mobile-menu-backdrop" class="absolute inset-0 bg-black/90 backdrop-blur-md"></div>
         
@@ -50,7 +46,6 @@ const components = {
                 <div>
                     <h4 class="font-semibold text-white mb-4 text-[15px]">Games</h4>
                     <ul class="space-y-3">
-                        <li><a href="details-armory-legends.html" class="hover:underline hover:text-white">Armory Legends</a></li>
                         <li><a href="https://drive.google.com/file/d/14gJk2N3nFoSUFlROreiqdDq7NsEqcGUF/view?usp=sharing" class="hover:underline hover:text-white">Jet Surfers Classic</a></li>
                         <li><a href="https://stadiastudios.github.io/JetSurfers2/" class="hover:underline hover:text-white">Jet Surfers II</a></li>
                         <li><a href="https://stadiastudios.github.io/stadia/details-lumbertycoon.html" class="hover:underline hover:text-white">LumberTycoon</a></li>
