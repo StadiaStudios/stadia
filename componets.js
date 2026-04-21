@@ -5,7 +5,7 @@ const components = {
             
             <div class="flex items-center cursor-pointer group" onclick="window.location.href='index.html'">
                 <span class="font-display font-bold text-[14px] tracking-tight text-white opacity-90 group-hover:opacity-100 transition-opacity">
-                    STADIA<span class="font-light text-zinc-500">STUDIOS</span>
+                    STADIASTUDIOS
                 </span>
             </div>
 
@@ -20,6 +20,9 @@ const components = {
                 <button class="text-zinc-400 hover:text-white transition-colors">
                     <i class="fas fa-search text-[13px]"></i>
                 </button>
+                <a href="mailto:stadiastudios.support@proton.me" class="text-zinc-400 hover:text-white transition-colors">
+                    <i class="fas fa-envelope text-[13px]"></i>
+                </a>
                 <button id="mobile-menu-button" class="md:hidden text-zinc-400 hover:text-white transition-colors">
                     <i class="fa-solid fa-bars-staggered text-[14px]"></i>
                 </button>
@@ -35,6 +38,7 @@ const components = {
             <a href="index.html" class="mobile-nav-link text-3xl font-semibold text-white">Home</a>
             <a href="index.html#games" class="mobile-nav-link text-3xl font-semibold text-white">Games</a>
             <a href="store.html" class="mobile-nav-link text-3xl font-semibold text-white">App Store</a>
+            <a href="mailto:stadiastudios.support@proton.me" class="mobile-nav-link text-3xl font-semibold text-white">Contact Us</a>
             <a href="https://discord.gg/UGBFVrcKKx" class="mobile-nav-link text-3xl font-semibold text-zinc-500">Discord</a>
         </div>
     </div>
@@ -68,6 +72,7 @@ const components = {
                         <li><a href="tos.pdf" class="hover:underline hover:text-white">Terms Of Service</a></li>
                         <li><a href="server-rules-and-guidelines.pdf" class="hover:underline hover:text-white">Server Guidelines</a></li>
                         <li><a href="store.html" class="hover:underline hover:text-white">Stadia App Store</a></li>
+                        <li><a href="mailto:stadiastudios.support@proton.me" class="hover:underline hover:text-white">Contact Us</a></li>
                     </ul>
                 </div>
             </div>
