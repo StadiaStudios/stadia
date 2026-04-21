@@ -4,10 +4,12 @@ const components = {
         <div class="max-w-[1024px] mx-auto px-6 h-11 flex items-center justify-between">
             
             <div class="flex items-center cursor-pointer group" onclick="window.location.href='index.html'">
-                <span class="font-display font-bold text-[14px] tracking-tight text-white opacity-90 group-hover:opacity-100 transition-opacity">
-                    STADIASTUDIOS
-                </span>
-            </div>
+    <img src="assets/favicon.png" alt="Logo" class="w-8 h-8 rounded-full mr-3 border border-white/20 object-cover">
+    
+    <span class="font-display font-bold text-[14px] tracking-tight text-white opacity-90 group-hover:opacity-100 transition-opacity">
+        STADIASTUDIOS
+    </span>
+</div>
 
             <div class="hidden md:flex items-center gap-8">
                 <a href="index.html" class="text-[12px] font-normal text-zinc-400 hover:text-white transition-colors">Home</a>
@@ -17,9 +19,6 @@ const components = {
             </div>
 
             <div class="flex items-center gap-5">
-                <button class="text-zinc-400 hover:text-white transition-colors">
-                    <i class="fas fa-search text-[13px]"></i>
-                </button>
                 <a href="mailto:stadiastudios.support@proton.me" class="text-zinc-400 hover:text-white transition-colors">
                     <i class="fas fa-envelope text-[13px]"></i>
                 </a>
