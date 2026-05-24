@@ -6,296 +6,477 @@
     <title>StadiaStudios | Official Website</title>
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon.png">
     <link rel="manifest" href="manifest.json">
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;800&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'stadia-black': '#0b0b0b',
-                        'stadia-dark': '#111111',
-                        'stadia-light': '#f8f9fa',
-                        'stadia-accent': '#ff470a',
-                        'stadia-accent-hover': '#e63e00',
-                    },
-                    fontFamily: {
-                        'sans': ['Inter', 'sans-serif'],
-                        'display': ['Barlow', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-
     <style>
-        body { 
-            background-color: #111111; 
-            color: #eeeeee; 
-            overflow-x: hidden; 
+        :root {
+            --stadia-black: #f8f9fa;
+            --stadia-dark: #f0f2f5;
+            --stadia-light: #fff;
+            --stadia-accent: #ff470a;
+            --stadia-accent-hover: #e63e00;
+            --text-primary: #14191f;
+            --text-secondary: #4b5563;
+            --border-color: #e4e7ec;
+            --card-bg: #fff;
+            --card-shadow: 0 4px 22px rgba(0,0,0,0.08);
+            --scrollbar-track: #e6e6e6;
+            --scrollbar-thumb: #bbb;
         }
-        
+        html, body { height: 100%; }
+        body {
+            background-color: var(--stadia-dark);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        ::selection {
+            background: var(--stadia-accent);
+            color: #fff;
+        }
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #1a1a1a; }
-        ::-webkit-scrollbar-thumb { 
-            background: #333333; 
+        ::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+        ::-webkit-scrollbar-thumb {
+            background: var(--scrollbar-thumb);
             border-radius: 10px;
         }
-        ::-webkit-scrollbar-thumb:hover { background: #ff470a; }
-
-        .nav-item { position: relative; }
-        .nav-item::after {
-            content: ''; position: absolute; width: 0; height: 2px;
-            bottom: -4px; left: 0; background-color: #ff470a; transition: width 0.3s ease;
+        ::-webkit-scrollbar-thumb:hover { background: var(--stadia-accent); }
+        .container {
+            max-width: 1280px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 24px;
+            padding-right: 24px;
         }
-        .nav-item:hover::after { width: 100%; }
-
-        .btn-angled {
-            clip-path: polygon(8% 0, 100% 0, 100% 70%, 92% 100%, 0 100%, 0 30%);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        @media (max-width: 600px) {
+            .container { padding-left: 1rem; padding-right: 1rem; }
         }
-        .btn-angled:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.1);
-        }
-
         .fade-in-section {
-            opacity: 0; transform: translateY(30px);
+            opacity: 0; 
+            transform: translateY(30px);
             transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1), transform 1s cubic-bezier(0.22, 1, 0.36, 1);
         }
         .fade-in-section.is-visible { opacity: 1; transform: none; }
-
-        .game-card {
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        .btn-angled {
+            background: var(--stadia-accent);
+            color: #fff;
+            font-family: 'Barlow', Arial, sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 1.25rem 3rem;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+            clip-path: polygon(8% 0, 100% 0, 100% 70%, 92% 100%, 0 100%, 0 30%);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 8px rgba(255,71,10,0.03);
         }
-        .game-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        .btn-angled:hover {
+            filter: brightness(1.05);
+            background: var(--stadia-accent-hover);
         }
-.accordion-content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease-out;
-}
-.accordion-content.is-open {
-    max-height: 500px; 
-}
-.accordion-trigger i {
-    transition: transform 0.3s ease;
-}
-.accordion-trigger.is-open i {
-    transform: rotate(180deg);
-}
-        .game-card img {
-            transition: transform 0.6s ease;
+        .header-section {
+            background: linear-gradient(120deg, #fff 0%, var(--stadia-light) 70%, #f4f2ef 100%);
+            min-height: 56vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border-color);
         }
-        .game-card:hover img {
-            transform: scale(1.08);
+        .header-bg {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            background: radial-gradient(ellipse 80% 30% at 50% 0, var(--stadia-accent) 0%, transparent 80%);
+            opacity: 0.1;
+        }
+        .header-inner {
+            z-index: 2;
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin: 3.5em auto 0 auto;
+            text-align: center;
+            padding: 3rem 1rem;
+        }
+        .header-title {
+            font-family: 'Barlow', 'Inter', Arial, sans-serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.12;
+            color: var(--text-primary);
+            margin-bottom: 1.25rem;
+            letter-spacing: -1px;
+        }
+        .header-title .accent { color: var(--stadia-accent); }
+        .header-desc {
+            color: var(--text-secondary);
+            font-size: 1.3rem;
+            max-width: 540px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 2.2rem;
+            font-weight: 300;
+        }
+        .header-btns {
+            display: flex;
+            flex-direction: row;
+            gap: 1.2rem;
+            justify-content: center;
+        }
+        .header-btns .btn-angled:first-child {
+            background: #fff;
+            color: var(--stadia-accent);
+            border: 2px solid var(--stadia-accent);
+        }
+        .header-btns .btn-angled:first-child:hover {
+            background: #ffe9df;
+            color: var(--stadia-accent-hover);
+        }
+        .header-btns .btn-angled:last-child {
+            background: var(--stadia-accent);
+            color: #fff;
+            border: none;
+        }
+        @media (max-width: 900px) {
+            .header-title { font-size: 2.5rem; }
+            .header-inner { padding: 2rem 0.5rem; }
+        }
+        @media (max-width: 600px) {
+            .header-section { padding-bottom: 1.2rem; min-height: 44vh; }
+            .header-title { font-size: 2rem; }
+            .header-desc { font-size: 1rem; }
+            .header-btns { flex-direction: column; gap: 0.8rem; }
+        }
+        .apps-section {
+            background: var(--stadia-light);
+            padding: 6rem 0 6rem 0;
+        }
+        .apps-inner {
+            max-width: 1050px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            text-align: center;
+        }
+        .apps-title {
+            font-family: 'Barlow', 'Inter', Arial, sans-serif;
+            text-transform: uppercase;
+            font-weight: 900;
+            font-size: 2.6rem;
+            letter-spacing: 0.05em;
+            color: var(--stadia-accent);
+            margin-bottom: 2rem;
+        }
+        @media (max-width: 600px) {
+            .apps-title { font-size: 1.5rem; }
+        }
+        .apps-pitch {
+            font-size: 1.22rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+            margin-bottom: 2.1rem;
+            line-height: 1.8;
+        }
+        .apps-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.2rem;
+            margin-top: 3rem;
+            align-items: stretch;
+        }
+        .app-card {
+            background: var(--card-bg);
+            border-radius: 1.25rem;
+            padding: 2.2rem 1.2rem 2rem 1.2rem;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-color);
+            min-height: 170px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: box-shadow 0.25s, transform 0.3s;
+            position: relative;
+            text-align: center;
+        }
+        .app-card:hover {
+            box-shadow: 0 10px 36px rgba(255, 71, 10, 0.07), 0 6px 24px rgba(0,0,0,0.14);
+            transform: translateY(-6px) scale(1.025);
+        }
+        .app-card-icon {
+            width: 60px; height: 60px;
+            border-radius: 16px;
+            background: #f5f3f1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.1rem;
+            font-size: 2.2rem;
+            color: var(--stadia-accent);
+            box-shadow: 0 2px 10px rgba(255, 71, 10, 0.06);
+        }
+        .app-card-title {
+            color: var(--text-primary);
+            font-size: 1.17rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .app-card-desc {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1.3rem;
+        }
+        .app-card-links {
+            display: flex;
+            gap: 0.8rem;
+            justify-content: center;
+            margin-top: auto;
+        }
+        .app-card-link {
+            background: var(--stadia-accent);
+            color: #fff;
+            border: none;
+            border-radius: 0.65rem;
+            padding: 0.37rem 1.1rem;
+            font-size: 0.96rem;
+            font-family: 'Barlow', Arial, sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-decoration: none;
+            letter-spacing: 0.05em;
+            transition: background 0.18s;
+            display: inline-block;
+        }
+        .app-card-link:hover {
+            background: var(--stadia-accent-hover);
+        }
+        @media (max-width: 1000px) {
+            .apps-cards { grid-template-columns: 1fr; gap: 1.25rem; }
+        }
+        .report-bug-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255,71,10,0.07);
+            border-radius: 0.5rem;
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            font-size: 0.8rem;
+            transition: background 0.3s;
+            text-decoration: none;
+            margin-top: 1.5rem;
+        }
+        .report-bug-btn:hover {
+            background: rgba(255,71,10,0.12);
+        }
+        .report-bug-btn i {
+            font-size: 0.8em;
+            opacity: 0.85;
+        }
+        .accordion-trigger {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            font-size: 1rem;
+            font-weight: 600;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            text-align: left;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .accordion-trigger:hover,
+        .accordion-trigger.is-open {
+            color: var(--stadia-accent);
+        }
+        .accordion-trigger i {
+            transition: transform 0.3s;
+        }
+        .accordion-trigger.is-open i {
+            transform: rotate(180deg);
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            background: transparent;
+        }
+        .accordion-content.is-open {
+            max-height: 500px;
+            transition: max-height 0.6s cubic-bezier(.5, .5, .01, 1.0);
+        }
+        .custom-link {
+            color: var(--stadia-accent);
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            text-decoration-thickness: 2px;
+            text-decoration-color: rgba(255,71,10,0.2);
+            transition: color 0.2s;
+        }
+        .custom-link:hover {
+            color: var(--stadia-accent-hover);
+        }
+        .recent-updates-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem 2.1rem;
+        }
+        @media (max-width:900px) {
+            .recent-updates-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
-<body class="font-sans antialiased selection:bg-stadia-accent selection:text-white">
-
+<body>
     <div id="navbar-placeholder"></div>
-
-    <section class="relative bg-stadia-dark pt-20 pb-32 overflow-hidden">
-        <div class="absolute inset-0 bg-[linear-gradient(to_right,#333_1px,transparent_1px),linear-gradient(to_bottom,#333_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-20"></div>
-
-        <div class="container mx-auto px-6 relative z-10">
-            <div class="grid lg:grid-cols-12 gap-16 items-center">
-                
-                <div class="lg:col-span-6 fade-in-section">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 bg-white text-black text-[10px] font-bold uppercase tracking-widest rounded-full mb-8">
-                        <span class="w-1.5 h-1.5 rounded-full bg-stadia-accent animate-pulse"></span>
-                        Now Featuring: CandySwap
-                    </div>
-                    
-                    <h1 class="text-5xl md:text-7xl font-display font-black text-white mb-8 leading-[1.1] tracking-tight">
-                        Stadia<span class="text-stadia-accent">Studios</span>
-                    </h1>
-                    
-                    <p class="text-xl text-gray-400 mb-10 max-w-lg leading-relaxed font-light">
-                        We build high-performance web applications and experimental games. No ads, no fluff, just pure functionality and entertainment.
-                    </p>
-
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="https://stadiastudios.github.io/candyswap/" class="bg-stadia-accent hover:bg-stadia-accent-hover text-white px-8 py-4 font-bold uppercase tracking-widest text-sm transition-all duration-300 shadow-xl shadow-stadia-accent/20 text-center">
-                            Launch App
-                        </a>
-                        <a href="store.html" class="border-2 border-white text-white hover:bg-white hover:text-black px-8 py-4 font-bold uppercase tracking-widest text-sm transition-all duration-300 text-center">
-                            View Full Library
-                        </a>
-                    </div>
-                </div>
-
-                <div class="lg:col-span-6 relative fade-in-section">
-                    <div class="relative z-10 bg-[#1a1a1a] p-2 rounded-3xl border border-white/10 shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-500">
-                        <div class="overflow-hidden rounded-2xl">
-                            <img src="assets/banner.png" alt="Hero Featured" class="w-full h-auto">
+    <header class="header-section">
+        <div class="header-bg"></div>
+        <div class="header-inner fade-in-section">
+            <h1 class="header-title">
+                Stadia<span class="accent">Studios</span>
+            </h1>
+            <div class="header-desc">
+                We build high‑performance web applications and experimental games. No ads, no fluff just pure functionality and entertainment.
+            </div>
+            <div class="header-btns">
+                <a href="mailto:stadiastudios.support@proton.me" class="btn-angled">Contact Us</a>
+                <a href="store/store.html" class="btn-angled">View Full Library</a>
+            </div>
+        </div>
+    </header>
+    <section style="background:var(--stadia-black); padding:6rem 0;">
+        <div class="container">
+            <div class="fade-in-section" style="margin-bottom:4rem;">
+                <h2 style="font-size:2.25rem;font-weight:800;text-transform:uppercase;color:var(--text-primary);font-family:'Barlow', 'Inter', Arial, sans-serif;">Recent Updates</h2>
+            </div>
+            <div class="recent-updates-grid">
+                <div>
+                    <h3 class="text-xl font-bold" style="color:var(--stadia-accent);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:2rem;">App Updates</h3>
+                    <div style="border-top:1px solid var(--border-color);">
+                        <button class="accordion-trigger">
+                            <span class="font-bold">OurJourney Premium - No Longer Needed!</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="accordion-content">
+                            OurJourney Has been updated and now you can choose custom app themes for free!
                         </div>
                     </div>
-                    
-                    <div class="absolute -top-10 -right-10 w-64 h-64 bg-stadia-accent rounded-full blur-[100px] opacity-20"></div>
-                    <div class="absolute -bottom-10 -left-10 w-64 h-64 bg-white rounded-full blur-[100px] opacity-5"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-24 bg-stadia-black">
-    <div class="max-w-7xl mx-auto px-6">
-        <div class="fade-in-section mb-16">
-            <h2 class="text-4xl md:text-6xl font-display font-black uppercase text-white">Recent Updates</h2>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-12">
-            <div>
-                <h3 class="text-xl font-bold text-stadia-accent uppercase tracking-widest mb-8">App Updates</h3>
-                
-                <div class="border-t border-white/10">
-                    <button class="accordion-trigger w-full flex justify-between items-center py-6 text-white hover:text-stadia-accent transition-colors">
-                        <span class="font-bold">OurJourney Premium - No Longer Needed!</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </button>
-                    <div class="accordion-content px-4 text-gray-400 text-sm leading-relaxed mb-2">
-                        OurJourney Has been updated and now you can choose custom app themes for free!
+                    <div style="border-top:1px solid var(--border-color);">
+                        <button class="accordion-trigger">
+                            <span class="font-bold">PassPro New Themes Update! - Version 1.15.14</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="accordion-content">
+                            New Themes Can now be applied. Bug Fixes when zooming in the webapp.
+                        </div>
                     </div>
                 </div>
-
-                <div class="border-t border-white/10">
-                    <button class="accordion-trigger w-full flex justify-between items-center py-6 text-white hover:text-stadia-accent transition-colors">
-                        <span class="font-bold">PassPro New Themes Update! - Version 1.15.14</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </button>
-                    <div class="accordion-content px-4 text-gray-400 text-sm leading-relaxed mb-2">
-                        New Themes Can now be applied. Bug Fixes when zooming in the webapp.
+                <div>
+                    <h3 class="text-xl font-bold" style="color:var(--stadia-accent);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:2rem;">Dev Blog</h3>
+                    <div style="border-top:1px solid var(--border-color);">
+                        <button class="accordion-trigger">
+                            <span class="font-bold">New Website Overhaul</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="accordion-content">
+                            Today on May 23rd 2026 Our Home website and PassPro App are officially being rebuilt as Raw HTML and CSS Unlike most of our apps relying on thailwind css. This may bring unwanted or ugly changes to some of our applications that we make future proof.
+                        </div>
                     </div>
-                </div>
-            </div>
-
-            <div>
-                <h3 class="text-xl font-bold text-stadia-accent uppercase tracking-widest mb-8">Dev Blog</h3>
-                
-                <div class="border-t border-white/10">
-                    <button class="accordion-trigger w-full flex justify-between items-center py-6 text-white hover:text-stadia-accent transition-colors">
-                        <span class="font-bold">NEW CONTACT US FEATURE</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </button>
-                    <div class="accordion-content px-4 text-gray-400 text-sm leading-relaxed mb-2">
-                        As of April 21st of 2026, We now have a Contact Email where users can get ahold of us via our support email. They can also always join our discord and put in a ticket as a option. But across our Apps we have a Contact Feature. You can email us here: <a class="text-white hover:text-blue-400 underline underline-offset-4 decoration-white/30 transition-colors" href="mailto:stadiastudios.support@proton.me">stadiastudios.support@proton.me</a>
+                    <div style="border-top:1px solid var(--border-color);">
+                        <button class="accordion-trigger">
+                            <span class="font-bold">NEW CONTACT US FEATURE</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="accordion-content">
+                            As of April 21st of 2026, We now have a Contact Email where users can get ahold of us via our support email. They can also always join our discord and put in a ticket as an option. But across our Apps we have a Contact Feature. You can email us here: <a class="custom-link" href="mailto:stadiastudios.support@proton.me">stadiastudios.support@proton.me</a>
+                        </div>
                     </div>
-                </div>
-
-                <div class="border-t border-white/10">
-                    <button class="accordion-trigger w-full flex justify-between items-center py-6 text-white hover:text-stadia-accent transition-colors">
-                        <span class="font-bold">New Updates to Our Home Website!</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </button>
-                    <div class="accordion-content px-4 text-gray-400 text-sm leading-relaxed mb-2">
-                        It's now dark mode like the original website. Updated app icons all around. Armory legends has completely shut down btw. New Sections. New Banners. Etc
+                    <div style="border-top:1px solid var(--border-color);">
+                        <button class="accordion-trigger">
+                            <span class="font-bold">New Updates to Our Home Website!</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="accordion-content">
+                            It's now dark mode like the original website. Updated app icons all around. Armory Legends has completely shut down. New Sections. New Banners. Etc.
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="mt-6">
-    <a href="https://forms.gle/W3R8sizfH6YcUbeD9" 
-       class="inline-flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white text-[12px] rounded-lg transition-all duration-300">
-        <i class="fas fa-bug text-[12px] opacity-70"></i>
-        Report a Bugged App
-    </a>
-</div>
-    </div>
-</section>
-
-    <section id="games" class="py-24 bg-stadia-dark">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-                <div class="fade-in-section">
-                    <h2 class="text-4xl md:text-6xl font-display font-black uppercase text-white">Featured Apps</h2>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8">
-
-                <a href="details-jetsurfers2.html" class="group block fade-in-section">
-                    <div class="aspect-square w-full overflow-hidden rounded-3xl shadow-lg border border-white/5 mb-4 transition-transform duration-500 group-hover:-translate-y-2 bg-[#1a1a1a]">
-                        <img src="assets/app/jetsurfers2.jpg" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity">
-                    </div>
-                    <h3 class="text-lg font-bold text-white text-center uppercase tracking-wide group-hover:text-stadia-accent transition-colors">Jet Surfers 2</h3>
-                    <p class="text-xs text-gray-500 text-center uppercase tracking-widest mt-1">Racing</p>
-                </a>
-
-                <a href="https://stadiastudios.github.io/candyswap/" class="group block fade-in-section">
-                    <div class="aspect-square w-full overflow-hidden rounded-3xl shadow-lg border border-white/5 mb-4 transition-transform duration-500 group-hover:-translate-y-2 bg-[#1a1a1a]">
-                        <img src="assets/app/candyswap.jpeg" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity">
-                    </div>
-                    <h3 class="text-lg font-bold text-white text-center uppercase tracking-wide group-hover:text-stadia-accent transition-colors">Candy Swap</h3>
-                    <p class="text-xs text-gray-500 text-center uppercase tracking-widest mt-1">Puzzle</p>
-                </a>
-
-                <a href="details-lumbertycoon.html" class="group block fade-in-section">
-                    <div class="aspect-square w-full overflow-hidden rounded-3xl shadow-lg border border-white/5 mb-4 transition-transform duration-500 group-hover:-translate-y-2 bg-[#1a1a1a]">
-                        <img src="assets/app/lumbertycoon.png" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity">
-                    </div>
-                    <h3 class="text-lg font-bold text-white text-center uppercase tracking-wide group-hover:text-stadia-accent transition-colors">LumberTycoon</h3>
-                    <p class="text-xs text-gray-500 text-center uppercase tracking-widest mt-1">Simulation</p>
-                </a>
-
-                <a href="https://stadiastudios.github.io/passpro/" class="group block fade-in-section">
-                    <div class="aspect-square w-full overflow-hidden rounded-3xl shadow-lg border border-white/5 mb-4 transition-transform duration-500 group-hover:-translate-y-2 bg-[#1a1a1a]">
-                        <img src="assets/app/passpro.png" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity">
-                    </div>
-                    <h3 class="text-lg font-bold text-white text-center uppercase tracking-wide group-hover:text-stadia-accent transition-colors">PassPro</h3>
-                    <p class="text-xs text-gray-500 text-center uppercase tracking-widest mt-1">Security</p>
-                </a>
-                
-                <a href="https://stadiabeta.github.io/tool-panel/" class="group block fade-in-section">
-                    <div class="aspect-square w-full overflow-hidden rounded-3xl shadow-lg border border-white/5 mb-4 transition-transform duration-500 group-hover:-translate-y-2 bg-[#1a1a1a]">
-                        <img src="https://stadiabeta.github.io/tool-panel/assets/favicon.png" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity">
-                    </div>
-                    <h3 class="text-lg font-bold text-white text-center uppercase tracking-wide group-hover:text-stadia-accent transition-colors">Stadia Tool Panel</h3>
-                    <p class="text-xs text-gray-500 text-center uppercase tracking-widest mt-1">Tools</p>
-                </a>
-
-                <a href="https://stadiastudios.github.io/GameDrive" class="group block fade-in-section">
-                    <div class="aspect-square w-full overflow-hidden rounded-3xl shadow-lg border border-white/5 mb-4 transition-transform duration-500 group-hover:-translate-y-2 bg-[#1a1a1a]">
-                        <img src="assets/app/gamedrive.png" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity">
-                    </div>
-                    <h3 class="text-lg font-bold text-white text-center uppercase tracking-wide group-hover:text-stadia-accent transition-colors">GameDrive</h3>
-                    <p class="text-xs text-gray-500 text-center uppercase tracking-widest mt-1">Cloud</p>
+            <div style="margin-top:1.5rem;">
+                <a href="https://forms.gle/W3R8sizfH6YcUbeD9" class="report-bug-btn">
+                    <i class="fas fa-bug"></i>
+                    Report a Bugged App
                 </a>
             </div>
         </div>
     </section>
-
-    <section class="py-20 bg-black text-white relative overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none opacity-20">
-            <div class="absolute -top-1/2 -left-1/4 w-full h-full bg-stadia-accent rounded-full blur-[120px]"></div>
-        </div>
-        <div class="max-w-4xl mx-auto px-6 text-center relative z-10 fade-in-section">
-            <h2 class="text-4xl md:text-6xl font-display font-black uppercase mb-6">Want more?</h2>
-            <p class="text-gray-400 text-lg mb-10">Check out our full collection of web applications and experimental games.</p>
-            <a href="store.html" class="btn-angled bg-white text-black px-12 py-5 font-bold uppercase tracking-widest inline-block">
-                Visit Store
-            </a>
+    <section class="apps-section">
+        <div class="apps-inner fade-in-section">
+            <h2 class="apps-title">Apps Built to Last</h2>
+            <div class="apps-pitch">
+                These flagship apps are engineered to be available, working, and useful for the next decade and beyond.<br>
+                They're robust, privacy-first, and won't disappear on you. Your data and creations stay yours always.
+            </div>
+            <div class="apps-cards" style="display: flex; justify-content: center; gap: 2.2rem; margin-top: 3rem;">
+                <div class="app-card" style="max-width:340px; min-width:250px; flex:1 1 280px;">
+                    <div class="app-card-icon" style="width:58px; height:58px; display:flex; align-items:center; justify-content:center;">
+                        <img src="https://stadiastudios.github.io/passpro/assets/favicon.png" alt="PassPro Icon" style="width:56px; height:56px; object-fit:contain;">
+                    </div>
+                    <div class="app-card-title">PassPro</div>
+                    <div class="app-card-desc">A simple and secure password manager for all your sensitive credentials.</div>
+                    <div class="app-card-links">
+                        <a href="https://stadiastudios.github.io/passpro/" class="app-card-link" target="_blank" rel="noopener">Open App</a>
+                    </div>
+                </div>
+            </div>
+            <div class="apps-pitch" style="margin-top:2.3rem;font-size:1.05rem;">
+                No subscriptions. No data lock-in. No shutdowns. Just apps you can count on to work—now and in 2034.<br>
+                <a href="store/store.html" class="custom-link">Browse all apps &rarr;</a>
+            </div>
         </div>
     </section>
-
+    <section class="py-20 bg-black text-white relative overflow-hidden" style="background:var(--stadia-light); color:var(--text-primary); position:relative; overflow:hidden; padding:5rem 0; border-top:1px solid var(--border-color);">
+        <div style="position:absolute; top:0; left:0; width:100%; height:100%; overflow:hidden; pointer-events:none; opacity:0.12;">
+            <div style="position:absolute; top:-50%; left:-25%; width:100%; height:100%; background:var(--stadia-accent); border-radius:50%; filter:blur(120px);"></div>
+        </div>
+        <div class="max-w-4xl mx-auto px-6 text-center relative z-10 fade-in-section" style="max-width:56rem; margin:auto; padding-left:1.5rem; padding-right:1.5rem; text-align:center; position:relative; z-index:10;">
+            <h2 class="text-4xl font-display font-black uppercase mb-6" style="margin-bottom:1.5rem; color:var(--text-primary);">Want more?</h2>
+            <p class="text-gray-400 text-lg mb-10" style="color:var(--text-secondary); font-size:1.125rem; margin-bottom:2.5rem;">
+                Check out our full collection of web applications and experimental games.
+            </p>
+            <a href="store/store.html" class="btn-angled">Visit Store</a>
+        </div>
+    </section>
     <div id="footer-placeholder"></div>
-
     <script src="componets.js"></script>
     <script>
+        // Fade-in intersection observer
         const observerOptions = {
             threshold: 0.15,
             rootMargin: "0px 0px -50px 0px"
         };
-
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -303,26 +484,18 @@
                 }
             });
         }, observerOptions);
-
         document.querySelectorAll('.fade-in-section').forEach(section => {
             observer.observe(section);
         });
 
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const heroText = document.querySelector('.lg\\:block img');
-            if(heroText) {
-                heroText.style.transform = `translateY(${scrolled * 0.1}px) rotate(2deg)`;
-            }
+        // Accordion
+        document.querySelectorAll('.accordion-trigger').forEach(trigger => {
+            trigger.addEventListener('click', () => {
+                const content = trigger.nextElementSibling;
+                trigger.classList.toggle('is-open');
+                if (content) content.classList.toggle('is-open');
+            });
         });
-
-document.querySelectorAll('.accordion-trigger').forEach(trigger => {
-    trigger.addEventListener('click', () => {
-        const content = trigger.nextElementSibling;
-        trigger.classList.toggle('is-open');
-        content.classList.toggle('is-open');
-    });
-});
     </script>
 </body>
 </html>

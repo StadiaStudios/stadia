@@ -1,93 +1,343 @@
 const components = {
     navbar: `
-    <nav class="fixed top-0 left-0 w-full z-[100] transition-all duration-300 bg-black/80 backdrop-blur-xl border-b border-white/[0.05]" id="main-nav">
-        <div class="max-w-[1024px] mx-auto px-6 h-11 flex items-center justify-between">
-            
-            <div class="flex items-center cursor-pointer group" onclick="window.location.href='index.html'">
-    <img src="assets/favicon.png" alt="Logo" class="w-8 h-8 rounded-full mr-3 border border-white/20 object-cover">
-    
-    <span class="font-display font-bold text-[14px] tracking-tight text-white opacity-90 group-hover:opacity-100 transition-opacity">
-        STADIASTUDIOS
-    </span>
-</div>
+    <style>
+      #main-nav {
+        position: fixed;
+        top: 0; left: 0; width: 100%;
+        z-index: 100;
+        background: rgba(0,0,0, 0.80);
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+        backdrop-filter: blur(12px);
+        transition: background 0.3s, box-shadow 0.3s;
+      }
 
-            <div class="hidden md:flex items-center gap-8">
-                <a href="index.html" class="text-[12px] font-normal text-zinc-400 hover:text-white transition-colors">Home</a>
-                <a href="index.html#games" class="text-[12px] font-normal text-zinc-400 hover:text-white transition-colors">Games</a>
-                <a href="store.html" class="text-[12px] font-normal text-zinc-400 hover:text-white transition-colors">App Store</a>
-                <a href="https://discord.gg/UGBFVrcKKx" class="text-[12px] font-normal text-zinc-400 hover:text-white transition-colors">Community</a>
+      .navbar-inner {
+        max-width: 1024px;
+        margin: 0 auto;
+        padding: 0 24px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .navbar-brand {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        transition: opacity 0.2s;
+        user-select: none;
+      }
+      .navbar-brand:hover .navbar-title {
+        opacity: 1;
+      }
+      .navbar-brand .navbar-title {
+        font-family: 'Barlow', 'Inter', Arial, sans-serif;
+        font-weight: bold;
+        font-size: 14px;
+        letter-spacing: -0.5px;
+        color: #fff;
+        opacity: 0.9;
+        transition: opacity 0.2s;
+      }
+      .navbar-brand img {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        margin-right: 12px;
+        border: 1px solid rgba(255,255,255,0.2);
+        object-fit: cover;
+        background: #232323;
+      }
+
+      .navbar-menu {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+      }
+      .navbar-link {
+        font-size: 12px;
+        font-family: 'Inter', Arial, sans-serif;
+        font-weight: 400;
+        color: #b5bbbe;
+        text-decoration: none;
+        transition: color 0.15s;
+      }
+      .navbar-link:hover {
+        color: #fff;
+      }
+
+      .navbar-actions {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+      .navbar-icon-link {
+        color: #b5bbbe;
+        transition: color 0.15s;
+      }
+      .navbar-icon-link:hover {
+        color: #fff;
+      }
+      #mobile-menu-button {
+        display: none;
+        background: none;
+        border: none;
+        color: #b5bbbe;
+        cursor: pointer;
+        padding: 0;
+        transition: color 0.15s;
+      }
+      #mobile-menu-button:hover {
+        color: #fff;
+      }
+
+      @media (max-width: 768px) {
+        .navbar-menu {
+          display: none;
+        }
+        #mobile-menu-button {
+          display: block;
+        }
+      }
+    </style>
+    <nav id="main-nav">
+        <div class="navbar-inner">
+            <div class="navbar-brand" onclick="window.location.href='index.html'">
+                <img src="assets/favicon.png" alt="Logo">
+                <span class="navbar-title">STADIASTUDIOS</span>
             </div>
-
-            <div class="flex items-center gap-5">
-                <a href="mailto:stadiastudios.support@proton.me" class="text-zinc-400 hover:text-white transition-colors">
-                    <i class="fas fa-envelope text-[13px]"></i>
+            <div class="navbar-menu">
+                <a href="index.html" class="navbar-link">Home</a>
+                <a href="store/store.html" class="navbar-link">App Store</a>
+                <a href="https://discord.gg/UGBFVrcKKx" class="navbar-link">Community</a>
+            </div>
+            <div class="navbar-actions">
+                <a href="mailto:stadiastudios.support@proton.me" class="navbar-icon-link">
+                    <i class="fas fa-envelope" style="font-size:13px;"></i>
                 </a>
-                <button id="mobile-menu-button" class="md:hidden text-zinc-400 hover:text-white transition-colors">
-                    <i class="fa-solid fa-bars-staggered text-[14px]"></i>
+                <button id="mobile-menu-button">
+                    <i class="fa-solid fa-bars-staggered" style="font-size:14px;"></i>
                 </button>
             </div>
         </div>
     </nav>
 
-    <div id="mobile-menu" class="fixed inset-0 z-[110] invisible opacity-0 transition-all duration-300">
-        <div id="mobile-menu-backdrop" class="absolute inset-0 bg-black/90 backdrop-blur-md"></div>
-        
-        <div id="mobile-menu-panel" class="absolute top-0 left-0 w-full h-full p-12 flex flex-col items-center justify-center gap-8">
-            <button id="mobile-menu-close" class="absolute top-6 right-6 text-zinc-400 text-2xl hover:text-white">&times;</button>
-            <a href="index.html" class="mobile-nav-link text-3xl font-semibold text-white">Home</a>
-            <a href="index.html#games" class="mobile-nav-link text-3xl font-semibold text-white">Games</a>
-            <a href="store.html" class="mobile-nav-link text-3xl font-semibold text-white">App Store</a>
-            <a href="mailto:stadiastudios.support@proton.me" class="mobile-nav-link text-3xl font-semibold text-white">Contact Us</a>
-            <a href="https://discord.gg/UGBFVrcKKx" class="mobile-nav-link text-3xl font-semibold text-zinc-500">Discord</a>
+    <style>
+      #mobile-menu {
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        z-index: 110;
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+      #mobile-menu.visible {
+        visibility: visible;
+        opacity: 1;
+      }
+      #mobile-menu-backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(0,0,0,0.9);
+        backdrop-filter: blur(8px);
+      }
+      #mobile-menu-panel {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100vw;
+        height: 100vh;
+        padding: 48px 0 0 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 32px;
+        z-index: 1;
+      }
+      #mobile-menu-close {
+        position: absolute;
+        top: 24px;
+        right: 24px;
+        background: none;
+        border: none;
+        color: #b5bbbe;
+        font-size: 32px;
+        cursor: pointer;
+        transition: color 0.15s;
+        z-index: 10;
+      }
+      #mobile-menu-close:hover {
+        color: #ffffff;
+      }
+      .mobile-nav-link {
+        font-size: 28px;
+        font-family: 'Barlow', 'Inter', Arial, sans-serif;
+        font-weight: 600;
+        color: #fff;
+        text-decoration: none;
+        transition: color 0.15s;
+        display: block;
+      }
+      .mobile-nav-link.special {
+        color: #8c939a;
+      }
+      .mobile-nav-link:not(.special):hover {
+        color: #ff470a;
+      }
+      .mobile-nav-link.special:hover {
+        color:rgb(230, 2, 2);
+      }
+      @media (min-width: 769px) {
+        #mobile-menu { display: none !important; }
+      }
+    </style>
+    <div id="mobile-menu">
+        <div id="mobile-menu-backdrop"></div>
+        <div id="mobile-menu-panel">
+            <button id="mobile-menu-close">&times;</button>
+            <a href="index.html" class="mobile-nav-link">Home</a>
+            <a href="store/store.html" class="mobile-nav-link">App Store</a>
+            <a href="mailto:stadiastudios.support@proton.me" class="mobile-nav-link">Contact Us</a>
+            <a href="https://discord.gg/UGBFVrcKKx" class="mobile-nav-link special">Discord</a>
         </div>
     </div>
     `,
     footer: `
-    <footer class="bg-black text-gray-400 pt-12 pb-6 font-sans text-[12px] border-t border-white/5">
-        <div class="max-w-[1600px] mx-auto px-4 md:px-10">
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 mb-12">
-                <div>
-                    <h4 class="font-semibold text-white mb-4 text-[15px]">Games</h4>
-                    <ul class="space-y-3">
-                        <li><a href="https://drive.google.com/file/d/14gJk2N3nFoSUFlROreiqdDq7NsEqcGUF/view?usp=sharing" class="hover:underline hover:text-white">Jet Surfers Classic</a></li>
-                        <li><a href="https://stadiastudios.github.io/JetSurfers2/" class="hover:underline hover:text-white">Jet Surfers II</a></li>
-                        <li><a href="https://stadiastudios.github.io/stadia/details-lumbertycoon.html" class="hover:underline hover:text-white">LumberTycoon</a></li>
-                        <li><a href="https://stadiastudios.github.io/candyswap" class="hover:underline hover:text-white">CandySwap</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-semibold text-white mb-4 text-[15px]">Applications</h4>
-                    <ul class="space-y-3">
-                        <li><a href="https://stadiabeta.github.io/tool-panel/" class="hover:underline hover:text-white">StadiaTool Panel</a></li>
-                        <li><a href="https://stadiastudios.github.io/passpro/" class="hover:underline hover:text-white">PassPro</a></li>
-                        <li><a href="https://stadiastudios.github.io/GameDrive/" class="hover:underline hover:text-white">GameDrive</a></li>
-                        <li><a href="https://stadiastudios.github.io/ourjourney/splash" class="hover:underline hover:text-white">Our Journey</a></li>
-                        <li><a href="details-recorderpro.html" class="hover:underline hover:text-white">RecorderPRO</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-semibold text-white mb-4 text-[15px]">Stadia</h4>
-                    <ul class="space-y-3">
-                        <li><a href="tos.pdf" class="hover:underline hover:text-white">Terms Of Service</a></li>
-                        <li><a href="server-rules-and-guidelines.pdf" class="hover:underline hover:text-white">Server Guidelines</a></li>
-                        <li><a href="store.html" class="hover:underline hover:text-white">Stadia App Store</a></li>
-                        <li><a href="mailto:stadiastudios.support@proton.me" class="hover:underline hover:text-white">Contact Us</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center pt-8 space-y-4 lg:space-y-0 border-t border-white/5">
-                <div class="flex flex-wrap items-center gap-x-6 gap-y-2">
-                    <a href="tos.pdf" class="hover:underline hover:text-white">Terms Of Service</a>
-                    <a href="store.html" class="hover:underline hover:text-white">Stadia Store</a>
-                </div>
-                <div class="flex flex-wrap items-center gap-x-6 gap-y-2">
-                    <a href="index.html#games" class="hover:underline hover:text-white">More Games</a>
-                    <a href="https://discord.gg/UGBFVrcKKx" class="hover:underline hover:text-white">Discord Community</a>
-                    <span>&copy; StadiaStudios ${new Date().getFullYear()}</span>
-                </div>
-            </div>
+    <style>
+      .custom-footer {
+        background: #000;
+        color: #b5bbbe;
+        padding-top: 48px;
+        padding-bottom: 24px;
+        font-family: 'Inter', Arial, sans-serif;
+        font-size: 12px;
+        border-top: 1px solid rgba(255,255,255,0.05);
+      }
+      .footer-container {
+        max-width: 1600px;
+        margin: 0 auto;
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+      .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 32px;
+        margin-bottom: 48px;
+      }
+      @media (min-width: 768px) {
+        .footer-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      @media (min-width: 1200px) {
+        .footer-grid {
+          grid-template-columns: repeat(6, 1fr);
+        }
+      }
+      .footer-section h4 {
+        font-weight: bold;
+        color: #fff;
+        margin-bottom: 16px;
+        font-size: 15px;
+        letter-spacing: 0.01em;
+      }
+      .footer-section ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .footer-section li {
+        margin-bottom: 12px;
+      }
+      .footer-section a {
+        color: #b5bbbe;
+        text-decoration: none;
+        transition: color 0.18s, text-decoration 0.18s;
+        border-bottom: 1px solid transparent;
+      }
+      .footer-section a:hover {
+        color: #fff;
+        text-decoration: underline;
+        border-bottom: 1px solid #fff;
+      }
+      .footer-bottom {
+        padding-top: 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        border-top: 1px solid rgba(255,255,255,0.05);
+      }
+      .footer-bottom-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 16px;
+      }
+      .footer-bottom-row span,
+      .footer-bottom-row a {
+        color: #b5bbbe;
+        font-size: 12px;
+        text-decoration: none;
+        transition: color 0.18s;
+        margin-right: 20px;
+      }
+      .footer-bottom-row a:hover {
+        color: #fff;
+        text-decoration: underline;
+      }
+      @media (min-width: 1024px) {
+        .footer-bottom {
+          flex-direction: row;
+          justify-content: space-between;
+        }
+        .footer-bottom-row {
+          margin-right: 0;
+        }
+      }
+    </style>
+    <footer class="custom-footer">
+      <div class="footer-container">
+        <div class="footer-grid">
+          <div class="footer-section">
+            <h4>Games</h4>
+            <ul>
+              <li><a href="https://drive.google.com/file/d/14gJk2N3nFoSUFlROreiqdDq7NsEqcGUF/view?usp=sharing">Jet Surfers Classic</a></li>
+              <li><a href="https://stadiastudios.github.io/JetSurfers2/">Jet Surfers II</a></li>
+              <li><a href="https://stadiastudios.github.io/stadia/details-lumbertycoon.html">LumberTycoon</a></li>
+              <li><a href="https://stadiastudios.github.io/candyswap">CandySwap</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>Applications</h4>
+            <ul>
+              <li><a href="https://stadiabeta.github.io/tool-panel/">StadiaTool Panel</a></li>
+              <li><a href="https://stadiastudios.github.io/passpro/">PassPro</a></li>
+              <li><a href="https://stadiastudios.github.io/ourjourney/splash">Our Journey</a></li>
+              <li><a href="details-recorderpro.html">RecorderPRO</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>Stadia</h4>
+            <ul>
+              <li><a href="tos.pdf">Terms Of Service</a></li>
+              <li><a href="store/store.html">Stadia App Store</a></li>
+              <li><a href="mailto:stadiastudios.support@proton.me">Contact Us</a></li>
+            </ul>
+          </div>
         </div>
+        <div class="footer-bottom">
+          <div class="footer-bottom-row">
+            <a href="tos.pdf">Terms Of Service</a>
+            <a href="store/store.html">Stadia Store</a>
+          </div>
+          <div class="footer-bottom-row">
+            <a href="https://discord.gg/UGBFVrcKKx">Discord Community</a>
+            <span>&copy; StadiaStudios ${new Date().getFullYear()}</span>
+          </div>
+        </div>
+      </div>
     </footer>
     `
 };
@@ -103,6 +353,18 @@ function initLayout() {
 }
 
 function setupEvents() {
+    window.addEventListener('scroll', () => {
+        const nav = document.getElementById('main-nav');
+        if (!nav) return;
+        if (window.scrollY > 20) {
+            nav.style.background = 'rgba(0,0,0,0.95)';
+            nav.style.boxShadow = '0 2px 16px 0 rgba(0,0,0,0.5)';
+        } else {
+            nav.style.background = 'rgba(0,0,0,0.80)';
+            nav.style.boxShadow = 'none';
+        }
+    });
+
     const mobileMenu = document.getElementById('mobile-menu');
     const menuBackdrop = document.getElementById('mobile-menu-backdrop');
     const openBtn = document.getElementById('mobile-menu-button');
@@ -110,14 +372,12 @@ function setupEvents() {
     const mobileLinks = document.querySelectorAll('.mobile-nav-link');
 
     const toggleMenu = (show) => {
+        if (!mobileMenu) return;
         if (show) {
-            mobileMenu.classList.remove('invisible', 'opacity-0');
+            mobileMenu.classList.add('visible');
             document.body.style.overflow = 'hidden';
         } else {
-            mobileMenu.classList.add('opacity-0');
-            setTimeout(() => {
-                mobileMenu.classList.add('invisible');
-            }, 300);
+            mobileMenu.classList.remove('visible');
             document.body.style.overflow = 'auto';
         }
     };
@@ -125,21 +385,9 @@ function setupEvents() {
     if (openBtn) openBtn.onclick = () => toggleMenu(true);
     if (closeBtn) closeBtn.onclick = () => toggleMenu(false);
     if (menuBackdrop) menuBackdrop.onclick = () => toggleMenu(false);
-    
+
     mobileLinks.forEach(link => {
         link.onclick = () => toggleMenu(false);
-    });
-
-    window.addEventListener('scroll', () => {
-        const nav = document.getElementById('main-nav');
-        if (!nav) return;
-        if (window.scrollY > 20) {
-            nav.classList.add('bg-black/95', 'shadow-2xl');
-            nav.classList.remove('bg-black/80');
-        } else {
-            nav.classList.add('bg-black/80');
-            nav.classList.remove('bg-black/95', 'shadow-2xl');
-        }
     });
 }
 

@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stadia App Store</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --stadia-accent: #4CA1C4;
+            --stadia-accent-hover: #318EB8;
+            --bg-light: #f7fafc;
+            --bg-panel: #fff;
+            --card-light: #ffffff; /* Pure white for cards now */
+            --card-hover: #f6fcff;
+            --navbar-bg: #fff;
+            --navbar-border: #e5e7eb;
+            --navbar-shadow: 0 2px 12px 0 rgba(93,156,206,0.05);
+            --text-dark-main: #222A36;
+            --text-subtle: #8795a1;
+            --border-light: #e5e7eb;
+            --rounded-lg: .75rem;
+            --rounded-xl: 1rem;
+            --rounded-2xl: 1.5rem;
+            --container-width: 1240px;
+            --shadow-active: 0 12px 40px 0 rgba(38,90,168,.06);
+        }
+        html, body {
+            box-sizing: border-box;
+            margin: 0; padding: 0;
+            height: 100%;
+            background: var(--bg-light);
+        }
+        body {
+            color: var(--text-dark-main);
+            font-family: "Inter", "Barlow", "Segoe UI", Arial, sans-serif;
+            font-size: 16px;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+        .container {
+            max-width: var(--container-width);
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #eaf0f7; }
+        ::-webkit-scrollbar-thumb {
+            background: #d0e5f3; border-radius: 6px;
+        }
+        ::-webkit-scrollbar-thumb:hover { background: var(--stadia-accent); }
+
+        /* Sleek modern navbar */
+        .navbar {
+            width: 100%;
+            position: sticky;
+            z-index: 50;
+            top: 0;
+            left: 0;
+            background: var(--navbar-bg);
+            border-bottom: 1px solid var(--navbar-border);
+            box-shadow: var(--navbar-shadow);
+            transition: all 0.17s;
+        }
+        .navbar-inner {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.8rem 2rem 1.2rem 2rem;
+        }
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        .navbar-logo {
+            width: 36px;
+            height: 36px;
+            margin-right: 1rem;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #4CA1C4 65%, #E5EDF7 100%);
+            display: flex;
+            align-items: center; justify-content: center;
+        }
+        .navbar-title {
+            font-family: 'Barlow', 'Inter', sans-serif;
+            font-size: 2.05rem;
+            font-weight: 900;
+            letter-spacing: -0.04em;
+            color: #296283;
+            line-height: 1.05;
+        }
+        .navbar-accent {
+            color: var(--stadia-accent);
+            font-weight: bold;
+            letter-spacing: -.02em;
+        }
+        .navbar-sub {
+            font-size: 1.06rem;
+            line-height: 1.5;
+            color: var(--text-subtle);
+            margin-top: -0.35rem;
+            margin-bottom: 0;
+            font-weight: 500;
+        }
+        @media (max-width: 600px) {
+            .navbar-inner { flex-direction: column; align-items: flex-start; padding: 1.1rem 1rem;}
+            .navbar-title { font-size: 1.37rem;}
+        }
+
+        /* Make sure only .navbar is sticky, not .container or .navbar-sub */
+        .navbar > .container {
+            position: static !important;
+        }
+
+        /* Search bar modernized */
+        .navbar-search {
+            background: #f5fafd;
+            border: 1.5px solid #e2ecf7;
+            border-radius: 1.9rem;
+            display: flex;
+            align-items: center;
+            padding: 0.42rem 1.05rem 0.42rem 1rem;
+            margin-top: 0.11rem;
+            transition: box-shadow 0.14s, border-color .16s;
+            box-shadow: 0 1px 6px 0 rgba(82, 176, 224, 0.08);
+            min-width: 200px; max-width: 350px; width: 100%;
+        }
+        .navbar-search:focus-within, .navbar-search-active {
+            border-color: var(--stadia-accent);
+            background: #f7faff;
+            box-shadow: 0 2px 12px 0 rgba(76,161,196,.07);
+        }
+        .navbar-search-input {
+            background: transparent;
+            border: none;
+            outline: none;
+            font-size: 1.02rem;
+            font-family: 'Inter', sans-serif;
+            width: 100%;
+            margin-left: 0.9rem;
+            color: var(--text-dark-main);
+        }
+        .navbar-search-input::placeholder {
+            color: #9cb9c8;
+            letter-spacing: 0.02em;
+            font-weight: 500;
+        }
+        .navbar-search .fa-search {
+            color: #b9d1de;
+            font-size: 1.08rem;
+        }
+
+        /* Hero section */
+        .hero {
+            padding: 4rem 0 2.4rem 0;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+        .hero-title {
+            font-family: 'Barlow', 'Inter', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -0.03em;
+            color: #296283;
+            margin: 0 0 0.6rem 0;
+            line-height: 1.08;
+        }
+        .hero-description {
+            font-size: 1.06rem;
+            color: #7198b6;
+            max-width: 32rem;
+            margin: 0 0 0.8rem 0;
+            font-weight: 500;
+        }
+        @media (max-width: 900px) {
+            .hero { flex-direction: column; align-items: flex-start; padding: 2.2rem 0 1rem 0;}
+            .hero-title { font-size: 1.55rem;}
+        }
+
+        /* Featured card/banner */
+        .featured-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--rounded-2xl);
+            background: #e6f5ff;
+            min-height: 284px;
+            margin-bottom: 2.7rem;
+            box-shadow: 0 6px 32px 0 rgba(64,123,152,0.07);
+            display: flex;
+            align-items: center;
+            justify-content: left;
+        }
+        .featured-card img {
+            position: absolute;
+            left: 0; top: 0; width: 100%; height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            filter: grayscale(0.07) brightness(0.97);
+            background: #f3f5f9;
+        }
+        .featured-card-gradient {
+            position: absolute; inset: 0;
+            background: linear-gradient(90deg, #fff 70%, rgba(255,255,255,0.55) 100%);
+            z-index: 2;
+        }
+        .featured-card-content {
+            position: relative;
+            z-index: 3;
+            padding: 2.3rem 2.2rem;
+            max-width: 30rem;
+        }
+        .featured-app-title {
+            font-family: 'Barlow', 'Inter', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: #165c89;
+            text-transform: uppercase;
+            margin-bottom: 0.45rem;
+            letter-spacing: -0.024em;
+        }
+        .featured-app-description {
+            font-weight: 500;
+            color: #348ab6;
+            margin-bottom: 1.17rem;
+            font-size: 1.07rem;
+        }
+        .featured-cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6em;
+            background: var(--stadia-accent);
+            color: #fff;
+            border: none;
+            border-radius: 1.1rem;
+            font-size: 0.95rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: .11em;
+            padding: 0.7em 2em;
+            box-shadow: 0 3px 12px 0 rgba(60,152,196,0.11);
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.18s, box-shadow 0.19s;
+        }
+        .featured-cta-btn:hover {
+            background: var(--stadia-accent-hover);
+            color: #fff;
+            text-decoration: none;
+            box-shadow: 0 7px 28px 0 rgba(80,160,200,0.18);
+        }
+
+        /* Store grid */
+        .store-meta-bar {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 2.5rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .apps-count-badge {
+            background: #eaf4fa;
+            color: var(--stadia-accent);
+            border-radius: 0.7rem;
+            font-size: 0.88rem;
+            font-weight: 700;
+            letter-spacing: 0.07em;
+            padding: 3px 15px 4px 15px;
+            margin-left: 1.3rem;
+        }
+        .store-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.1rem;
+        }
+        @media (min-width: 640px) {
+            .store-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+        @media (min-width: 1024px) {
+            .store-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+        @media (min-width: 1280px) {
+            .store-grid {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+            }
+        }
+
+        /* Sleek store cards */
+        .store-card {
+            background: var(--card-light);
+            border-radius: var(--rounded-2xl);
+            box-shadow: 0 2px 24px 0 rgba(88,184,208,0.038);
+            border: 1px solid #e6eaf2;
+            overflow: hidden;
+            transition: box-shadow 0.22s, transform 0.13s, border-color 0.17s;
+            display: flex; flex-direction: column;
+            min-width: 0;
+            min-height: 0;
+            position: relative;
+        }
+        .store-card:hover {
+            box-shadow: 0 7px 32px 0 rgba(80,160,200,0.09);
+            border-color: var(--stadia-accent);
+            transform: translateY(-3px) scale(1.021);
+        }
+        .store-card-img-wrap {
+            position: relative;
+            background: #e6eef6;
+            min-height: 12rem;
+        }
+        .store-card-img {
+            width: 100%; height: 12rem;
+            object-fit: cover;
+            background: #f7fbff;
+            display: block;
+        }
+        .store-card-content {
+            padding: 1.3rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        .store-card-title {
+            font-family: 'Barlow', 'Inter', sans-serif;
+            font-size: 1.17rem;
+            font-weight: 800;
+            margin-bottom: 0.16rem;
+            color: #105278;
+            transition: color 0.13s;
+            text-transform: none;
+        }
+        .store-card:hover .store-card-title {
+            color: var(--stadia-accent);
+        }
+        .store-card-description {
+            color: #669fbb;
+            font-size: 0.97rem;
+            line-height: 1.55;
+            margin-bottom: 1rem;
+            min-height: 2.7em;
+            font-weight: 500;
+        }
+        .store-card-footer {
+            margin-top: auto;
+        }
+        .store-card-btn {
+            width: 100%;
+            display: flex; align-items: center; justify-content: center;
+            gap: 0.55em;
+            padding: 0.70em 0;
+            background: #e6f1fb;
+            color: #0c496b;
+            border: none;
+            border-radius: 0.8rem;
+            font-size: 0.90rem;
+            font-weight: bold;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            transition: background 0.19s, color 0.17s;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .store-card-btn:hover {
+            background: var(--stadia-accent);
+            color: #fff !important;
+            text-decoration: none;
+        }
+        .external-link {
+            font-size: 0.93em;
+            margin-left: 0.06em;
+        }
+
+        /* No results modern notice */
+        .store-no-results {
+            display: none;
+            text-align: center;
+            background: #f7fafc;
+            border-radius: 1.5rem;
+            border: 1.5px dashed #e4e8ec;
+            padding: 5.5rem 0 5.5rem 0;
+            color: #b0c3d8;
+            margin-top: 2.2rem;
+        }
+        .store-no-results.active {
+            display: block;
+        }
+        .store-no-results .headline {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            color: #97adc8;
+        }
+        .store-no-results .clear-btn {
+            color: var(--stadia-accent);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.99rem;
+            margin-top: 1.1rem;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <script src="store-nav.js"></script>
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <a href="store.html" class="navbar-brand">
+                <span class="navbar-logo">
+                    <img src="assets/favicon.png" alt="Stadia Logo" width="24" height="24" style="border-radius:7px; box-shadow:0 0 7px 0 #48aac4a6;">
+                </span>
+                <span class="navbar-title">Stadia <span class="navbar-accent">App Store</span></span>
+            </a>
+            <div class="navbar-search" id="navbar-search-box">
+                <i class="fas fa-search"></i>
+                <input 
+                    type="text"
+                    class="navbar-search-input" 
+                    id="app-search"
+                    placeholder="Search apps..."
+                    aria-label="Search apps"
+                    autocomplete="off"
+                    spellcheck="false"
+                >
+            </div>
+        </div>
+        <!-- Moved .container for subtitle OUTSIDE of .navbar to prevent sticky behavior -->
+    </nav>
+    <div class="container">
+        <div class="navbar-sub">
+            Explore the ecosystem. Tools, games, and extensions designed for performance.
+        </div>
+    </div>
+    <main class="container">
+        <section>
+            <div class="featured-card" style="height:320px;">
+                <img src="assets/banner.png" alt="Featured" onerror="this.src='assets/banner-fallback.jpg'" loading="lazy">
+                <div class="featured-card-gradient"></div>
+                <div class="featured-card-content">
+                    <div class="featured-app-title">CandySwap</div>
+                    <div class="featured-app-description">
+                        Fast-paced match-3 action. Swap, combo, and collect gold to customize your island experience.
+                    </div>
+                    <a href="https://stadiastudios.github.io/candyswap/" class="featured-cta-btn" target="_blank" rel="noopener">
+                        <i class="fas fa-play"></i>
+                        Play Now
+                    </a>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="store-meta-bar">
+                <div style="display:flex;align-items:center;gap:1rem;">
+                    <span id="results-title" style="font-size:1.24rem; font-weight:800; color:#224058;letter-spacing:-0.011em;">Discover All</span>
+                    <span class="apps-count-badge" id="results-count">7 Items</span>
+                </div>
+            </div>
+            <div class="store-no-results" id="no-results">
+                <div class="headline">No apps found.</div>
+                <button class="clear-btn" onclick="document.getElementById('app-search').value=''; filterApps('');">Clear search</button>
+            </div>
+            <div class="store-grid" id="apps-grid">
+                <div class="store-card" data-title="Jet Surfers 2">
+                    <div class="store-card-img-wrap">
+                        <img src="assets/app/jetsurfers2.jpg" alt="Jet Surfers 2" class="store-card-img" onerror="this.src='assets/app/app-placeholder.jpg'">
+                    </div>
+                    <div class="store-card-content">
+                        <div class="store-card-title">Jet Surfers 2</div>
+                        <div class="store-card-description">New Animations, New Jets, New Upgrades, &amp; Lots More!</div>
+                        <div class="store-card-footer">
+                            <a href="jetsurfers2.html" class="store-card-btn">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="store-card" data-title="Candy Swap">
+                    <div class="store-card-img-wrap" style="background:#e4fafe;">
+                        <img src="assets/app/candyswap.jpeg" alt="CandySwap" class="store-card-img" onerror="this.src='assets/app/app-placeholder.jpg'">
+                    </div>
+                    <div class="store-card-content">
+                        <div class="store-card-title">CandySwap</div>
+                        <div class="store-card-description">Vibrant match-3 puzzle game. Unlock stunning backgrounds and satisfy your candy cravings.</div>
+                        <div class="store-card-footer">
+                            <a href="https://stadiastudios.github.io/candyswap/" target="_blank" rel="noopener" class="store-card-btn">
+                                <span>Open App</span>
+                                <i class="fas fa-external-link-alt external-link"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="store-card" data-title="Stadia Tool Panel">
+                    <div class="store-card-img-wrap" style="background:#edfcfa;">
+                        <img src="https://stadiabeta.github.io/tool-panel/assets/favicon.png" alt="Stadia Tool Panel" class="store-card-img" onerror="this.src='assets/app/app-placeholder.jpg'">
+                    </div>
+                    <div class="store-card-content">
+                        <div class="store-card-title">Stadia Tool Panel</div>
+                        <div class="store-card-description">Stadia Tool Panel. All you need, in one place.</div>
+                        <div class="store-card-footer">
+                            <a href="https://stadiabeta.github.io/tool-panel/" target="_blank" rel="noopener" class="store-card-btn">
+                                <span>Open App</span>
+                                <i class="fas fa-external-link-alt external-link"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="store-card" data-title="PassPro">
+                    <div class="store-card-img-wrap" style="background:#f2f6ff;">
+                        <img src="assets/app/passpro.png" alt="PassPro" class="store-card-img" onerror="this.src='assets/app/app-placeholder.jpg'">
+                    </div>
+                    <div class="store-card-content">
+                        <div class="store-card-title">PassPro</div>
+                        <div class="store-card-description">A simple and secure password manager for all your sensitive credentials.</div>
+                        <div class="store-card-footer">
+                            <a href="passpro.html" class="store-card-btn">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="store-card" data-title="StadiaRecorder Pro">
+                    <div class="store-card-img-wrap" style="background:#eaf7fd;">
+                        <img src="assets/app/recorder.png" alt="Recorder" class="store-card-img" onerror="this.src='assets/app/app-placeholder.jpg'">
+                    </div>
+                    <div class="store-card-content">
+                        <div class="store-card-title">StadiaRecorder Pro</div>
+                        <div class="store-card-description">Capture 1080p video with crystal clear system audio directly in your browser.</div>
+                        <div class="store-card-footer">
+                            <a href="recorder-pro.html" class="store-card-btn">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="store-card" data-title="Our Journey">
+                    <div class="store-card-img-wrap" style="background:#fff9f5;">
+                        <img src="assets/app/ourjourney.png" alt="Our Journey" class="store-card-img" onerror="this.src='assets/app/app-placeholder.jpg'">
+                    </div>
+                    <div class="store-card-content">
+                        <div class="store-card-title">Our Journey</div>
+                        <div class="store-card-description">Track relationship milestones with dark mode and custom shared images.</div>
+                        <div class="store-card-footer">
+                            <a href="https://stadiastudios.github.io/ourjourney/splash" target="_blank" rel="noopener" class="store-card-btn">
+                                <span>Open App</span>
+                                <i class="fas fa-external-link-alt external-link"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script>
+        // Modern search/filter
+        const searchInput = document.getElementById('app-search');
+        const appsGrid = document.getElementById('apps-grid');
+        const appCards = document.querySelectorAll('.store-card');
+        const noResults = document.getElementById('no-results');
+        const resultsTitle = document.getElementById('results-title');
+        const resultsCount = document.getElementById('results-count');
+        const featuredSection = document.querySelector('.featured-card').parentElement;
+
+        function filterApps(query) {
+            const searchTerm = query.toLowerCase().trim();
+            let visibleCount = 0;
+            appCards.forEach(card => {
+                const title = card.getAttribute('data-title').toLowerCase();
+                const description = card.querySelector('.store-card-description').textContent.toLowerCase();
+                if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                    card.style.display = '';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            if (searchTerm === '') {
+                resultsTitle.textContent = 'Discover All';
+                featuredSection.style.display = '';
+            } else {
+                resultsTitle.textContent = `Results for "${query}"`;
+                featuredSection.style.display = 'none';
+            }
+
+            resultsCount.textContent = `${visibleCount} ${visibleCount === 1 ? 'Item' : 'Items'}`;
+            if (visibleCount === 0) {
+                noResults.classList.add('active');
+            } else {
+                noResults.classList.remove('active');
+            }
+        }
+        searchInput.addEventListener('input', (e) => filterApps(e.target.value));
+    </script>
+</body>
+</html>

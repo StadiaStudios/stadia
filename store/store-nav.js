@@ -1,0 +1,231 @@
+// navbar.js
+// Responsive Hamburger Navbar for store/details-apps.html
+
+const navbar = document.createElement('nav');
+navbar.className = 'simple-navbar';
+navbar.innerHTML = `
+  <a href="store.html" class="logo" aria-label="App Store Home">
+    <img src="assets/favicon.png" alt="" style="width:32px;vertical-align:middle;">
+    <span style="font-weight:700;color:#318EB8;font-size:1.18em;margin-left:8px;vertical-align:middle;">App Store</span>
+  </a>
+  <button class="navbar-hamburger" aria-label="Toggle Navigation" aria-expanded="false" tabindex="0">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </button>
+  <ul class="navbar-links">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="store.html">Store</a></li>
+    <li><a href="top.html">Top Charts</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+`;
+
+// Navbar CSS for responsiveness and hamburger
+navbar.style.cssText = `
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  background: #e3eefb;
+  box-shadow: 0 1px 12px rgba(60,80,120,0.07);
+  padding: 0.6em 2em;
+  min-height: 54px;
+  z-index: 100;
+  position: sticky;
+  top: 0;
+`;
+
+const style = document.createElement('style');
+style.textContent = `
+.simple-navbar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+.simple-navbar .logo {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  text-decoration: none;
+}
+.simple-navbar .navbar-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  transition: max-height 0.3s cubic-bezier(.77,0,.18,1), opacity 0.3s;
+}
+.simple-navbar .navbar-links li a {
+  text-decoration: none;
+  color: #002642;
+  font-weight: 500;
+  font-size: 1.05em;
+  padding: 3px 0;
+  transition: color 0.18s;
+  display: inline-block;
+}
+.simple-navbar .navbar-links li a:hover,
+.simple-navbar .navbar-links li a:focus {
+  color: #4CA1C4;
+}
+.simple-navbar .navbar-hamburger {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5em;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 38px;
+  width: 44px;
+  margin-left: 18px;
+  margin-right: -10px;
+  z-index: 102;
+}
+.simple-navbar .navbar-hamburger:focus-visible {
+  outline: 2px solid #4CA1C4;
+}
+.simple-navbar .navbar-hamburger .bar {
+  display: block;
+  width: 26px;
+  height: 3px;
+  margin: 4px 0;
+  background: #318EB8;
+  border-radius: 2px;
+  transition: all 0.32s cubic-bezier(.77,0,.18,1);
+}
+
+/* Hamburger open animation */
+.simple-navbar.active .navbar-hamburger .bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.simple-navbar.active .navbar-hamburger .bar:nth-child(2) {
+  opacity: 0;
+}
+.simple-navbar.active .navbar-hamburger .bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+@media (max-width: 720px) {
+  .simple-navbar {
+    padding: 0.4em 1.4em;
+  }
+  .simple-navbar .navbar-links {
+    flex-direction: column;
+    position: absolute;
+    top: 54px;
+    left: 0;
+    right: 0;
+    background: #e3eefb;
+    gap: 0;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    border-bottom: 1px solid #d2e0ef;
+    box-shadow: 0 4px 18px rgba(80,120,170,0.07);
+  }
+  .simple-navbar.active .navbar-links {
+    max-height: 220px;
+    opacity: 1;
+    transition: max-height 0.32s cubic-bezier(.77,0,.18,1), opacity 0.32s;
+  }
+  .simple-navbar .navbar-links li {
+    border-bottom: 1px solid #e7e9ee;
+    padding: 0;
+    margin: 0;
+  }
+  .simple-navbar .navbar-links li:last-child {
+    border-bottom: none;
+  }
+  .simple-navbar .navbar-links li a {
+    padding: 13px 24px 13px 16vw;
+    width: 100%;
+    display: block;
+    font-size: 1.09em;
+    color: #002642;
+  }
+  .simple-navbar .navbar-hamburger {
+    display: flex;
+  }
+}
+`;
+
+// Insert the style tag only once
+document.head.appendChild(style);
+
+// Logo styling (still set inline for specificity/simplicity)
+navbar.querySelector('.logo').style.cssText = `
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  text-decoration: none;
+`;
+
+// Get elements
+const ul = navbar.querySelector('ul');
+const hamburger = navbar.querySelector('.navbar-hamburger');
+
+// Insert navbar as the first child of <body>
+document.addEventListener('DOMContentLoaded', () => {
+  const body = document.body;
+  body.insertBefore(navbar, body.firstChild);
+
+  // Hamburger toggling logic (with aria attributes)
+  let expanded = false;
+  hamburger.addEventListener('click', () => {
+    expanded = !expanded;
+    hamburger.setAttribute('aria-expanded', expanded);
+    navbar.classList.toggle('active', expanded);
+    if (expanded) {
+      ul.querySelector('a').focus();
+    }
+  });
+
+  // Close nav when clicking outside (mobile)
+  document.addEventListener('click', e => {
+    if (
+      expanded &&
+      !navbar.contains(e.target)
+    ) {
+      expanded = false;
+      hamburger.setAttribute('aria-expanded', 'false');
+      navbar.classList.remove('active');
+    }
+  });
+
+  // Keyboard accessibility for hamburger (toggle on Enter or Space)
+  hamburger.addEventListener('keydown', (e) => {
+    if (e.key === ' ' || e.key === 'Enter') {
+      hamburger.click();
+      e.preventDefault();
+    }
+  });
+
+  // Restore nav on resize
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 730) {
+      navbar.classList.remove('active');
+      hamburger.setAttribute('aria-expanded', 'false');
+      expanded = false;
+    }
+  });
+});
+
+// Style + hover for links
+[...ul.querySelectorAll('a')].forEach(a => {
+    a.style.cssText = `
+      text-decoration: none;
+      color: #002642;
+      font-weight: 500;
+      font-size: 1.05em;
+      padding: 3px 0;
+      transition: color 0.18s;
+      display: inline-block;
+    `;
+    a.onmouseenter = () => a.style.color = "#4CA1C4";
+    a.onmouseleave = () => a.style.color = "#002642";
+});
