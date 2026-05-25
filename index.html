@@ -25,6 +25,7 @@
             --card-shadow: 0 4px 22px rgba(0,0,0,0.08);
             --scrollbar-track: #e6e6e6;
             --scrollbar-thumb: #bbb;
+            --custom-scrollbar-height: 13px;
         }
         html, body { height: 100%; }
         body {
@@ -84,7 +85,9 @@
             background: var(--stadia-accent-hover);
         }
         .header-section {
-            background: linear-gradient(120deg, #fff 0%, var(--stadia-light) 70%, #f4f2ef 100%);
+            background: 
+                linear-gradient(120deg, #a0a0a0b4 0%, var(--stadia-light) 70%, #f4f2efd0 100%),
+                url('assets/banner.png') center top/cover no-repeat;
             min-height: 56vh;
             display: flex;
             align-items: center;
@@ -94,13 +97,24 @@
             overflow: hidden;
             border-bottom: 1px solid var(--border-color);
         }
+        @media (max-width:900px) {
+            .header-section {
+                background-size: cover, 220% 100%;
+                background-position: center top, center top;
+            }
+        }
+        @media (max-width:600px) {
+            .header-section {
+                background-size: cover, 300% 120%;
+            }
+        }
         .header-bg {
             position: absolute;
             inset: 0;
             pointer-events: none;
             z-index: 1;
             background: radial-gradient(ellipse 80% 30% at 50% 0, var(--stadia-accent) 0%, transparent 80%);
-            opacity: 0.1;
+            opacity: 0.09;
         }
         .header-inner {
             z-index: 2;
@@ -119,6 +133,7 @@
             color: var(--text-primary);
             margin-bottom: 1.25rem;
             letter-spacing: -1px;
+            text-shadow: 0 2px 20px rgba(10,20,40,0.10);
         }
         .header-title .accent { color: var(--stadia-accent); }
         .header-desc {
@@ -129,6 +144,7 @@
             margin-right: auto;
             margin-bottom: 2.2rem;
             font-weight: 300;
+            text-shadow: 0 2px 15px rgba(20,30,60,0.10);
         }
         .header-btns {
             display: flex;
@@ -158,7 +174,35 @@
             .header-section { padding-bottom: 1.2rem; min-height: 44vh; }
             .header-title { font-size: 2rem; }
             .header-desc { font-size: 1rem; }
-            .header-btns { flex-direction: column; gap: 0.8rem; }
+            .header-btns {
+                flex-direction: column;
+                gap: 0.8rem;
+                align-items: center;
+            }
+            .header-btns .btn-angled {
+                width: 92vw;
+                max-width: 320px;
+                min-width: 0;
+                padding: 0.85rem 1.3rem;
+                font-size: 0.99rem;
+                clip-path: none;
+                border-radius: 2.2em;
+                box-shadow: 0 2px 12px rgba(40,40,60,0.10);
+                text-align: center;
+                letter-spacing: 0.12em;
+            }
+        }
+        @media (max-width: 600px) {
+            .header-btns .btn-angled {
+                transition: 
+                    background 0.3s, 
+                    color 0.3s, 
+                    filter 0.3s, 
+                    box-shadow 0.3s,
+                    border-radius 0.23s,
+                    padding 0.23s,
+                    font-size 0.2s;
+            }
         }
         .apps-section {
             background: var(--stadia-light);
@@ -189,12 +233,41 @@
             margin-bottom: 2.1rem;
             line-height: 1.8;
         }
-        .apps-cards {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2.2rem;
+        .apps-cards-scrollbar {
+            position: relative;
             margin-top: 3rem;
+            margin-bottom: 2rem;
+        }
+        .apps-cards {
+            display: flex;
+            gap: 2.2rem;
+            justify-content: flex-start;
             align-items: stretch;
+            overflow-x: auto;
+            overflow-y: visible;
+            scroll-behavior: smooth;
+            padding-bottom: 22px;
+        }
+        .apps-cards::-webkit-scrollbar {
+            height: var(--custom-scrollbar-height);
+            background: var(--scrollbar-track);
+        }
+        .apps-cards::-webkit-scrollbar-thumb {
+            background: var(--stadia-accent);
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+        .apps-cards::-webkit-scrollbar-thumb:hover {
+            background: var(--stadia-accent-hover);
+        }
+        .apps-cards {
+            scrollbar-width: thin;
+            scrollbar-color: var(--stadia-accent) var(--scrollbar-track);
+        }
+        @media (max-width:1000px) {
+            .apps-cards {
+                gap: 1.25rem;
+            }
         }
         .app-card {
             background: var(--card-bg);
@@ -203,6 +276,9 @@
             box-shadow: var(--card-shadow);
             border: 1px solid var(--border-color);
             min-height: 170px;
+            min-width: 250px;
+            max-width: 340px;
+            flex: 1 0 290px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -261,9 +337,6 @@
         }
         .app-card-link:hover {
             background: var(--stadia-accent-hover);
-        }
-        @media (max-width: 1000px) {
-            .apps-cards { grid-template-columns: 1fr; gap: 1.25rem; }
         }
         .report-bug-btn {
             display: inline-flex;
@@ -380,7 +453,7 @@
                             <i class="fas fa-chevron-down"></i>
                         </button>
                         <div class="accordion-content">
-                            OurJourney Has been updated and now you can choose custom app themes for free!
+                            OurJourney has been updated and now you can choose custom app themes for free!
                         </div>
                     </div>
                     <div style="border-top:1px solid var(--border-color);">
@@ -389,7 +462,7 @@
                             <i class="fas fa-chevron-down"></i>
                         </button>
                         <div class="accordion-content">
-                            New Themes Can now be applied. Bug Fixes when zooming in the webapp.
+                            New themes can now be applied. Bug fixes when zooming in the web app.
                         </div>
                     </div>
                 </div>
@@ -401,25 +474,26 @@
                             <i class="fas fa-chevron-down"></i>
                         </button>
                         <div class="accordion-content">
-                            Today on May 23rd 2026 Our Home website and PassPro App are officially being rebuilt as Raw HTML and CSS Unlike most of our apps relying on thailwind css. This may bring unwanted or ugly changes to some of our applications that we make future proof.
+                            As of May 23rd, 2026, our home website and PassPro app are being rebuilt as raw HTML and CSS (unlike most of our apps relying on Tailwind CSS). This may bring some visual changes as we move forward.
                         </div>
                     </div>
                     <div style="border-top:1px solid var(--border-color);">
                         <button class="accordion-trigger">
-                            <span class="font-bold">NEW CONTACT US FEATURE</span>
+                            <span class="font-bold">New Contact Feature</span>
                             <i class="fas fa-chevron-down"></i>
                         </button>
                         <div class="accordion-content">
-                            As of April 21st of 2026, We now have a Contact Email where users can get ahold of us via our support email. They can also always join our discord and put in a ticket as an option. But across our Apps we have a Contact Feature. You can email us here: <a class="custom-link" href="mailto:stadiastudios.support@proton.me">stadiastudios.support@proton.me</a>
+                            As of April 21st, 2026, you can reach us via support email. Also, join our Discord to put in a ticket. Our apps feature a Contact option.<br>
+                            Email us here: <a class="custom-link" href="mailto:stadiastudios.support@proton.me">stadiastudios.support@proton.me</a>
                         </div>
                     </div>
                     <div style="border-top:1px solid var(--border-color);">
                         <button class="accordion-trigger">
-                            <span class="font-bold">New Updates to Our Home Website!</span>
+                            <span class="font-bold">New Updates to Our Home Website</span>
                             <i class="fas fa-chevron-down"></i>
                         </button>
                         <div class="accordion-content">
-                            It's now dark mode like the original website. Updated app icons all around. Armory Legends has completely shut down. New Sections. New Banners. Etc.
+                            It's now dark mode like the original. App icons updated. Armory Legends has shut down. New sections and banners added.
                         </div>
                     </div>
                 </div>
@@ -439,15 +513,37 @@
                 These flagship apps are engineered to be available, working, and useful for the next decade and beyond.<br>
                 They're robust, privacy-first, and won't disappear on you. Your data and creations stay yours always.
             </div>
-            <div class="apps-cards" style="display: flex; justify-content: center; gap: 2.2rem; margin-top: 3rem;">
-                <div class="app-card" style="max-width:340px; min-width:250px; flex:1 1 280px;">
-                    <div class="app-card-icon" style="width:58px; height:58px; display:flex; align-items:center; justify-content:center;">
-                        <img src="https://stadiastudios.github.io/passpro/assets/favicon.png" alt="PassPro Icon" style="width:56px; height:56px; object-fit:contain;">
+            <div class="apps-cards-scrollbar">
+                <div class="apps-cards">
+                    <div class="app-card">
+                        <div class="app-card-icon" style="width:58px; height:58px; display:flex; align-items:center; justify-content:center;">
+                            <img src="https://stadiastudios.github.io/passpro/assets/favicon.png" alt="PassPro Icon" style="width:56px; height:56px; object-fit:contain;">
+                        </div>
+                        <div class="app-card-title">PassPro</div>
+                        <div class="app-card-desc">A simple and secure password manager for all your sensitive credentials.</div>
+                        <div class="app-card-links">
+                            <a href="https://stadiastudios.github.io/passpro/" class="app-card-link" target="_blank" rel="noopener">Open App</a>
+                        </div>
                     </div>
-                    <div class="app-card-title">PassPro</div>
-                    <div class="app-card-desc">A simple and secure password manager for all your sensitive credentials.</div>
-                    <div class="app-card-links">
-                        <a href="https://stadiastudios.github.io/passpro/" class="app-card-link" target="_blank" rel="noopener">Open App</a>
+                    <div class="app-card">
+                        <div class="app-card-icon" style="width:58px; height:58px; display:flex; align-items:center; justify-content:center;">
+                            <img src="assets/app/ourjourney.png" alt="Our Journey Icon" style="width:56px; border-radius:12px; height:56px; object-fit:contain;">
+                        </div>
+                        <div class="app-card-title">Our Journey</div>
+                        <div class="app-card-desc">Track relationship milestones with dark mode and custom shared images.</div>
+                        <div class="app-card-links">
+                            <a href="https://stadiastudios.github.io/ourjourney/" class="app-card-link" target="_blank" rel="noopener">Open App</a>
+                        </div>
+                    </div>
+                    <div class="app-card">
+                        <div class="app-card-icon" style="width:58px; height:58px; display:flex; align-items:center; justify-content:center;">
+                            <img src="assets/app/tool-panel.png" alt="StadiaToolPanel Icon" style="width:56px; border-radius:12px; height:56px; object-fit:contain;">
+                        </div>
+                        <div class="app-card-title">StadiaToolPanel</div>
+                        <div class="app-card-desc">A developer's toolbox: essential utilities, quick tools, and productivity shortcuts for your projects.</div>
+                        <div class="app-card-links">
+                            <a href="https://stadiabeta.github.io/tool-panel/" class="app-card-link" target="_blank" rel="noopener">Open App</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -457,13 +553,13 @@
             </div>
         </div>
     </section>
-    <section class="py-20 bg-black text-white relative overflow-hidden" style="background:var(--stadia-light); color:var(--text-primary); position:relative; overflow:hidden; padding:5rem 0; border-top:1px solid var(--border-color);">
-        <div style="position:absolute; top:0; left:0; width:100%; height:100%; overflow:hidden; pointer-events:none; opacity:0.12;">
+    <section class="py-20 relative overflow-hidden" style="background:linear-gradient(120deg, #343840 0%, #1a1d22 100%); color:var(--stadia-light); position:relative; overflow:hidden; padding:5rem 0; border-top:1px solid var(--border-color);">
+        <div style="position:absolute; top:0; left:0; width:100%; height:100%; overflow:hidden; pointer-events:none; opacity:0.14;">
             <div style="position:absolute; top:-50%; left:-25%; width:100%; height:100%; background:var(--stadia-accent); border-radius:50%; filter:blur(120px);"></div>
         </div>
         <div class="max-w-4xl mx-auto px-6 text-center relative z-10 fade-in-section" style="max-width:56rem; margin:auto; padding-left:1.5rem; padding-right:1.5rem; text-align:center; position:relative; z-index:10;">
-            <h2 class="text-4xl font-display font-black uppercase mb-6" style="margin-bottom:1.5rem; color:var(--text-primary);">Want more?</h2>
-            <p class="text-gray-400 text-lg mb-10" style="color:var(--text-secondary); font-size:1.125rem; margin-bottom:2.5rem;">
+            <h2 class="text-4xl font-display font-black uppercase mb-6" style="margin-bottom:1.5rem; color:var(--stadia-light);">Want more?</h2>
+            <p class="text-gray-400 text-lg mb-10" style="color:#bbc0d2; font-size:1.125rem; margin-bottom:2.5rem;">
                 Check out our full collection of web applications and experimental games.
             </p>
             <a href="store/store.html" class="btn-angled">Visit Store</a>
@@ -472,7 +568,6 @@
     <div id="footer-placeholder"></div>
     <script src="componets.js"></script>
     <script>
-        // Fade-in intersection observer
         const observerOptions = {
             threshold: 0.15,
             rootMargin: "0px 0px -50px 0px"
@@ -488,7 +583,6 @@
             observer.observe(section);
         });
 
-        // Accordion
         document.querySelectorAll('.accordion-trigger').forEach(trigger => {
             trigger.addEventListener('click', () => {
                 const content = trigger.nextElementSibling;

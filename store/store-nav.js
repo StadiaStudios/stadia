@@ -1,12 +1,9 @@
-// navbar.js
-// Responsive Hamburger Navbar for store/details-apps.html
-
 const navbar = document.createElement('nav');
 navbar.className = 'simple-navbar';
 navbar.innerHTML = `
   <a href="store.html" class="logo" aria-label="App Store Home">
     <img src="assets/favicon.png" alt="" style="width:32px;vertical-align:middle;">
-    <span style="font-weight:700;color:#318EB8;font-size:1.18em;margin-left:8px;vertical-align:middle;">App Store</span>
+    <span style="font-weight:700;color:#318EB8;font-size:1.18em;margin-left:8px;vertical-align:middle;">Stadia Store</span>
   </a>
   <button class="navbar-hamburger" aria-label="Toggle Navigation" aria-expanded="false" tabindex="0">
     <span class="bar"></span>
@@ -14,14 +11,12 @@ navbar.innerHTML = `
     <span class="bar"></span>
   </button>
   <ul class="navbar-links">
-    <li><a href="../index.html">Home</a></li>
+    <li><a href="../index.html">Homepage</a></li>
     <li><a href="store.html">Store</a></li>
-    <li><a href="top.html">Top Charts</a></li>
     <li><a href="about.html">About</a></li>
   </ul>
 `;
 
-// Navbar CSS for responsiveness and hamburger
 navbar.style.cssText = `
   display: flex;
   flex-wrap: wrap;
@@ -98,8 +93,6 @@ style.textContent = `
   border-radius: 2px;
   transition: all 0.32s cubic-bezier(.77,0,.18,1);
 }
-
-/* Hamburger open animation */
 .simple-navbar.active .navbar-hamburger .bar:nth-child(1) {
   transform: translateY(7px) rotate(45deg);
 }
@@ -109,7 +102,29 @@ style.textContent = `
 .simple-navbar.active .navbar-hamburger .bar:nth-child(3) {
   transform: translateY(-7px) rotate(-45deg);
 }
-
+.store-footer {
+  width: 100%;
+  background: #e3eefb;
+  border-top: 1.5px solid #d2e0ef;
+  color: #6e8898;
+  padding: 2.2em 0 1.1em 0;
+  text-align: center;
+  font-size: 1.02em;
+  letter-spacing: 0.01em;
+  font-weight: 500;
+  margin-top: 3.5em;
+  z-index: 10;
+}
+.store-footer a {
+  color: #318EB8;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 600;
+  transition: color 0.18s;
+}
+.store-footer a:hover {
+  color: #4CA1C4;
+}
 @media (max-width: 720px) {
   .simple-navbar {
     padding: 0.4em 1.4em;
@@ -151,13 +166,16 @@ style.textContent = `
   .simple-navbar .navbar-hamburger {
     display: flex;
   }
+  .store-footer {
+    font-size: 0.97em;
+    padding: 1.6em 0 0.8em 0;
+    margin-top: 2.4em;
+  }
 }
 `;
 
-// Insert the style tag only once
 document.head.appendChild(style);
 
-// Logo styling (still set inline for specificity/simplicity)
 navbar.querySelector('.logo').style.cssText = `
   display: flex;
   align-items: center;
@@ -165,16 +183,20 @@ navbar.querySelector('.logo').style.cssText = `
   text-decoration: none;
 `;
 
-// Get elements
 const ul = navbar.querySelector('ul');
 const hamburger = navbar.querySelector('.navbar-hamburger');
 
-// Insert navbar as the first child of <body>
+const footer = document.createElement('footer');
+footer.className = 'store-footer';
+footer.innerHTML = `
+  &copy; ${new Date().getFullYear()} Stadia Studios &mdash; Powered by <a href="https://stadiastudios.github.io/stadia/" target="_blank" rel="noopener">Stadia Studios</a>
+`;
+
 document.addEventListener('DOMContentLoaded', () => {
   const body = document.body;
   body.insertBefore(navbar, body.firstChild);
+  body.appendChild(footer);
 
-  // Hamburger toggling logic (with aria attributes)
   let expanded = false;
   hamburger.addEventListener('click', () => {
     expanded = !expanded;
@@ -185,7 +207,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Close nav when clicking outside (mobile)
   document.addEventListener('click', e => {
     if (
       expanded &&
@@ -197,7 +218,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Keyboard accessibility for hamburger (toggle on Enter or Space)
   hamburger.addEventListener('keydown', (e) => {
     if (e.key === ' ' || e.key === 'Enter') {
       hamburger.click();
@@ -205,7 +225,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Restore nav on resize
   window.addEventListener('resize', () => {
     if (window.innerWidth > 730) {
       navbar.classList.remove('active');
@@ -215,17 +234,16 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// Style + hover for links
 [...ul.querySelectorAll('a')].forEach(a => {
-    a.style.cssText = `
-      text-decoration: none;
-      color: #002642;
-      font-weight: 500;
-      font-size: 1.05em;
-      padding: 3px 0;
-      transition: color 0.18s;
-      display: inline-block;
-    `;
-    a.onmouseenter = () => a.style.color = "#4CA1C4";
-    a.onmouseleave = () => a.style.color = "#002642";
+  a.style.cssText = `
+    text-decoration: none;
+    color: #002642;
+    font-weight: 500;
+    font-size: 1.05em;
+    padding: 3px 0;
+    transition: color 0.18s;
+    display: inline-block;
+  `;
+  a.onmouseenter = () => a.style.color = "#4CA1C4";
+  a.onmouseleave = () => a.style.color = "#002642";
 });

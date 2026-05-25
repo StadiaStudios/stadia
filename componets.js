@@ -1,16 +1,15 @@
 const components = {
-    navbar: `
+  navbar: `
     <style>
       #main-nav {
         position: fixed;
         top: 0; left: 0; width: 100%;
         z-index: 100;
-        background: rgba(0,0,0, 0.80);
+        background: rgba(0,0,0,0.80);
         border-bottom: 1px solid rgba(255,255,255,0.05);
         backdrop-filter: blur(12px);
         transition: background 0.3s, box-shadow 0.3s;
       }
-
       .navbar-inner {
         max-width: 1024px;
         margin: 0 auto;
@@ -20,7 +19,6 @@ const components = {
         align-items: center;
         justify-content: space-between;
       }
-
       .navbar-brand {
         display: flex;
         align-items: center;
@@ -49,7 +47,6 @@ const components = {
         object-fit: cover;
         background: #232323;
       }
-
       .navbar-menu {
         display: flex;
         align-items: center;
@@ -66,7 +63,6 @@ const components = {
       .navbar-link:hover {
         color: #fff;
       }
-
       .navbar-actions {
         display: flex;
         align-items: center;
@@ -91,7 +87,6 @@ const components = {
       #mobile-menu-button:hover {
         color: #fff;
       }
-
       @media (max-width: 768px) {
         .navbar-menu {
           display: none;
@@ -102,27 +97,27 @@ const components = {
       }
     </style>
     <nav id="main-nav">
-        <div class="navbar-inner">
-            <div class="navbar-brand" onclick="window.location.href='index.html'">
-                <img src="assets/favicon.png" alt="Logo">
-                <span class="navbar-title">STADIASTUDIOS</span>
-            </div>
-            <div class="navbar-menu">
-                <a href="index.html" class="navbar-link">Home</a>
-                <a href="store/store.html" class="navbar-link">App Store</a>
-                <a href="https://discord.gg/UGBFVrcKKx" class="navbar-link">Community</a>
-            </div>
-            <div class="navbar-actions">
-                <a href="mailto:stadiastudios.support@proton.me" class="navbar-icon-link">
-                    <i class="fas fa-envelope" style="font-size:13px;"></i>
-                </a>
-                <button id="mobile-menu-button">
-                    <i class="fa-solid fa-bars-staggered" style="font-size:14px;"></i>
-                </button>
-            </div>
+      <div class="navbar-inner">
+        <div class="navbar-brand" onclick="window.location.href='index.html'">
+          <img src="assets/favicon.png" alt="Logo">
+          <span class="navbar-title">STADIASTUDIOS</span>
         </div>
+        <div class="navbar-menu">
+          <a href="index.html" class="navbar-link">Home</a>
+          <a href="https://forms.gle/W3R8sizfH6YcUbeD9" class="navbar-link">Report & Feedback</a>
+          <a href="store/store.html" class="navbar-link">App Store</a>
+          <a href="https://discord.gg/UGBFVrcKKx" class="navbar-link">Community</a>
+        </div>
+        <div class="navbar-actions">
+          <a href="mailto:stadiastudios.support@proton.me" class="navbar-icon-link">
+            <i class="fas fa-envelope" style="font-size:13px;"></i>
+          </a>
+          <button id="mobile-menu-button">
+            <i class="fa-solid fa-bars-staggered" style="font-size:14px;"></i>
+          </button>
+        </div>
+      </div>
     </nav>
-
     <style>
       #mobile-menu {
         position: fixed;
@@ -168,7 +163,7 @@ const components = {
         z-index: 10;
       }
       #mobile-menu-close:hover {
-        color: #ffffff;
+        color: #fff;
       }
       .mobile-nav-link {
         font-size: 28px;
@@ -183,27 +178,28 @@ const components = {
         color: #8c939a;
       }
       .mobile-nav-link:not(.special):hover {
-        color: #ff470a;
+        color: #2986d2;
       }
       .mobile-nav-link.special:hover {
-        color:rgb(230, 2, 2);
+        color: #2986d2;
       }
       @media (min-width: 769px) {
         #mobile-menu { display: none !important; }
       }
     </style>
     <div id="mobile-menu">
-        <div id="mobile-menu-backdrop"></div>
-        <div id="mobile-menu-panel">
-            <button id="mobile-menu-close">&times;</button>
-            <a href="index.html" class="mobile-nav-link">Home</a>
-            <a href="store/store.html" class="mobile-nav-link">App Store</a>
-            <a href="mailto:stadiastudios.support@proton.me" class="mobile-nav-link">Contact Us</a>
-            <a href="https://discord.gg/UGBFVrcKKx" class="mobile-nav-link special">Discord</a>
-        </div>
+      <div id="mobile-menu-backdrop"></div>
+      <div id="mobile-menu-panel">
+        <button id="mobile-menu-close">&times;</button>
+        <a href="index.html" class="mobile-nav-link">Home</a>
+        <a href="https://forms.gle/W3R8sizfH6YcUbeD9" class="mobile-nav-link">Report & Feedback</a>
+        <a href="store/store.html" class="mobile-nav-link">App Store</a>
+        <a href="mailto:stadiastudios.support@proton.me" class="mobile-nav-link">Contact Us</a>
+        <a href="https://discord.gg/UGBFVrcKKx" class="mobile-nav-link special">Discord</a>
+      </div>
     </div>
-    `,
-    footer: `
+  `,
+  footer: `
     <style>
       .custom-footer {
         background: #000;
@@ -303,19 +299,17 @@ const components = {
           <div class="footer-section">
             <h4>Games</h4>
             <ul>
-              <li><a href="https://drive.google.com/file/d/14gJk2N3nFoSUFlROreiqdDq7NsEqcGUF/view?usp=sharing">Jet Surfers Classic</a></li>
               <li><a href="https://stadiastudios.github.io/JetSurfers2/">Jet Surfers II</a></li>
-              <li><a href="https://stadiastudios.github.io/stadia/details-lumbertycoon.html">LumberTycoon</a></li>
               <li><a href="https://stadiastudios.github.io/candyswap">CandySwap</a></li>
             </ul>
           </div>
           <div class="footer-section">
             <h4>Applications</h4>
             <ul>
-              <li><a href="https://stadiabeta.github.io/tool-panel/">StadiaTool Panel</a></li>
+              <li><a href="https://stadiabeta.github.io/tool-panel/">Stadia Tool Panel</a></li>
               <li><a href="https://stadiastudios.github.io/passpro/">PassPro</a></li>
               <li><a href="https://stadiastudios.github.io/ourjourney/splash">Our Journey</a></li>
-              <li><a href="details-recorderpro.html">RecorderPRO</a></li>
+              <li><a href="store/recorder-pro.html">RecorderPRO</a></li>
             </ul>
           </div>
           <div class="footer-section">
@@ -339,56 +333,56 @@ const components = {
         </div>
       </div>
     </footer>
-    `
+  `
 };
 
 function initLayout() {
-    const navPlaceholder = document.getElementById('navbar-placeholder');
-    if (navPlaceholder) navPlaceholder.innerHTML = components.navbar;
+  const navPlaceholder = document.getElementById('navbar-placeholder');
+  if (navPlaceholder) navPlaceholder.innerHTML = components.navbar;
 
-    const footerPlaceholder = document.getElementById('footer-placeholder');
-    if (footerPlaceholder) footerPlaceholder.innerHTML = components.footer;
+  const footerPlaceholder = document.getElementById('footer-placeholder');
+  if (footerPlaceholder) footerPlaceholder.innerHTML = components.footer;
 
-    setupEvents();
+  setupEvents();
 }
 
 function setupEvents() {
-    window.addEventListener('scroll', () => {
-        const nav = document.getElementById('main-nav');
-        if (!nav) return;
-        if (window.scrollY > 20) {
-            nav.style.background = 'rgba(0,0,0,0.95)';
-            nav.style.boxShadow = '0 2px 16px 0 rgba(0,0,0,0.5)';
-        } else {
-            nav.style.background = 'rgba(0,0,0,0.80)';
-            nav.style.boxShadow = 'none';
-        }
-    });
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('main-nav');
+    if (!nav) return;
+    if (window.scrollY > 20) {
+      nav.style.background = 'rgba(0,0,0,0.95)';
+      nav.style.boxShadow = '0 2px 16px 0 rgba(0,0,0,0.5)';
+    } else {
+      nav.style.background = 'rgba(0,0,0,0.80)';
+      nav.style.boxShadow = 'none';
+    }
+  });
 
-    const mobileMenu = document.getElementById('mobile-menu');
-    const menuBackdrop = document.getElementById('mobile-menu-backdrop');
-    const openBtn = document.getElementById('mobile-menu-button');
-    const closeBtn = document.getElementById('mobile-menu-close');
-    const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const menuBackdrop = document.getElementById('mobile-menu-backdrop');
+  const openBtn = document.getElementById('mobile-menu-button');
+  const closeBtn = document.getElementById('mobile-menu-close');
+  const mobileLinks = document.querySelectorAll('.mobile-nav-link');
 
-    const toggleMenu = (show) => {
-        if (!mobileMenu) return;
-        if (show) {
-            mobileMenu.classList.add('visible');
-            document.body.style.overflow = 'hidden';
-        } else {
-            mobileMenu.classList.remove('visible');
-            document.body.style.overflow = 'auto';
-        }
-    };
+  const toggleMenu = (show) => {
+    if (!mobileMenu) return;
+    if (show) {
+      mobileMenu.classList.add('visible');
+      document.body.style.overflow = 'hidden';
+    } else {
+      mobileMenu.classList.remove('visible');
+      document.body.style.overflow = 'auto';
+    }
+  };
 
-    if (openBtn) openBtn.onclick = () => toggleMenu(true);
-    if (closeBtn) closeBtn.onclick = () => toggleMenu(false);
-    if (menuBackdrop) menuBackdrop.onclick = () => toggleMenu(false);
+  if (openBtn) openBtn.onclick = () => toggleMenu(true);
+  if (closeBtn) closeBtn.onclick = () => toggleMenu(false);
+  if (menuBackdrop) menuBackdrop.onclick = () => toggleMenu(false);
 
-    mobileLinks.forEach(link => {
-        link.onclick = () => toggleMenu(false);
-    });
+  mobileLinks.forEach(link => {
+    link.onclick = () => toggleMenu(false);
+  });
 }
 
 window.addEventListener('DOMContentLoaded', initLayout);

@@ -22,7 +22,7 @@
             --text-detail: #69829a;
             --price-bg: #e3eefb;
             --shadow: 0 8px 40px 0 rgba(38,40,88,.17);
-            --container-width: 100vw; /* make fullscreen */
+            --container-width: 100vw;
             --scrollbar-bg: #e3eefb;
             --scrollbar-thumb: #4CA1C4;
             --scrollbar-thumb-hover: #318EB8;
@@ -284,7 +284,6 @@
            outline-offset: 1.5px;
         }
     </style>
-    <!-- Move the navbar script to the end of body so DOM is ready, but also add fallback HTML nav for noscript -->
 </head>
 <body>
   <div class="container" role="main">
@@ -304,15 +303,13 @@
               <i class="fas fa-star-half-alt" aria-hidden="true"></i>
             </span>
             <span aria-label="4.5 out of 5">4.5</span>
-            <span style="font-size:0.97em;color:var(--gray-400);" aria-label="0 reviews">
-                0
-            </span>
+            <span style="font-size:0.97em;color:var(--gray-400);" aria-label="0 reviews">0</span>
           </div>
         </div>
         <div class="meta-bar" style="margin-bottom:0;">
-            <div class="meta-block"><i class="fas fa-shipping-fast" aria-hidden="true"></i> Consecutive Updates</div>
-            <div class="meta-block"><i class="fas fa-mobile-alt" aria-hidden="true"></i> Mobile & Desktop</div>
-          </div>
+          <div class="meta-block"><i class="fas fa-shipping-fast" aria-hidden="true"></i> Consecutive Updates</div>
+          <div class="meta-block"><i class="fas fa-mobile-alt" aria-hidden="true"></i> Mobile & Desktop</div>
+        </div>
       </div>
     </div>
     <div class="screenshots-bar" aria-label="App Screenshots">
@@ -326,9 +323,8 @@
         <button class="action-btn secondary" aria-label="Share App" id="share-btn"><i class="fas fa-share-alt" aria-hidden="true"></i> Share</button>
       </div>
       <div class="app-description">
-        NEW Themes Update OUT NOW!. Free Custom app Themes in settings.
-<br>
-Free Simple & secure Password manager by StadiaStudios No Limits. No Ads. No Signup. No Knowledge towards user Passwords, Easy backups Autofill extension support
+        NEW Themes Update OUT NOW! Free Custom app Themes in settings.<br>
+        Free, simple & secure password manager by StadiaStudios. No limits. No ads. No signup. No access to user passwords. Easy backups. Autofill extension support.
       </div>
       <ul class="feature-list">
         <li>Export/Import Features</li>
@@ -419,7 +415,6 @@ Free Simple & secure Password manager by StadiaStudios No Limits. No Ads. No Sig
   </div>
 
   <script>
-    // Share button copies page URL to clipboard and gives feedback
     document.addEventListener('DOMContentLoaded', function() {
       const shareBtn = document.getElementById('share-btn');
       if (shareBtn) {
@@ -440,7 +435,6 @@ Free Simple & secure Password manager by StadiaStudios No Limits. No Ads. No Sig
       }
     });
   </script>
-
   <script src="store-nav.js"></script>
 </body>
 </html>

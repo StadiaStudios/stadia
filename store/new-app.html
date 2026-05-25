@@ -22,7 +22,7 @@
             --text-detail: #69829a;
             --price-bg: #e3eefb;
             --shadow: 0 8px 40px 0 rgba(38,40,88,.17);
-            --container-width: 100vw; /* make fullscreen */
+            --container-width: 100vw;
             --scrollbar-bg: #e3eefb;
             --scrollbar-thumb: #4CA1C4;
             --scrollbar-thumb-hover: #318EB8;
@@ -125,8 +125,6 @@
             -webkit-overflow-scrolling: touch;
             scroll-snap-type: x mandatory;
             scrollbar-height: thin;
-        }
-        .screenshots-bar {
             scrollbar-width: thin;
             scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-bg);
         }
@@ -230,7 +228,7 @@
             font-size: 1.01rem;
         }
         .info-table tr td {
-            padding: 10px 0 10px 0;
+            padding: 10px 0;
             vertical-align: top;
         }
         .info-table tr td:first-child {
@@ -284,7 +282,6 @@
            outline-offset: 1.5px;
         }
     </style>
-    <!-- Move the navbar script to the end of body so DOM is ready, but also add fallback HTML nav for noscript -->
 </head>
 <body>
   <div class="container" role="main">
@@ -408,11 +405,9 @@
         </tr>
       </table>
     </div>
-    </div>
   </div>
 
   <script>
-    // Share button copies page URL to clipboard and gives feedback
     document.addEventListener('DOMContentLoaded', function() {
       const shareBtn = document.getElementById('share-btn');
       if (shareBtn) {
@@ -433,7 +428,6 @@
       }
     });
   </script>
-
   <script src="store-nav.js"></script>
 </body>
 </html>
