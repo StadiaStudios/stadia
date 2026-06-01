@@ -61,7 +61,6 @@
             width: 40px;
             height: 40px;
             border-radius: 8px;
-            background: linear-gradient(120deg, #4ca1c4 60%, #eaf0f7 100%);
             box-shadow: 0 2px 14px 0 rgba(60,140,180,0.09);
         }
         .navbar-logo img {
@@ -79,8 +78,6 @@
             color: var(--accent);
             font-weight: 700;
         }
-
-        /* NavBar/Search Combo */
         .navbar-header-group {
             display: flex;
             flex-direction: column;
@@ -88,8 +85,6 @@
             background: var(--card-bg);
             padding-bottom: 0.5rem;
         }
-
-        /* Search Bar */
         .sticky-search-bar {
             display: none;
         }
@@ -134,7 +129,6 @@
             font-weight: 500;
             letter-spacing: 0.02em;
         }
-        /* Navbar Sub/Description */
         .navbar-sub {
             color: var(--text-secondary);
             margin: 1.4rem 0 0.7rem 0;
@@ -142,7 +136,6 @@
             font-size: 1.09rem;
             letter-spacing: 0.01em;
         }
-        /* Responsive grid for store */
         .store-meta-bar {
             display: flex;
             align-items: center;
@@ -239,29 +232,66 @@
         .store-card-footer {
             margin-top: auto;
         }
-        .store-card-btn {
-            width: 100%;
-            display: flex;
+        .store-card-btn,
+        .featured-cta-btn {
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5em;
-            padding: 0.68em 0;
-            background: var(--accent);
-            color: #fff;
-            border: none;
-            border-radius: 0.5em;
-            font-size: 0.97rem;
-            font-weight: 600;
-            letter-spacing: 0.03em;
+            gap: 0.73em;
+            position: relative;
+            --main-color: var(--primary, #254356);
+            background: #fff;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            border-radius: 999px;
+            min-width: 130px;
+            min-height: 44px;
+            padding: 0.55em 1.3em 0.55em 1.18em;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
             text-transform: none;
-            transition: background var(--transition-fast);
             cursor: pointer;
+            user-select: none;
+            text-decoration: none;
+            box-shadow: 0 2px 18px rgba(45,77,110,0.08);
+            transition: border-color .14s, color .17s, background .16s;
+            outline: none;
+        }
+        .store-card-btn:hover,
+        .store-card-btn:focus,
+        .featured-cta-btn:hover,
+        .featured-cta-btn:focus {
+            background: #ff3434;
+            color: #fff;
+            border-color: #ff6969;
             text-decoration: none;
         }
-        .store-card-btn:hover, .store-card-btn:focus {
-            background: var(--primary-hover);
-            color: #fff;
-            text-decoration: none;
+        .store-card-btn .external-link,
+        .featured-cta-btn .external-link,
+        .featured-cta-btn .fa-play,
+        .store-card-btn .fa-play {
+            font-size: 1.14em;
+            margin-left: 0.13em;
+            vertical-align: -0.12em;
+        }
+        .store-card-btn span,
+        .featured-cta-btn span {
+            position: relative;
+            z-index: 2;
+        }
+        .store-card-btn:not([target]) {
+            background: #f7fafc;
+            color: var(--primary);
+            border-color: var(--border, #e1e7ed);
+            font-weight: 600;
+            box-shadow: none;
+        }
+        .store-card-btn:not([target]):hover,
+        .store-card-btn:not([target]):focus {
+            background: #eaf0f5;
+            color: #a31717;
+            border-color: #a31717;
         }
         .external-link {
             font-size: 1em;
@@ -296,7 +326,6 @@
             margin-top: 0.6rem;
             text-decoration: underline;
         }
-        /* Featured Card */
         .featured-card {
             display: flex;
             align-items: stretch;
@@ -340,28 +369,6 @@
             font-weight: 500;
             line-height: 1.6;
         }
-        .featured-cta-btn {
-            background: var(--accent);
-            color: #fff;
-            border: none;
-            border-radius: 0.56em;
-            font-size: 1.01rem;
-            font-weight: 600;
-            text-transform: none;
-            padding: 0.68em 1.7em;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5em;
-            box-shadow: 0 2px 10px 0 rgba(76,161,196,0.09);
-            transition: background var(--transition-fast), box-shadow var(--transition-fast);
-        }
-        .featured-cta-btn:hover, .featured-cta-btn:focus {
-            background: var(--primary-hover);
-            box-shadow: 0 6px 18px 0 rgba(44,91,136,.14);
-            color: #fff;
-        }
         @media (max-width: 900px) {
             .featured-card {
                 flex-direction: column;
@@ -369,14 +376,16 @@
                 margin-bottom: 1.6rem;
             }
             .featured-card img {
-                width: 100%; min-width: 0; max-width: unset; height: 160px;
+                width: 100%;
+                min-width: 0;
+                max-width: unset;
+                height: 160px;
             }
             .featured-card-content {
                 padding: 1.4rem 1.2rem 1.7rem 1.2rem;
             }
         }
         @media (max-width: 600px) {
-            /* Center the header group contents for mobile */
             .navbar-header-group {
                 align-items: center;
                 padding-bottom: 0.7rem;
@@ -439,24 +448,6 @@
             </div>
         </div>
     </div>
-    <!-- Disabled sticky search bar visually now
-    <div class="sticky-search-bar">
-        <div class="sticky-search-bar-inner">
-            <div class="navbar-search" id="navbar-search-box">
-                <i class="fas fa-search"></i>
-                <input 
-                    type="text"
-                    class="navbar-search-input" 
-                    id="app-search"
-                    placeholder="Search apps..."
-                    aria-label="Search apps"
-                    autocomplete="off"
-                    spellcheck="false"
-                >
-            </div>
-        </div>
-    </div>
-    -->
     <div class="container">
         <div class="navbar-sub">
             Discover quality applications and tools to advance your projects and productivity.
@@ -473,7 +464,7 @@
                     </div>
                     <a href="https://stadiastudios.github.io/candyswap/" class="featured-cta-btn" target="_blank" rel="noopener">
                         <i class="fas fa-play"></i>
-                        Play Now
+                        <span>Play Now</span>
                     </a>
                 </div>
             </div>
@@ -499,7 +490,7 @@
                         <div class="store-card-description">Expanded content and upgrades for the classic water racer experience.</div>
                         <div class="store-card-footer">
                             <a href="jetsurfers2.html" class="store-card-btn">
-                                View Details
+                                <span>View Details</span>
                             </a>
                         </div>
                     </div>
@@ -543,7 +534,7 @@
                         <div class="store-card-description">A trusted password manager designed with simplicity and security in mind.</div>
                         <div class="store-card-footer">
                             <a href="passpro.html" class="store-card-btn">
-                                View Details
+                                <span>View Details</span>
                             </a>
                         </div>
                     </div>
@@ -557,7 +548,7 @@
                         <div class="store-card-description">High-fidelity recording of browser audio and video up to 1080p.</div>
                         <div class="store-card-footer">
                             <a href="recorder-pro.html" class="store-card-btn">
-                                View Details
+                                <span>View Details</span>
                             </a>
                         </div>
                     </div>

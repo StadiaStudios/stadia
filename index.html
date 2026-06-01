@@ -359,67 +359,6 @@
             font-size: 0.8em;
             opacity: 0.85;
         }
-        .accordion-trigger {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 0;
-            font-size: 1rem;
-            font-weight: 600;
-            background: none;
-            border: none;
-            color: var(--text-primary);
-            text-align: left;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-        .accordion-trigger:hover,
-        .accordion-trigger.is-open {
-            color: var(--stadia-accent);
-        }
-        .accordion-trigger i {
-            transition: transform 0.3s;
-        }
-        .accordion-trigger.is-open i {
-            transform: rotate(180deg);
-        }
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-            padding-left: 1rem;
-            padding-right: 1rem;
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            margin-bottom: 0.5rem;
-            background: transparent;
-        }
-        .accordion-content.is-open {
-            max-height: 500px;
-            transition: max-height 0.6s cubic-bezier(.5, .5, .01, 1.0);
-        }
-        .custom-link {
-            color: var(--stadia-accent);
-            text-decoration: underline;
-            text-underline-offset: 4px;
-            text-decoration-thickness: 2px;
-            text-decoration-color: rgba(255,71,10,0.2);
-            transition: color 0.2s;
-        }
-        .custom-link:hover {
-            color: var(--stadia-accent-hover);
-        }
-        .recent-updates-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem 2.1rem;
-        }
-        @media (max-width:900px) {
-            .recent-updates-grid {
-                grid-template-columns: 1fr;
-            }
-        }
     </style>
 </head>
 <body>
@@ -437,75 +376,15 @@
                 <a href="mailto:stadiastudios.support@proton.me" class="btn-angled">Contact Us</a>
                 <a href="store/store.html" class="btn-angled">View Full Library</a>
             </div>
-        </div>
-    </header>
-    <section style="background:var(--stadia-black); padding:6rem 0;">
-        <div class="container">
-            <div class="fade-in-section" style="margin-bottom:4rem;">
-                <h2 style="font-size:2.25rem;font-weight:800;text-transform:uppercase;color:var(--text-primary);font-family:'Barlow', 'Inter', Arial, sans-serif;">Recent Updates</h2>
-            </div>
-            <div class="recent-updates-grid">
-                <div>
-                    <h3 class="text-xl font-bold" style="color:var(--stadia-accent);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:2rem;">App Updates</h3>
-                    <div style="border-top:1px solid var(--border-color);">
-                        <button class="accordion-trigger">
-                            <span class="font-bold">OurJourney Premium - No Longer Needed!</span>
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div class="accordion-content">
-                            OurJourney has been updated and now you can choose custom app themes for free!
-                        </div>
-                    </div>
-                    <div style="border-top:1px solid var(--border-color);">
-                        <button class="accordion-trigger">
-                            <span class="font-bold">PassPro New Themes Update! - Version 1.15.14</span>
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div class="accordion-content">
-                            New themes can now be applied. Bug fixes when zooming in the web app.
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <h3 class="text-xl font-bold" style="color:var(--stadia-accent);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:2rem;">Dev Blog</h3>
-                    <div style="border-top:1px solid var(--border-color);">
-                        <button class="accordion-trigger">
-                            <span class="font-bold">New Website Overhaul</span>
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div class="accordion-content">
-                            As of May 23rd, 2026, our home website and PassPro app are being rebuilt as raw HTML and CSS (unlike most of our apps relying on Tailwind CSS). This may bring some visual changes as we move forward.
-                        </div>
-                    </div>
-                    <div style="border-top:1px solid var(--border-color);">
-                        <button class="accordion-trigger">
-                            <span class="font-bold">New Contact Feature</span>
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div class="accordion-content">
-                            As of April 21st, 2026, you can reach us via support email. Also, join our Discord to put in a ticket. Our apps feature a Contact option.<br>
-                            Email us here: <a class="custom-link" href="mailto:stadiastudios.support@proton.me">stadiastudios.support@proton.me</a>
-                        </div>
-                    </div>
-                    <div style="border-top:1px solid var(--border-color);">
-                        <button class="accordion-trigger">
-                            <span class="font-bold">New Updates to Our Home Website</span>
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div class="accordion-content">
-                            It's now dark mode like the original. App icons updated. Armory Legends has shut down. New sections and banners added.
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div style="margin-top:1.5rem;">
+            <div>
                 <a href="https://forms.gle/W3R8sizfH6YcUbeD9" class="report-bug-btn">
                     <i class="fas fa-bug"></i>
                     Report a Bugged App
                 </a>
             </div>
         </div>
-    </section>
+    </header>
+
     <section class="apps-section">
         <div class="apps-inner fade-in-section">
             <h2 class="apps-title">Apps Built to Last</h2>
@@ -581,14 +460,6 @@
         }, observerOptions);
         document.querySelectorAll('.fade-in-section').forEach(section => {
             observer.observe(section);
-        });
-
-        document.querySelectorAll('.accordion-trigger').forEach(trigger => {
-            trigger.addEventListener('click', () => {
-                const content = trigger.nextElementSibling;
-                trigger.classList.toggle('is-open');
-                if (content) content.classList.toggle('is-open');
-            });
         });
     </script>
 </body>

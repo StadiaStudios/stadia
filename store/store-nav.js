@@ -2,8 +2,8 @@ const navbar = document.createElement('nav');
 navbar.className = 'simple-navbar';
 navbar.innerHTML = `
   <a href="store.html" class="logo" aria-label="App Store Home">
-    <img src="assets/favicon.png" alt="" style="width:32px;vertical-align:middle;">
-    <span style="font-weight:700;color:#318EB8;font-size:1.18em;margin-left:8px;vertical-align:middle;">Stadia Store</span>
+    <img src="assets/favicon.png" alt="" style="border-radius:100%;width:32px;vertical-align:middle;filter:brightness(90%);">
+    <span style="font-weight:700;color:#fff;font-size:1.18em;margin-left:8px;vertical-align:middle;">STADIA</span>
   </a>
   <button class="navbar-hamburger" aria-label="Toggle Navigation" aria-expanded="false" tabindex="0">
     <span class="bar"></span>
@@ -22,8 +22,8 @@ navbar.style.cssText = `
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  background: #e3eefb;
-  box-shadow: 0 1px 12px rgba(60,80,120,0.07);
+  background: #111;
+  box-shadow: 0 1px 12px rgba(10,10,20,0.17);
   padding: 0.6em 2em;
   min-height: 54px;
   z-index: 100;
@@ -38,6 +38,7 @@ style.textContent = `
   top: 0;
   left: 0;
   right: 0;
+  background: #111 !important;
 }
 .simple-navbar .logo {
   display: flex;
@@ -52,19 +53,20 @@ style.textContent = `
   margin: 0;
   padding: 0;
   transition: max-height 0.3s cubic-bezier(.77,0,.18,1), opacity 0.3s;
+  background: transparent;
 }
 .simple-navbar .navbar-links li a {
   text-decoration: none;
-  color: #002642;
+  color: #f5f5f7;
   font-weight: 500;
   font-size: 1.05em;
   padding: 3px 0;
-  transition: color 0.18s;
+  transition: color 0.2s;
   display: inline-block;
 }
 .simple-navbar .navbar-links li a:hover,
 .simple-navbar .navbar-links li a:focus {
-  color: #4CA1C4;
+  color: #b1b5bd;
 }
 .simple-navbar .navbar-hamburger {
   background: none;
@@ -82,14 +84,14 @@ style.textContent = `
   z-index: 102;
 }
 .simple-navbar .navbar-hamburger:focus-visible {
-  outline: 2px solid #4CA1C4;
+  outline: 2px solid #fff;
 }
 .simple-navbar .navbar-hamburger .bar {
   display: block;
   width: 26px;
   height: 3px;
   margin: 4px 0;
-  background: #318EB8;
+  background: #fff;
   border-radius: 2px;
   transition: all 0.32s cubic-bezier(.77,0,.18,1);
 }
@@ -135,13 +137,13 @@ style.textContent = `
     top: 54px;
     left: 0;
     right: 0;
-    background: #e3eefb;
+    background: #111;
     gap: 0;
     max-height: 0;
     overflow: hidden;
     opacity: 0;
-    border-bottom: 1px solid #d2e0ef;
-    box-shadow: 0 4px 18px rgba(80,120,170,0.07);
+    border-bottom: 1px solid #232323;
+    box-shadow: 0 4px 18px rgba(60,60,60,0.07);
   }
   .simple-navbar.active .navbar-links {
     max-height: 220px;
@@ -149,7 +151,7 @@ style.textContent = `
     transition: max-height 0.32s cubic-bezier(.77,0,.18,1), opacity 0.32s;
   }
   .simple-navbar .navbar-links li {
-    border-bottom: 1px solid #e7e9ee;
+    border-bottom: 1px solid #181818;
     padding: 0;
     margin: 0;
   }
@@ -161,7 +163,7 @@ style.textContent = `
     width: 100%;
     display: block;
     font-size: 1.09em;
-    color: #002642;
+    color: #f5f5f7;
   }
   .simple-navbar .navbar-hamburger {
     display: flex;
@@ -198,6 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
   body.appendChild(footer);
 
   let expanded = false;
+
   hamburger.addEventListener('click', () => {
     expanded = !expanded;
     hamburger.setAttribute('aria-expanded', expanded);
@@ -208,10 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.addEventListener('click', e => {
-    if (
-      expanded &&
-      !navbar.contains(e.target)
-    ) {
+    if (expanded && !navbar.contains(e.target)) {
       expanded = false;
       hamburger.setAttribute('aria-expanded', 'false');
       navbar.classList.remove('active');
@@ -237,13 +237,13 @@ document.addEventListener('DOMContentLoaded', () => {
 [...ul.querySelectorAll('a')].forEach(a => {
   a.style.cssText = `
     text-decoration: none;
-    color: #002642;
+    color: #f5f5f7;
     font-weight: 500;
     font-size: 1.05em;
     padding: 3px 0;
     transition: color 0.18s;
     display: inline-block;
   `;
-  a.onmouseenter = () => a.style.color = "#4CA1C4";
-  a.onmouseleave = () => a.style.color = "#002642";
+  a.onmouseenter = () => (a.style.color = "#b1b5bd");
+  a.onmouseleave = () => (a.style.color = "#f5f5f7");
 });
