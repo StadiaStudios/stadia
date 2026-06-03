@@ -7,22 +7,23 @@
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         :root {
-            --primary: #254356;
+            --primary: #22354a;
             --primary-hover: #176aa3;
-            --accent: #4ca1c4;
-            --neutral-bg: #f5f7fa;
-            --neutral-bg-alt: #eaf0f5;
+            --accent: #37a2d5;
+            --neutral-bg: #f8fafc;
+            --neutral-bg-alt: #eef3f7;
             --card-bg: #fff;
             --border: #e1e7ed;
-            --text-main: #212b35;
-            --text-secondary: #6e8898;
-            --text-subtle: #9db5c6;
-            --rounded: 1.1rem;
+            --text-main: #1a2533;
+            --text-secondary: #5a7893;
+            --text-subtle: #adb8c4;
+            --rounded: 1.08rem;
             --transition-fast: 0.16s;
             --shadow: 0 2px 12px 0 rgba(44,71,130,0.07);
-            --container-width: 1220px;
+            --container-width: 1180px;
         }
         html, body {
             margin: 0; padding: 0;
@@ -35,33 +36,45 @@
         .container {
             max-width: var(--container-width);
             margin: 0 auto;
-            padding: 0 1.6rem;
+            padding: 0 1.2rem;
+        }
+        .navbar-header-group {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            background: var(--card-bg);
+            padding-bottom: 0.7rem;
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 5px 15px 0 rgba(35, 90, 130, 0.04);
+            margin-bottom: 0.5rem;
         }
         .navbar-inner {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 1.5rem;
-            padding: 1.3rem 0;
+            gap: 1.3rem;
+            padding: 1.25rem 0 0.7rem 0;
+            flex-direction: column;
+            width: 100%;
             max-width: var(--container-width);
             margin: 0 auto;
-            flex-direction: column;
         }
         .navbar-brand {
             display: flex;
             align-items: center;
             text-decoration: none;
-            gap: 0.7rem;
+            gap: 0.55rem;
             justify-content: center;
         }
         .navbar-logo {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            box-shadow: 0 2px 14px 0 rgba(60,140,180,0.09);
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: #f3fcff;
+            box-shadow: 0 1px 10px 0 rgba(60,140,180,0.07);
         }
         .navbar-logo img {
             width: 24px; height: 24px;
@@ -69,30 +82,22 @@
             border-radius: 6px;
         }
         .navbar-title {
-            font-size: 1.44rem;
+            font-size: 1.6rem;
             font-weight: 700;
             letter-spacing: -0.01em;
             color: var(--primary);
+            text-shadow: 0 0.5px 0 rgba(19,42,76,.08);
         }
         .navbar-accent {
             color: var(--accent);
             font-weight: 700;
-        }
-        .navbar-header-group {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background: var(--card-bg);
-            padding-bottom: 0.5rem;
-        }
-        .sticky-search-bar {
-            display: none;
+            letter-spacing: 0.01em;
         }
         .navbar-search-row {
             display: flex;
             justify-content: center;
             width: 100%;
-            margin-top: 0.5em;
+            margin-top: 0.7em;
         }
         .navbar-search {
             background: var(--neutral-bg-alt);
@@ -100,63 +105,65 @@
             border-radius: 2rem;
             display: flex;
             align-items: center;
-            padding: 0.35rem 0.9rem;
+            padding: 0.40rem 1.05rem;
             width: 100%;
-            max-width: 340px;
-            box-shadow: 0 1px 8px 0 rgba(44,91,136,0.06);
+            max-width: 370px;
+            box-shadow: 0 1px 8px 0 rgba(44,91,136,0.05);
             transition: box-shadow var(--transition-fast), border-color var(--transition-fast);
         }
         .navbar-search:focus-within {
             border-color: var(--accent);
             background: #f8fcfe;
-            box-shadow: 0 0 0 3px rgba(76,161,196,0.09);
+            box-shadow: 0 0 0 3px rgba(76,161,196,0.08);
         }
         .navbar-search .fa-search {
-            color: #b3cbde;
-            font-size: 1.01rem;
+            color: #a6c7db;
+            font-size: 1.13rem;
         }
         .navbar-search-input {
             border: none;
             background: transparent;
             outline: none;
-            font-size: 1.01rem;
+            font-size: 1.07rem;
             color: var(--text-main);
-            margin-left: 0.8rem;
+            margin-left: 0.7rem;
             width: 100%;
         }
         .navbar-search-input::placeholder {
-            color: #b1bfd1;
+            color: #b9c5d4;
             font-weight: 500;
-            letter-spacing: 0.02em;
+            letter-spacing: 0.01em;
+            font-size: 1.02rem;
         }
         .navbar-sub {
             color: var(--text-secondary);
-            margin: 1.4rem 0 0.7rem 0;
+            margin: 1.1rem 0 0.9rem 0;
             font-weight: 500;
-            font-size: 1.09rem;
-            letter-spacing: 0.01em;
+            font-size: 1.07rem;
+            letter-spacing: 0.02em;
+            max-width: 640px;
         }
         .store-meta-bar {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 1.6rem;
-            padding-bottom: 0.7rem;
+            margin-bottom: 1.7rem;
+            padding-bottom: 0.6rem;
             border-bottom: 1px solid var(--border);
         }
         .apps-count-badge {
             background: var(--neutral-bg-alt);
             color: var(--primary);
             border-radius: 1.2em;
-            padding: 3px 15px 4px 15px;
-            font-size: 0.93rem;
+            padding: 3.5px 14px 5px 13px;
+            font-size: 0.95rem;
             font-weight: 500;
-            margin-left: 0.85rem;
+            margin-left: 0.78rem;
         }
         .store-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 2.1rem;
+            gap: 2rem;
         }
         @media (min-width: 560px) {
             .store-grid {
@@ -177,43 +184,44 @@
             background: var(--card-bg);
             border: 1.5px solid var(--border);
             border-radius: var(--rounded);
-            box-shadow: 0 2px 16px 0 rgba(44,71,130,0.05);
-            overflow: hidden;
+            box-shadow: 0 2px 15px 0 rgba(60,92,130,0.05);
             display: flex;
             flex-direction: column;
+            overflow: hidden;
             min-width: 0;
             min-height: 0;
-            transition: box-shadow 0.23s, transform 0.12s, border-color 0.16s;
+            position: relative;
+            transition: box-shadow 0.21s, transform 0.11s, border-color 0.14s;
         }
-        .store-card:hover {
-            box-shadow: 0 8px 32px 0 rgba(44,91,136,.11);
+        .store-card:hover, .store-card:focus-within {
+            box-shadow: 0 11px 48px 0 rgba(45,90,138,0.10);
             border-color: var(--accent);
-            transform: translateY(-4px) scale(1.012);
+            transform: translateY(-3px) scale(1.012);
         }
         .store-card-img-wrap {
             background: var(--neutral-bg-alt);
-            min-height: 11rem;
+            min-height: 10.2rem;
             display: flex;
             align-items: center;
             justify-content: center;
         }
         .store-card-img {
             width: 100%;
-            height: 11rem;
+            height: 10.2rem;
             object-fit: cover;
             background: #f5f7fa;
             display: block;
         }
         .store-card-content {
-            padding: 1.25rem;
+            padding: 1.12rem 1.16rem 1.28rem 1.16rem;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
         }
         .store-card-title {
-            font-size: 1.13rem;
-            font-weight: 600;
-            margin-bottom: 0.25rem;
+            font-size: 1.09rem;
+            font-weight: 650;
+            margin-bottom: 0.18rem;
             color: var(--primary);
             transition: color var(--transition-fast);
             letter-spacing: -0.01em;
@@ -223,9 +231,9 @@
         }
         .store-card-description {
             color: var(--text-secondary);
-            font-size: 0.965rem;
+            font-size: 0.98rem;
             line-height: 1.6;
-            margin-bottom: 1.08rem;
+            margin-bottom: 1.05rem;
             min-height: 2.5em;
             font-weight: 500;
         }
@@ -237,7 +245,7 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 0.73em;
+            gap: 0.67em;
             position: relative;
             --main-color: var(--primary, #254356);
             background: #fff;
@@ -254,24 +262,25 @@
             cursor: pointer;
             user-select: none;
             text-decoration: none;
-            box-shadow: 0 2px 18px rgba(45,77,110,0.08);
-            transition: border-color .14s, color .17s, background .16s;
+            box-shadow: 0 2px 18px rgba(45,77,110,0.07);
+            transition: border-color .14s, color .17s, background .14s;
             outline: none;
         }
         .store-card-btn:hover,
         .store-card-btn:focus,
         .featured-cta-btn:hover,
         .featured-cta-btn:focus {
-            background: #ff3434;
+            background: var(--primary);
             color: #fff;
-            border-color: #ff6969;
+            border-color: var(--accent);
             text-decoration: none;
+            box-shadow: 0 3px 21px 0 rgba(58,108,156,0.07);
         }
         .store-card-btn .external-link,
         .featured-cta-btn .external-link,
         .featured-cta-btn .fa-play,
         .store-card-btn .fa-play {
-            font-size: 1.14em;
+            font-size: 1.12em;
             margin-left: 0.13em;
             vertical-align: -0.12em;
         }
@@ -281,7 +290,7 @@
             z-index: 2;
         }
         .store-card-btn:not([target]) {
-            background: #f7fafc;
+            background: #f5faff;
             color: var(--primary);
             border-color: var(--border, #e1e7ed);
             font-weight: 600;
@@ -289,9 +298,9 @@
         }
         .store-card-btn:not([target]):hover,
         .store-card-btn:not([target]):focus {
-            background: #eaf0f5;
-            color: #a31717;
-            border-color: #a31717;
+            background: #eaf0f8;
+            color: var(--accent);
+            border-color: var(--accent);
         }
         .external-link {
             font-size: 1em;
@@ -303,18 +312,18 @@
             background: #f7fafc;
             border-radius: 1rem;
             border: 1.5px dashed var(--border);
-            padding: 4.5rem 0;
+            padding: 4.2rem 0;
             color: var(--text-subtle);
-            margin-top: 2rem;
+            margin-top: 2.1rem;
         }
         .store-no-results.active {
             display: block;
         }
         .store-no-results .headline {
-            font-size: 1.07rem;
+            font-size: 1.08rem;
             font-weight: 600;
             margin-bottom: 1.2rem;
-            color: #7a8ca2;
+            color: #8297b5;
         }
         .store-no-results .clear-btn {
             color: var(--accent);
@@ -322,9 +331,15 @@
             border: none;
             cursor: pointer;
             font-weight: 600;
-            font-size: 0.95rem;
-            margin-top: 0.6rem;
+            font-size: 0.97rem;
+            margin-top: 0.7rem;
             text-decoration: underline;
+            border-radius: 4px;
+            padding: 4px 13px;
+            transition: background 0.13s;
+        }
+        .store-no-results .clear-btn:hover {
+            background: #f0f8fc;
         }
         .featured-card {
             display: flex;
@@ -333,88 +348,84 @@
             overflow: hidden;
             border-radius: var(--rounded);
             background: #e8eef2;
-            min-height: 200px;
-            margin-bottom: 2.2rem;
-            box-shadow: 0 5px 28px 0 rgba(44,71,130,0.07);
+            min-height: 205px;
+            margin-bottom: 2.1rem;
+            box-shadow: 0 5px 28px 0 rgba(44,71,130,0.06);
         }
         .featured-card img {
-            width: 45%;
+            width: 43%;
             min-width: 140px;
             max-width: 340px;
             height: 100%;
             object-fit: cover;
-            filter: grayscale(.03) brightness(0.97) contrast(1.01);
+            filter: grayscale(.02) brightness(0.98) contrast(1.01);
             background: #f3f6fa;
         }
         .featured-card-content {
             flex: 1 1 0%;
             z-index: 2;
-            padding: 2.2rem 2.3rem 2.2rem 2.2rem;
+            padding: 2.3rem 2.6rem 2.1rem 2.4rem;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            background: linear-gradient(90deg, #fff 95%, rgba(255,255,255,0.94) 100%);
+            background: linear-gradient(90deg, #fff 95%, rgba(255,255,255,0.96) 100%);
         }
         .featured-app-title {
             font-size: 1.38rem;
             font-weight: 700;
             color: var(--primary);
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.22rem;
             letter-spacing: 0.01em;
         }
         .featured-app-description {
-            font-size: 1.04rem;
+            font-size: 1.045rem;
             color: var(--text-secondary);
-            margin-bottom: 1.13rem;
+            margin-bottom: 1.15rem;
             font-weight: 500;
-            line-height: 1.6;
+            line-height: 1.62;
         }
         @media (max-width: 900px) {
             .featured-card {
                 flex-direction: column;
                 min-height: 0;
-                margin-bottom: 1.6rem;
+                margin-bottom: 1.4rem;
             }
             .featured-card img {
                 width: 100%;
                 min-width: 0;
                 max-width: unset;
-                height: 160px;
+                height: 150px;
             }
             .featured-card-content {
-                padding: 1.4rem 1.2rem 1.7rem 1.2rem;
+                padding: 1.35rem 1.15rem 1.65rem 1.18rem;
             }
         }
         @media (max-width: 600px) {
             .navbar-header-group {
-                align-items: center;
-                padding-bottom: 0.7rem;
+                padding-bottom: 0.6rem;
             }
             .navbar-inner {
-                flex-direction: column;
-                gap: 0.5rem;
-                align-items: center;
-                justify-content: center;
-                padding: 1.2rem 0 0.5rem 0;
+                gap: 0.4rem;
+                padding: 1.05rem 0 0.4rem 0;
             }
-            .navbar-title { font-size: 1.17rem; }
-            .navbar-logo { width: 32px; height: 32px; }
+            .navbar-title { font-size: 1.09rem; }
+            .navbar-logo { width: 31px; height: 31px; }
             .store-meta-bar {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 0.5rem;
             }
             .navbar-search-row {
-                margin-top: 0.7em;
+                margin-top: 0.65em;
             }
             .navbar-sub {
                 font-size: 0.97rem;
-                margin-top: 0.8rem;
+                margin-top: 0.7rem;
             }
         }
         @media (max-width: 430px) {
             .store-card-content {
-                padding: 0.67rem;
+                padding: 0.62rem;
             }
             .store-card-title { font-size: 0.98rem; }
         }
@@ -422,10 +433,10 @@
 </head>
 <body>
     <script src="store-nav.js"></script>
-    <div class="navbar-header-group">
-        <nav class="navbar">
+    <header class="navbar-header-group" role="banner">
+        <nav class="navbar" aria-label="Primary Navigation">
             <div class="navbar-inner">
-                <a href="store.html" class="navbar-brand">
+                <a href="store.html" class="navbar-brand" aria-label="Stadia App Store">
                     <span class="navbar-logo">
                         <img src="assets/favicon.png" alt="Stadia Logo" width="24" height="24">
                     </span>
@@ -434,36 +445,37 @@
             </div>
         </nav>
         <div class="navbar-search-row">
-            <div class="navbar-search" id="navbar-search-box">
-                <i class="fas fa-search"></i>
+            <form class="navbar-search" id="navbar-search-box" role="search" autocomplete="off" onsubmit="return false;">
+                <i class="fas fa-search" aria-hidden="true"></i>
                 <input 
                     type="text"
                     class="navbar-search-input" 
                     id="app-search"
-                    placeholder="Search apps..."
+                    placeholder="Search apps…"
                     aria-label="Search apps"
                     autocomplete="off"
                     spellcheck="false"
                 >
-            </div>
+            </form>
         </div>
-    </div>
+    </header>
     <div class="container">
         <div class="navbar-sub">
-            Discover quality applications and tools to advance your projects and productivity.
+            <span>Browse rigorously curated web applications and professional tools, designed to enhance productivity and streamline your workflow.</span>
         </div>
     </div>
     <main class="container">
-        <section>
-            <div class="featured-card">
-                <img src="assets/banner.png" alt="Featured" onerror="this.src='assets/banner-fallback.jpg'" loading="lazy">
+        <section aria-labelledby="featured-app-title">
+            <div class="featured-card" tabindex="0">
+                <img src="assets/banner.png" alt="CandySwap Demo Banner" onerror="this.src='assets/banner-fallback.jpg'" loading="lazy">
                 <div class="featured-card-content">
-                    <div class="featured-app-title">CandySwap</div>
+                    <div class="featured-app-title" id="featured-app-title">CandySwap</div>
                     <div class="featured-app-description">
-                        Fast-paced match-3 game with customization features.<br>Built for smooth, modern web performance.
+                        Fast-paced match-3 game with extensive customization features.<br>
+                        Designed for smooth, high-performance web experiences.
                     </div>
-                    <a href="https://stadiastudios.github.io/candyswap/" class="featured-cta-btn" target="_blank" rel="noopener">
-                        <i class="fas fa-play"></i>
+                    <a href="https://stadiastudios.github.io/candyswap/" class="featured-cta-btn" target="_blank" rel="noopener" aria-label="Play CandySwap (opens in a new tab)">
+                        <i class="fas fa-play" aria-hidden="true"></i>
                         <span>Play Now</span>
                     </a>
                 </div>
@@ -476,94 +488,94 @@
                     <span class="apps-count-badge" id="results-count">7 Items</span>
                 </div>
             </div>
-            <div class="store-no-results" id="no-results">
-                <div class="headline">No apps found.</div>
-                <button class="clear-btn" onclick="document.getElementById('app-search').value=''; filterApps('');">Clear search</button>
+            <div class="store-no-results" id="no-results" role="alert">
+                <div class="headline">No applications match your search.</div>
+                <button class="clear-btn" onclick="document.getElementById('app-search').value=''; filterApps('');" type="button">Clear search</button>
             </div>
             <div class="store-grid" id="apps-grid">
-                <div class="store-card" data-title="Jet Surfers 2">
+                <div class="store-card" data-title="Jet Surfers 2" tabindex="0" aria-label="Jet Surfers 2">
                     <div class="store-card-img-wrap">
-                        <img src="assets/app/jetsurfers2.jpg" alt="Jet Surfers 2" class="store-card-img" onerror="this.src='assets/app/app-placeholder.jpg'">
+                        <img src="assets/app/jetsurfers2.jpg" alt="Jet Surfers 2 logo/preview" class="store-card-img" onerror="this.src='assets/app/app-placeholder.jpg'">
                     </div>
                     <div class="store-card-content">
                         <div class="store-card-title">Jet Surfers 2</div>
                         <div class="store-card-description">Expanded content and upgrades for the classic water racer experience.</div>
                         <div class="store-card-footer">
-                            <a href="jetsurfers2.html" class="store-card-btn">
+                            <a href="jetsurfers2.html" class="store-card-btn" aria-label="View details about Jet Surfers 2">
                                 <span>View Details</span>
                             </a>
                         </div>
                     </div>
                 </div>
-                <div class="store-card" data-title="Candy Swap">
+                <div class="store-card" data-title="Candy Swap" tabindex="0" aria-label="CandySwap">
                     <div class="store-card-img-wrap" style="background:#edf3f8;">
-                        <img src="assets/app/candyswap.jpeg" alt="CandySwap" class="store-card-img" onerror="this.src='assets/app/app-placeholder.jpg'">
+                        <img src="assets/app/candyswap.jpeg" alt="CandySwap logo/preview" class="store-card-img" onerror="this.src='assets/app/app-placeholder.jpg'">
                     </div>
                     <div class="store-card-content">
                         <div class="store-card-title">CandySwap</div>
-                        <div class="store-card-description">Polished puzzle game with visual customization & smooth interaction.</div>
+                        <div class="store-card-description">Polished puzzle game with visual customization and a smooth user experience.</div>
                         <div class="store-card-footer">
-                            <a href="https://stadiastudios.github.io/candyswap/" target="_blank" rel="noopener" class="store-card-btn">
+                            <a href="https://stadiastudios.github.io/candyswap/" target="_blank" rel="noopener" class="store-card-btn" aria-label="Open CandySwap in a new tab">
                                 <span>Open App</span>
-                                <i class="fas fa-external-link-alt external-link"></i>
+                                <i class="fas fa-external-link-alt external-link" aria-hidden="true"></i>
                             </a>
                         </div>
                     </div>
                 </div>
-                <div class="store-card" data-title="Stadia Tool Panel">
+                <div class="store-card" data-title="Stadia Tool Panel" tabindex="0" aria-label="Stadia Tool Panel">
                     <div class="store-card-img-wrap" style="background:#e9f8f3;">
-                        <img src="assets/app/tool-panel.png" alt="Stadia Tool Panel" class="store-card-img" onerror="this.src='assets/app/app-placeholder.jpg'">
+                        <img src="assets/app/tool-panel.png" alt="Stadia Tool Panel logo/preview" class="store-card-img" onerror="this.src='assets/app/app-placeholder.jpg'">
                     </div>
                     <div class="store-card-content">
                         <div class="store-card-title">Stadia Tool Panel</div>
                         <div class="store-card-description">Curated shortcuts and utilities for web developers and designers.</div>
                         <div class="store-card-footer">
-                            <a href="https://stadiabeta.github.io/tool-panel/" target="_blank" rel="noopener" class="store-card-btn">
+                            <a href="https://stadiabeta.github.io/tool-panel/" target="_blank" rel="noopener" class="store-card-btn" aria-label="Open Stadia Tool Panel in a new tab">
                                 <span>Open App</span>
-                                <i class="fas fa-external-link-alt external-link"></i>
+                                <i class="fas fa-external-link-alt external-link" aria-hidden="true"></i>
                             </a>
                         </div>
                     </div>
                 </div>
-                <div class="store-card" data-title="PassPro">
+                <div class="store-card" data-title="PassPro" tabindex="0" aria-label="PassPro">
                     <div class="store-card-img-wrap" style="background:#eef2fa;">
-                        <img src="assets/app/passpro.png" alt="PassPro" class="store-card-img" onerror="this.src='assets/app/app-placeholder.jpg'">
+                        <img src="assets/app/passpro.png" alt="PassPro logo/preview" class="store-card-img" onerror="this.src='assets/app/app-placeholder.jpg'">
                     </div>
                     <div class="store-card-content">
                         <div class="store-card-title">PassPro</div>
-                        <div class="store-card-description">A trusted password manager designed with simplicity and security in mind.</div>
+                        <div class="store-card-description">A trusted password manager designed for simplicity and strong security.</div>
                         <div class="store-card-footer">
-                            <a href="passpro.html" class="store-card-btn">
+                            <a href="passpro.html" class="store-card-btn" aria-label="View details about PassPro">
                                 <span>View Details</span>
                             </a>
                         </div>
                     </div>
                 </div>
-                <div class="store-card" data-title="StadiaRecorder Pro">
+                <div class="store-card" data-title="StadiaRecorder Pro" tabindex="0" aria-label="StadiaRecorder Pro">
                     <div class="store-card-img-wrap" style="background:#eef5fa;">
-                        <img src="assets/app/recorder.png" alt="Recorder" class="store-card-img" onerror="this.src='assets/app/app-placeholder.jpg'">
+                        <img src="assets/app/recorder.png" alt="StadiaRecorder Pro logo/preview" class="store-card-img" onerror="this.src='assets/app/app-placeholder.jpg'">
                     </div>
                     <div class="store-card-content">
                         <div class="store-card-title">StadiaRecorder Pro</div>
-                        <div class="store-card-description">High-fidelity recording of browser audio and video up to 1080p.</div>
+                        <div class="store-card-description">High-fidelity browser-based audio &amp; video recording up to 1080p.</div>
                         <div class="store-card-footer">
-                            <a href="recorder-pro.html" class="store-card-btn">
+                            <a href="recorder-pro.html" class="store-card-btn" aria-label="View details about StadiaRecorder Pro">
                                 <span>View Details</span>
                             </a>
                         </div>
                     </div>
                 </div>
-                <div class="store-card" data-title="Our Journey">
+                <div class="store-card" data-title="Our Journey" tabindex="0" aria-label="Our Journey">
                     <div class="store-card-img-wrap" style="background:#faf8f7;">
-                        <img src="assets/app/ourjourney.png" alt="Our Journey" class="store-card-img" onerror="this.src='assets/app/app-placeholder.jpg'">
+                        <img src="assets/app/ourjourney.png" alt="Our Journey logo/preview" class="store-card-img" onerror="this.src='assets/app/app-placeholder.jpg'">
                     </div>
                     <div class="store-card-content">
                         <div class="store-card-title">Our Journey</div>
                         <div class="store-card-description">Personal milestone tracking and sharing in a private, beautiful app.</div>
                         <div class="store-card-footer">
-                            <a href="https://stadiastudios.github.io/ourjourney/splash" target="_blank" rel="noopener" class="store-card-btn">
+                            <a href="https://stadiastudios.github.io/ourjourney/splash" target="_blank" rel="noopener" class="store-card-btn" aria-label="Open Our Journey in a new tab">
                                 <span>Open App</span>
-                                <i class="fas fa-external-link-alt external-link"></i>
+                                <i class="fas fa-external-link-alt external-link" aria-hidden="true"></i>
                             </a>
                         </div>
                     </div>
@@ -572,44 +584,53 @@
         </section>
     </main>
     <script>
-        const searchInput = document.getElementById('app-search');
-        const appsGrid = document.getElementById('apps-grid');
-        const appCards = document.querySelectorAll('.store-card');
-        const noResults = document.getElementById('no-results');
-        const resultsTitle = document.getElementById('results-title');
-        const resultsCount = document.getElementById('results-count');
-        const featuredSection = document.querySelector('.featured-card').parentElement;
+        (function() {
+            const searchInput = document.getElementById('app-search');
+            const appsGrid = document.getElementById('apps-grid');
+            const appCards = document.querySelectorAll('.store-card');
+            const noResults = document.getElementById('no-results');
+            const resultsTitle = document.getElementById('results-title');
+            const resultsCount = document.getElementById('results-count');
+            const featuredSection = document.querySelector('.featured-card').parentElement;
 
-        function filterApps(query) {
-            const searchTerm = query.toLowerCase().trim();
-            let visibleCount = 0;
-            appCards.forEach(card => {
-                const title = card.getAttribute('data-title').toLowerCase();
-                const description = card.querySelector('.store-card-description').textContent.toLowerCase();
-                if (title.includes(searchTerm) || description.includes(searchTerm)) {
-                    card.style.display = '';
-                    visibleCount++;
+            function filterApps(query) {
+                const searchTerm = query.toLowerCase().trim();
+                let visibleCount = 0;
+                appCards.forEach(card => {
+                    const title = card.getAttribute('data-title').toLowerCase();
+                    const description = card.querySelector('.store-card-description').textContent.toLowerCase();
+                    if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                        card.style.display = '';
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                if (searchTerm === '') {
+                    resultsTitle.textContent = 'Discover All';
+                    featuredSection.style.display = '';
                 } else {
-                    card.style.display = 'none';
+                    resultsTitle.textContent = `Results for "${query}"`;
+                    featuredSection.style.display = 'none';
+                }
+
+                resultsCount.textContent = `${visibleCount} ${visibleCount === 1 ? 'Item' : 'Items'}`;
+                if (visibleCount === 0) {
+                    noResults.classList.add('active');
+                } else {
+                    noResults.classList.remove('active');
+                }
+            }
+            searchInput.addEventListener('input', (e) => filterApps(e.target.value));
+            searchInput.addEventListener('keydown', (e) => {
+                if (e.key === "Escape") {
+                    searchInput.value = '';
+                    filterApps('');
+                    searchInput.blur();
                 }
             });
-
-            if (searchTerm === '') {
-                resultsTitle.textContent = 'Discover All';
-                featuredSection.style.display = '';
-            } else {
-                resultsTitle.textContent = `Results for "${query}"`;
-                featuredSection.style.display = 'none';
-            }
-
-            resultsCount.textContent = `${visibleCount} ${visibleCount === 1 ? 'Item' : 'Items'}`;
-            if (visibleCount === 0) {
-                noResults.classList.add('active');
-            } else {
-                noResults.classList.remove('active');
-            }
-        }
-        searchInput.addEventListener('input', (e) => filterApps(e.target.value));
+        })();
     </script>
 </body>
 </html>

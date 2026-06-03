@@ -11,8 +11,8 @@ navbar.innerHTML = `
     <span class="bar"></span>
   </button>
   <ul class="navbar-links">
-    <li><a href="../index.html">Homepage</a></li>
-    <li><a href="store.html">Store</a></li>
+  <li><a href="store.html">Browse</a></li>
+    <li><a href="../index.html">Website</a></li>
     <li><a href="about.html">About</a></li>
   </ul>
 `;
